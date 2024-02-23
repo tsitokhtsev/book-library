@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3b65d5476d628eb700a14ab5fa5e725a",
+    "content-hash": "205e4f13728679bc0f6969fa4f090241",
     "packages": [
         {
             "name": "brick/math",
@@ -500,6 +500,71 @@
                 }
             ],
             "time": "2023-10-06T06:47:41+00:00"
+        },
+        {
+            "name": "fouladgar/laravel-mobile-verification",
+            "version": "v4.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mohammad-fouladgar/laravel-mobile-verification.git",
+                "reference": "7ce27e3a02a9c05dd69537af4d22d5b1b0a4830e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mohammad-fouladgar/laravel-mobile-verification/zipball/7ce27e3a02a9c05dd69537af4d22d5b1b0a4830e",
+                "reference": "7ce27e3a02a9c05dd69537af4d22d5b1b0a4830e",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^9.0|^10.0",
+                "illuminate/notifications": "^9.0.2|^10.0",
+                "illuminate/support": "^9.0|^10.0",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.4",
+                "orchestra/testbench": "^7.0|^8.0",
+                "php-coveralls/php-coveralls": "^2.1",
+                "phpunit/phpunit": "^9.3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Fouladgar\\MobileVerification\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Fouladgar\\MobileVerification\\": "src/",
+                    "Fouladgar\\MobileVerification\\Database\\Factories\\": "database/factories"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mohammad Fouladgar",
+                    "email": "fouladgar.dev@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "keywords": [
+                "laravel",
+                "laravel-mobile-verification",
+                "lumen",
+                "mobile",
+                "mobile-verification",
+                "mobile-verifier"
+            ],
+            "support": {
+                "issues": "https://github.com/mohammad-fouladgar/laravel-mobile-verification/issues",
+                "source": "https://github.com/mohammad-fouladgar/laravel-mobile-verification"
+            },
+            "time": "2023-03-29T07:30:03+00:00"
         },
         {
             "name": "fruitcake/php-cors",
@@ -5669,6 +5734,55 @@
             "time": "2023-12-08T13:03:43+00:00"
         },
         {
+            "name": "twilio/sdk",
+            "version": "7.15.0",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:twilio/twilio-php.git",
+                "reference": "8a2891e16d56dc205c201226a8208c03a6f588d5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twilio/twilio-php/zipball/8a2891e16d56dc205c201226a8208c03a6f588d5",
+                "reference": "8a2891e16d56dc205c201226a8208c03a6f588d5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "require-dev": {
+                "guzzlehttp/guzzle": "^6.3 || ^7.0",
+                "phpunit/phpunit": ">=7.0 < 10"
+            },
+            "suggest": {
+                "guzzlehttp/guzzle": "An HTTP client to execute the API requests"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Twilio\\": "src/Twilio/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Twilio API Team",
+                    "email": "api@twilio.com"
+                }
+            ],
+            "description": "A PHP wrapper for Twilio's API",
+            "homepage": "https://github.com/twilio/twilio-php",
+            "keywords": [
+                "api",
+                "sms",
+                "twilio"
+            ],
+            "time": "2024-02-09T11:39:47+00:00"
+        },
+        {
             "name": "vlucas/phpdotenv",
             "version": "v5.6.0",
             "source": {
@@ -8326,5 +8440,5 @@
         "php": "^8.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.6.0"
 }
