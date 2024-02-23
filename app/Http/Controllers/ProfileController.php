@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use Fouladgar\MobileVerification\Contracts\MustVerifyMobile;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -20,6 +21,7 @@ class ProfileController extends Controller
     {
         return Inertia::render('Profile/Edit', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
+            'mustVerifyMobile' => $request->user() instanceof MustVerifyMobile,
             'status' => session('status'),
         ]);
     }
@@ -33,6 +35,10 @@ class ProfileController extends Controller
 
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
+        }
+
+        if ($request->user()->isDirty('mobile')) {
+            $request->user()->mobile_verified_at = null;
         }
 
         $request->user()->save();
