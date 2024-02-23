@@ -34,5 +34,4 @@ class AddSentAtInTokensTable extends Migration
             $table->dropColumn('sent_at');
         });
     }
-
 }

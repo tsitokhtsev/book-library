@@ -25,7 +25,7 @@ class SMSClient implements FouladgarSMSClient
      *
      * @return mixed
      */
-    public function sendMessage(Payload $payload):mixed
+    public function sendMessage(Payload $payload): mixed
     {
         return $this->SMSService->messages->create($payload->getTo(), [
             'from' => config('mobile_verifier.twillo.number'),

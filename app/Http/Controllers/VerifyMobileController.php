@@ -12,11 +12,13 @@ class VerifyMobileController extends Controller
 {
     public function __construct(protected TokenBrokerInterface $tokenBroker) {}
 
-    public function show() {
+    public function show()
+    {
         return Inertia::render('Auth/VerifyMobile');
     }
 
-    public function verify(Request $request) {
+    public function verify(Request $request)
+    {
         $user = $request->user();
 
         if ($user->hasVerifiedMobile()) {
@@ -41,7 +43,8 @@ class VerifyMobileController extends Controller
             );
     }
 
-    public function resend(Request $request) {
+    public function resend(Request $request)
+    {
         $user = $request->user();
 
         if ($user->hasVerifiedMobile()) {
@@ -56,7 +59,8 @@ class VerifyMobileController extends Controller
     }
 
 
-    public function redirectPath(): string {
+    public function redirectPath(): string
+    {
         return '/dashboard';
     }
 }
