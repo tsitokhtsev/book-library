@@ -19,7 +19,7 @@ class MakeAdmin extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Make admin using email';
 
     /**
      * Execute the console command.

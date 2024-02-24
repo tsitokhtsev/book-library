@@ -10,7 +10,7 @@ use Spatie\Permission\PermissionRegistrar;
 class RolePermissionSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Create roles and permissions
      */
     public function run(): void
     {
@@ -27,7 +27,6 @@ class RolePermissionSeeder extends Seeder
         Role::create(['name' => 'admin'])
             ->givePermissionTo(['add book', 'delete book', 'edit book']);
 
-        $role = Role::create(['name' => 'superadmin']);
-        $role->givePermissionTo(Permission::all());;
+        Role::create(['name' => 'superadmin'])->givePermissionTo(Permission::all());
     }
 }
