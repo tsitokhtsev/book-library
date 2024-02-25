@@ -23,10 +23,6 @@ class RolePermissionSeeder extends Seeder
         Permission::create(['name' => 'edit book']);
         Permission::create(['name' => 'add branch']);
 
-        // create roles and assign created permissions
-        Role::create(['name' => 'admin'])
-            ->givePermissionTo(['add book', 'delete book', 'edit book']);
-
         Role::create(['name' => 'superadmin'])->givePermissionTo(Permission::all());
     }
 }
