@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->date('publication_date');
             $table->string('cover_image')->nullable();
-            $table->string('author_id');
-            $table->string('language_id');
+            $table->foreignId('author_id');
+            $table->foreignId('language_id');
             $table->timestamps();
         });
     }
