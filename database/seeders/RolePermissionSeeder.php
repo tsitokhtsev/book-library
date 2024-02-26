@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Enums\PermissionsEnum;
+use App\Enums\RolesEnum;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -18,11 +20,12 @@ class RolePermissionSeeder extends Seeder
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
         // create permissions
-        Permission::create(['name' => 'add book']);
-        Permission::create(['name' => 'delete book']);
-        Permission::create(['name' => 'edit book']);
-        Permission::create(['name' => 'add branch']);
+        Permission::create(['name' => PermissionsEnum::ADDBOOKS]);
+        Permission::create(['name' => PermissionsEnum::DELETEBOOKS]);
+        Permission::create(['name' => PermissionsEnum::EDITBOOKS]);
+        Permission::create(['name' => PermissionsEnum::ADDBRANCHES]);
 
-        Role::create(['name' => 'superadmin'])->givePermissionTo(Permission::all());
+        Role::create(['name' => RolesEnum::SUPERADMIN])
+            ->givePermissionTo(Permission::all());
     }
 }

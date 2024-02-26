@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Enums\RolesEnum;
 use App\Models\User;
 use Illuminate\Console\Command;
 
@@ -12,23 +13,23 @@ class MakeSuperAdmin extends Command
      *
      * @var string
      */
-    protected $signature = 'app:make-superadmin {UserEmail}';
+    protected $signature = 'app:make-super-admin {email : The email of the user}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Make super admin using email';
+    protected $description = 'Make a user a super admin';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        $user_email = $this->argument('UserEmail');
-        User::where('email', $user_email)
+        $email = $this->argument('email');
+        User::where('email', $email)
             ->first()
-            ->assignRole('superadmin');
+            ->assignRole(RolesEnum::SUPERADMIN);
     }
 }
