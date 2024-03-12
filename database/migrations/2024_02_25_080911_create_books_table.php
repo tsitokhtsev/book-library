@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
-            $table->boolean('enabled')->default(true);
             $table->string('title');
-            $table->string('isbn');
+            $table->boolean('is_enabled')->default(true);
+            $table->string('isbn')->unique();
             $table->string('description')->nullable();
-            $table->date('publication_date');
+            $table->date('publication_date')->nullable();
             $table->string('cover_image')->nullable();
             $table->foreignId('language_id');
             $table->timestamps();
