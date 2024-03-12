@@ -10,7 +10,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Book extends Model
 {
-//    use HasFactory;
+    //    use HasFactory;
+
+    public function authors(): BelongsToMany
+    {
+        return $this->belongsToMany(Author::class);
+    }
 
     public function genres(): BelongsToMany
     {
@@ -20,11 +25,6 @@ class Book extends Model
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class);
-    }
-
-    public function author(): BelongsTo
-    {
-        return $this->belongsTo(Author::class);
     }
 
     public function language(): BelongsTo
