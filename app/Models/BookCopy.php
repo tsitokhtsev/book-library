@@ -10,11 +10,16 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class BookCopy extends Model
 {
-//    use HasFactory;
+    //    use HasFactory;
 
     public function book(): BelongsTo
     {
         return $this->belongsTo(Book::class);
+    }
+
+    public function branch(): BelongsTo
+    {
+        return $this->belongsTo(Branch::class);
     }
 
     public function status(): BelongsTo
@@ -25,11 +30,6 @@ class BookCopy extends Model
     public function condition(): BelongsTo
     {
         return $this->belongsTo(Condition::class);
-    }
-
-    public function branches(): BelongsToMany
-    {
-        return $this->belongsToMany(Branch::class);
     }
 
     public function reservations(): HasMany
