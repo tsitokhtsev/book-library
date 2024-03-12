@@ -15,8 +15,8 @@ class Review extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function bookCopy(): BelongsTo
+    public function book(): BelongsTo
     {
-        return $this->belongsTo(BookCopy::class);
+        return $this->belongsTo(Book::class);
     }
 }

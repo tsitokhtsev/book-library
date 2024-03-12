@@ -12,6 +12,11 @@ class Book extends Model
 {
     //    use HasFactory;
 
+    public function language(): BelongsTo
+    {
+        return $this->belongsTo(Language::class);
+    }
+
     public function authors(): BelongsToMany
     {
         return $this->belongsToMany(Author::class);
@@ -27,13 +32,13 @@ class Book extends Model
         return $this->belongsToMany(Category::class);
     }
 
-    public function language(): BelongsTo
-    {
-        return $this->belongsTo(Language::class);
-    }
-
     public function bookCopies(): HasMany
     {
         return $this->hasMany(BookCopy::class);
+    }
+
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class);
     }
 }
