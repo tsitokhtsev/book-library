@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('checkouts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('book_copy_id');
+            $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('book_copy_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->date('checkout_date');
             $table->date('return_date')->nullable();
             $table->timestamps();
