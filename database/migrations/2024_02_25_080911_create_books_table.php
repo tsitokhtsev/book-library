@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('isbn')->unique();
             $table->string('description')->nullable();
             $table->string('cover_image')->nullable();
-            $table->date('publication_date')->nullable();
+            $table->date('publication_date');
             $table->foreignId('language_id')->constrained()->onUpdate('cascade');
             $table->timestamps();
         });
