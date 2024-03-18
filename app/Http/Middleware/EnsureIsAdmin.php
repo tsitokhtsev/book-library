@@ -19,7 +19,7 @@ class EnsureIsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!$request->user()->is_admin()) {
+        if (!$request->user()->isAdmin()) {
             return $request->expectsJson()
                 ? abort(403)
                 : redirect(RouteServiceProvider::HOME);

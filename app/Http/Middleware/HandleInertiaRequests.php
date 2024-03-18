@@ -36,7 +36,7 @@ class HandleInertiaRequests extends Middleware
                 'auth' => [
                     'user' => [
                         ...$request->user()->toArray(),
-                        'is_admin' => $request->user()?->is_admin()
+                        'is_admin' => $request->user()->isAdmin(),
                     ],
                 ],
             ];
@@ -45,8 +45,8 @@ class HandleInertiaRequests extends Middleware
         return [
             ...parent::share($request),
             'auth' => [
-                'user' => null
-            ]
+                'user' => null,
+            ],
         ];
     }
 }
