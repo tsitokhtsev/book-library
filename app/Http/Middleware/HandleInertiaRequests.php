@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Enums\RolesEnum;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -29,11 +30,23 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        if ($request->user()) {
+            return [
+                ...parent::share($request),
+                'auth' => [
+                    'user' => [
+                        ...$request->user()->toArray(),
+                        'is_admin' => $request->user()?->is_admin()
+                    ],
+                ],
+            ];
+        }
+
         return [
             ...parent::share($request),
             'auth' => [
-                'user' => $request->user(),
-            ],
+                'user' => null
+            ]
         ];
     }
 }
