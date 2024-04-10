@@ -14,9 +14,10 @@ export default {
     theme: {
         container: {
             center: true,
-            padding: '2rem',
-            screens: {
-                '2xl': '1400px',
+            padding: {
+                DEFAULT: '1rem',
+                md: '1.5rem',
+                lg: '2rem',
             },
         },
         extend: {
@@ -80,5 +81,14 @@ export default {
         },
     },
 
-    plugins: [forms, require('tailwindcss-animate')],
+    plugins: [forms, require('tailwindcss-animate'), function ({ addComponents }) {
+        addComponents({
+            '.container': {
+                maxWidth: '100%',
+                '@screen lg': {
+                    maxWidth: '1280px',
+                },
+            }
+        })
+    }],
 };
