@@ -2,5 +2,8 @@
     "Dashboard": "Dashboard",
     "You're logged in!": "You're logged in!",
     "Profile": "Profile",
-    "Log Out": "Log Out"
+    "Log Out": "Log Out",
+    "Log in": "Log in",
+    "Register": "Register",
+    "Home": "Home"
 }
