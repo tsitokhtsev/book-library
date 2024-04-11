@@ -152,6 +152,7 @@ export default function Header({ user }: { user?: User }) {
                                                 <Link
                                                     href={route('logout')}
                                                     method="post"
+                                                    as="button"
                                                 >
                                                     {t('Log Out')}
                                                 </Link>
@@ -197,6 +198,8 @@ export default function Header({ user }: { user?: User }) {
                                         <Link
                                             href={route('logout')}
                                             method="post"
+                                            as="button"
+                                            className="w-full"
                                         >
                                             {t('Log Out')}
                                         </Link>
