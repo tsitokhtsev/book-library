@@ -38,21 +38,14 @@ export default function Header({ user }: { user?: User }) {
     }
 
     function getLocaleLabel(locale: string) {
-        let label = '';
-
         switch (locale) {
             case 'en':
-                label = 'Eng';
-                break;
+                return 'Eng';
             case 'ka':
-                label = 'Geo';
-                break;
+                return 'Geo';
             default:
-                label = locale.charAt(0).toUpperCase() + locale.slice(1);
-                break;
+                return locale.charAt(0).toUpperCase() + locale.slice(1);
         }
-
-        return label;
     }
 
     return (
