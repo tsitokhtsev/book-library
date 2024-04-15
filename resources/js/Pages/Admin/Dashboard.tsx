@@ -1,18 +1,18 @@
 import { Head } from '@inertiajs/react';
 import { useLaravelReactI18n } from 'laravel-react-i18n';
 
-import MainLayout from '@/Layouts/MainLayout';
+import AdminLayout from '@/Layouts/AdminLayout';
 
 export default function Dashboard() {
     const { t } = useLaravelReactI18n();
 
     return (
-        <MainLayout>
+        <AdminLayout>
             <Head title="Admin Dashboard" />
 
             <div className="container">
-                <p>{t("You're logged in as admin!")}</p>
+                <p>{t('Dashboard')}</p>
             </div>
-        </MainLayout>
+        </AdminLayout>
     );
 }
