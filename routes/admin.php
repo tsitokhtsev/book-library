@@ -19,5 +19,9 @@ Route::prefix('admin')
             Route::post('/books/add', 'save')->name('books.save');
 
             Route::post('/books/delete', 'massDelete')->name('books.massDelete');
+
+            Route::post('/book/delete', 'destroy')->name('books.delete');
+
+            Route::get('/book/show/{isbn}', 'show')->name('books.show');
         });
     });

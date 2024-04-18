@@ -1,7 +1,7 @@
 import { Head, useForm } from '@inertiajs/react';
 import { useLaravelReactI18n } from 'laravel-react-i18n';
 import Multiselect from 'multiselect-react-dropdown';
-import { FormEventHandler, useState } from 'react';
+import { FormEventHandler } from 'react';
 import 'react-calendar/dist/Calendar.css';
 import DatePicker from 'react-date-picker';
 import 'react-date-picker/dist/DatePicker.css';
@@ -35,7 +35,21 @@ type BookBranch = {
     code: string;
 };
 
+type Book = {
+    is_enabled: boolean;
+    isbn: string;
+    title: string;
+    description: string;
+    cover_image: string;
+    language: { id: number; name: string };
+    publication_date: string;
+    book_copies: BookBranch[];
+    genres: SelectOptionType[];
+    authors: SelectOptionType[];
+};
+
 export default function Add({
+    book,
     languages,
     genres,
     authors,
@@ -43,6 +57,7 @@ export default function Add({
     conditions,
     flash: { error },
 }: {
+    book: Book;
     languages: SelectOptionType;
     genres: SelectOptionType;
     authors: SelectOptionType;
@@ -53,18 +68,16 @@ export default function Add({
     const { t } = useLaravelReactI18n();
 
     const { data, setData, post, processing, errors, reset } = useForm({
-        is_enabled: true,
-        title: '',
-        isbn: '',
-        description: '',
-        cover_image: '',
-        publication_date: new Date(),
-        language: '',
-        genres: [],
-        authors: [],
-        book_branches: [
-            { condition: '', branch: '', code: '' },
-        ] as BookBranch[],
+        is_enabled: book.is_enabled,
+        title: book.title,
+        isbn: book.isbn,
+        description: book.description,
+        cover_image: book.cover_image,
+        publication_date: book.publication_date,
+        language: book.language.name,
+        genres: book.genres,
+        authors: book.authors,
+        book_branches: book.book_copies || ([] as BookBranch[]),
     });
 
     const handleBookBranchChange = (
@@ -85,7 +98,7 @@ export default function Add({
     };
 
     const renderBookBranchFields = () => {
-        return data.book_branches.map((_, index) => (
+        return data.book_branches.map((branchesData, index) => (
             <div key={index} className="flex flex-col gap-8">
                 <h1 className="text-xl font-bold">
                     Book Instance #{index + 1}
@@ -99,6 +112,7 @@ export default function Add({
                         onValueChange={(value) => {
                             handleBookBranchChange(index, 'condition', value);
                         }}
+                        value={branchesData.condition.name}
                     >
                         <SelectTrigger className="w-[180px]">
                             <SelectValue placeholder="Select Book Cond..." />
@@ -127,6 +141,7 @@ export default function Add({
                         onValueChange={(value) => {
                             handleBookBranchChange(index, 'branch', value);
                         }}
+                        value={branchesData.branch.name}
                     >
                         <SelectTrigger className="w-[180px]">
                             <SelectValue placeholder="Select Book Branch" />
@@ -137,6 +152,7 @@ export default function Add({
                                     <SelectItem
                                         key={branch.id}
                                         value={branch.name}
+                                        is
                                     >
                                         {branch.name}
                                     </SelectItem>
@@ -240,6 +256,7 @@ export default function Add({
                         onValueChange={(value) => {
                             setData('language', value);
                         }}
+                        value={data.language}
                     >
                         <SelectTrigger className="w-[180px]">
                             <SelectValue placeholder="Select book language" />

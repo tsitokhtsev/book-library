@@ -132,23 +132,25 @@ export const columns: ColumnDef<Book>[] = [
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
                         <DropdownMenuItem
                             className="bg-green-300 hover:cursor-pointer"
-                            onClick={() =>
-                                navigator.clipboard.writeText(book.title)
-                            }
+                            onClick={() => {
+                                router.visit(
+                                    route('admin.books.show', book.isbn),
+                                );
+                            }}
                         >
-                            View Book
+                            View/Edit Book
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem
-                            className="bg-blue-300 hover:cursor-pointer"
-                            onClick={() =>
-                                navigator.clipboard.writeText(book.title)
-                            }
+                            onClick={() => {
+                                router.post(
+                                    route('admin.books.delete', {
+                                        isbn: book.isbn,
+                                    }),
+                                );
+                            }}
+                            className="bg-red-300 hover:cursor-pointer"
                         >
-                            Edit Book
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem className="bg-red-300 hover:cursor-pointer">
                             Delete
                         </DropdownMenuItem>
                     </DropdownMenuContent>
@@ -186,7 +188,7 @@ export function BooksDataTable({ props }: { props: BookProps }) {
         },
     });
 
-    const massDelete = () => {
+    const massDeleteBooks = () => {
         const books = table
             .getSelectedRowModel()
             .rows.map((obj) => obj.original.isbn);
@@ -199,7 +201,7 @@ export function BooksDataTable({ props }: { props: BookProps }) {
             <Button
                 className="bg-red-400"
                 disabled={table.getSelectedRowModel().rows.length === 0}
-                onClick={massDelete}
+                onClick={massDeleteBooks}
             >
                 Delete Selected {table.getSelectedRowModel().rows.length}
             </Button>

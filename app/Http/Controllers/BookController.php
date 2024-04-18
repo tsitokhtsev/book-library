@@ -5,9 +5,16 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SaveBookRequest;
 use App\Models\Author;
 use App\Models\Book;
+use App\Models\BookCopy;
+use App\Models\Branch;
+use App\Models\Condition;
 use App\Models\Genre;
 use App\Models\Language;
+use App\Models\Status;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 
 class BookController extends Controller
@@ -21,27 +28,67 @@ class BookController extends Controller
     public function add(Request $request) {
         return Inertia::render('Books/Add',[
             'languages' => Language::all(),
-            'genres' => Genre::all(),
-            'authors' => Author::all()
+            'genres' => Genre::get(['id', 'name']),
+            'authors' => Author::get(['id', 'name']),
+            'branches' => Branch::get(['id', 'name']),
+            'conditions' => Condition::get(['id', 'name']),
         ]);
     }
 
     public function save(SaveBookRequest $request) {
         $validated = $request->validated();
 
-        $book = Book::create([...$validated,
-            'publication_date' => $request->date('publication_date'),
-            'language_id' => Language::where('name', $validated['language'])->first()->id
+        DB::beginTransaction();
+
+        try {
+            $book = Book::create([...$validated,
+                'publication_date' => $request->date('publication_date'),
+                'language_id' => Language::where('name', $validated['language'])->first()->id
+            ]);
+
+            $book->genres()->sync(array_column($validated['genres'], 'id'));
+            $book->authors()->sync(array_column($validated['authors'], 'id'));
+
+            foreach ($validated['book_branches'] as $branchData) {
+                BookCopy::create([
+                    'code' => $branchData['code'],
+                    'book_id' => $book->id,
+                    'branch_id' => Branch::where('name', $branchData['branch'])->first()->id,
+                    'condition_id' => Condition::where('name', $branchData['condition'])->first()->id,
+                    'status_id' => Status::first()->id
+                ]);
+            }
+
+            DB::commit();
+            return to_route('admin.books');
+        } catch (Exception $e) {
+            DB::rollback();
+            Log::error($e);
+            return redirect()->back()->with('error', 'Failed to save the book. Please try again.');
+        }
+    }
+
+    public function show(Request $request) {
+        return Inertia::render('Books/Edit',[
+            'languages' => Language::all(),
+            'genres' => Genre::get(['id', 'name']),
+            'authors' => Author::get(['id', 'name']),
+            'branches' => Branch::get(['id', 'name']),
+            'conditions' => Condition::get(['id', 'name']),
+            'book' => Book::where('isbn', $request->route()->parameter('isbn'))
+                ->with('bookCopies', 'bookCopies.branch', 'bookCopies.condition')->with('genres')->with('authors')->with('language')
+                ->first()
         ]);
-
-        $book->genres()->sync(array_column($validated['genres'], 'id'));
-        $book->authors()->sync(array_column($validated['authors'], 'id'));
-
-        return to_route('admin.books');
     }
 
     public function massDelete(Request $request) {
         Book::whereIn('isbn', $request->get('isbns'))->delete();
+
+        return to_route('admin.books');
+    }
+
+    public function destroy(Request $request) {
+        Book::where('isbn', $request->get('isbn'))->first()->delete();
 
         return to_route('admin.books');
     }
