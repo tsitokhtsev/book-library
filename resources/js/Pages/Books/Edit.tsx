@@ -1,7 +1,8 @@
-// Edit component
 import AdminLayout from '@/Layouts/AdminLayout';
 import BookForm, { BookData } from '@/Layouts/Partials/BookForm';
 import { FlashType } from '@/utils/types';
+
+import { FormType } from './Add';
 
 type EditProps = {
     book: BookData;
@@ -22,17 +23,12 @@ const Edit: React.FC<EditProps> = ({
     conditions,
     flash,
 }) => {
-    const handleSubmit = (data: BookData) => {
-        // Handle form submission for Edit operation
-    };
-
     return (
         <AdminLayout>
-            {/* Other layout components */}
             <BookForm
                 initialValues={{
                     ...book,
-                    publication_date: new Date(book.publication_date), // Convert publication_date to Date object
+                    publication_date: new Date(book.publication_date),
                 }}
                 languages={languages}
                 genres={genres}
@@ -40,7 +36,7 @@ const Edit: React.FC<EditProps> = ({
                 branches={branches}
                 conditions={conditions}
                 flash={flash}
-                onSubmit={handleSubmit}
+                type={FormType.EDIT}
             />
         </AdminLayout>
     );

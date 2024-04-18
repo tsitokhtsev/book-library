@@ -1,4 +1,3 @@
-// Add component
 import AdminLayout from '@/Layouts/AdminLayout';
 import BookForm, { BookData } from '@/Layouts/Partials/BookForm';
 import { FlashType } from '@/utils/types';
@@ -12,6 +11,11 @@ type AddProps = {
     flash: FlashType;
 };
 
+export enum FormType {
+    ADD,
+    EDIT,
+}
+
 const Add: React.FC<AddProps> = ({
     languages,
     genres,
@@ -20,13 +24,8 @@ const Add: React.FC<AddProps> = ({
     conditions,
     flash,
 }) => {
-    const handleSubmit = (data: BookData) => {
-        // Handle form submission for Add operation
-    };
-
     return (
         <AdminLayout>
-            {/* Other layout components */}
             <BookForm
                 initialValues={{
                     is_enabled: true,
@@ -38,7 +37,7 @@ const Add: React.FC<AddProps> = ({
                     language: '',
                     genres: [],
                     authors: [],
-                    book_branches: [{ condition: '', branch: '', code: '' }],
+                    book_copies: [{ condition: '', branch: '', code: '' }],
                 }}
                 languages={languages}
                 genres={genres}
@@ -46,7 +45,7 @@ const Add: React.FC<AddProps> = ({
                 branches={branches}
                 conditions={conditions}
                 flash={flash}
-                onSubmit={handleSubmit}
+                type={FormType.ADD}
             />
         </AdminLayout>
     );
