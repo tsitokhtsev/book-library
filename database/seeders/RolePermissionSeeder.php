@@ -27,5 +27,6 @@ class RolePermissionSeeder extends Seeder
 
         Role::create(['name' => RolesEnum::SUPERADMIN])
             ->givePermissionTo(Permission::all());
+        Role::create(['name' => RolesEnum::MEMBER]);
     }
 }
