@@ -120,11 +120,12 @@ export default function Header({ user }: { user?: User }) {
                                         >
                                             <Avatar className="h-16 w-16">
                                                 <AvatarFallback className="text-2xl">
-                                                    {user.name[0]}
+                                                    {user.firstname[0]}
+                                                    {user.lastname[0]}
                                                 </AvatarFallback>
                                             </Avatar>
                                             <p className="font-bold">
-                                                {user.name}
+                                                {user.firstname} {user.lastname}
                                             </p>
                                         </Link>
                                     ) : null}
@@ -176,7 +177,8 @@ export default function Header({ user }: { user?: User }) {
                                 <DropdownMenuTrigger>
                                     <Avatar>
                                         <AvatarFallback>
-                                            {user.name[0]}
+                                            {user.firstname[0]}
+                                            {user.lastname[0]}
                                         </AvatarFallback>
                                     </Avatar>
                                 </DropdownMenuTrigger>
