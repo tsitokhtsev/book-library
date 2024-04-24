@@ -1,16 +1,20 @@
+import { Head } from '@inertiajs/react';
+
 import AdminLayout from '@/Layouts/AdminLayout';
 import BookForm, { BookData } from '@/Layouts/Partials/BookForm';
+import { FormType, SelectOptions } from '@/utils/types';
 import { FlashType } from '@/utils/types';
 
-import { FormType } from './Add';
+import { BookCopyDataTable } from '../Profile/Partials/BookCopyDataTable';
 
-type EditProps = {
+export type EditProps = {
     book: BookData;
-    languages: { id: number; name: string }[];
-    genres: { id: number; name: string }[];
-    authors: { id: number; name: string }[];
-    branches: { id: number; name: string }[];
-    conditions: { id: number; name: string }[];
+    languages: SelectOptions;
+    genres: SelectOptions;
+    authors: SelectOptions;
+    branches: SelectOptions;
+    conditions: SelectOptions;
+    statuses: SelectOptions;
     flash: FlashType;
 };
 
@@ -21,13 +25,16 @@ const Edit: React.FC<EditProps> = ({
     authors,
     branches,
     conditions,
+    statuses,
     flash,
 }) => {
     return (
         <AdminLayout>
+            <Head title="Add New Book" />
             <BookForm
                 initialValues={{
                     ...book,
+                    book_copies: [],
                     publication_date: new Date(book.publication_date),
                 }}
                 languages={languages}
@@ -37,6 +44,15 @@ const Edit: React.FC<EditProps> = ({
                 conditions={conditions}
                 flash={flash}
                 type={FormType.EDIT}
+                statuses={statuses}
+            />
+            <h1 className="m-4 text-center text-xl">Book Copies</h1>
+            <BookCopyDataTable
+                bookCopies={book.book_copies}
+                branches={branches}
+                conditions={conditions}
+                statuses={statuses}
+                flash={flash}
             />
         </AdminLayout>
     );

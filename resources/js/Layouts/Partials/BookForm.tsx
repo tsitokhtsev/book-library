@@ -1,7 +1,6 @@
-import { router, useForm } from '@inertiajs/react';
+import { useForm } from '@inertiajs/react';
 import { useLaravelReactI18n } from 'laravel-react-i18n';
 import Multiselect from 'multiselect-react-dropdown';
-import { useEffect } from 'react';
 import 'react-calendar/dist/Calendar.css';
 import DatePicker from 'react-date-picker';
 import 'react-date-picker/dist/DatePicker.css';
@@ -17,24 +16,16 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/Components/select';
-import { FormType } from '@/Pages/Books/Add';
-import { FlashType } from '@/utils/types';
+import {
+    BookCopy,
+    FlashType,
+    SelectOption,
+    SelectOptions,
+} from '@/utils/types';
+import { FormType } from '@/utils/types';
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
-
-type SelectOption = {
-    id: number;
-    name: string;
-};
-
-type SelectOptions = SelectOption[];
-
-type BookBranch = {
-    condition: string | SelectOption;
-    branch: string | SelectOption;
-    code: string;
-};
 
 export type BookData = {
     is_enabled: boolean;
@@ -43,10 +34,10 @@ export type BookData = {
     description: string;
     cover_image: string;
     publication_date: string | Date;
-    language: string | SelectOption;
+    language: SelectOption;
     genres: SelectOptions;
     authors: SelectOptions;
-    book_copies: BookBranch[];
+    book_copies: BookCopy[];
 };
 
 interface BookFormProps {
@@ -55,6 +46,7 @@ interface BookFormProps {
     genres: SelectOptions;
     authors: SelectOptions;
     branches: SelectOptions;
+    statuses: SelectOptions;
     conditions: SelectOptions;
     flash: FlashType;
     type: FormType;
@@ -69,36 +61,40 @@ const BookForm: React.FC<BookFormProps> = ({
     conditions,
     flash: { error },
     type,
+    statuses,
 }) => {
     const { t } = useLaravelReactI18n();
 
-    const { data, setData, post, processing, errors, reset } =
-        useForm<BookData>({
-            ...initialValues,
-        });
-
-    useEffect(() => {
-        setData(initialValues);
-    }, [initialValues]);
+    const { data, setData, post, processing, errors } = useForm<BookData>({
+        ...initialValues,
+    });
 
     const handleBookBranchChange = (
         index: number,
-        field: keyof BookBranch,
+        field: keyof BookCopy,
         value: string,
     ) => {
         const newData = { ...data };
-        newData.book_copies[index][field] = value;
+        if (field === 'code') {
+            newData.book_copies[index][field] = value;
+        } else {
+            newData.book_copies[index][field].name = value;
+        }
         setData(newData);
     };
 
-    const submit = (e: React.FormEvent) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (type === FormType.ADD) {
             post(route('admin.books.save'), {
+                preserveState: true,
                 preserveScroll: true,
             });
         } else {
-            post(route('admin.books.edit'));
+            post(route('admin.books.edit'), {
+                preserveState: true,
+                preserveScroll: true,
+            });
         }
     };
 
@@ -109,6 +105,28 @@ const BookForm: React.FC<BookFormProps> = ({
                     Book Instance #{index + 1}
                 </h1>
                 <div>
+                    <InputLabel htmlFor="code" value="Code" />
+                    <TextInput
+                        id="code"
+                        type="text"
+                        name="code"
+                        value={data.book_copies[index]?.code || ''}
+                        className="mt-1 block w-full"
+                        autoComplete="off"
+                        onChange={(e) =>
+                            handleBookBranchChange(
+                                index,
+                                'code',
+                                e.target.value,
+                            )
+                        }
+                    />
+                    <InputError
+                        message={errors[`book_copies.${index}.code`]}
+                        className="mt-2"
+                    />
+                </div>
+                <div>
                     <InputLabel
                         htmlFor="branch"
                         value="Select Book Condition"
@@ -117,11 +135,7 @@ const BookForm: React.FC<BookFormProps> = ({
                         onValueChange={(value) => {
                             handleBookBranchChange(index, 'condition', value);
                         }}
-                        value={
-                            typeof bookCopy.condition === 'object'
-                                ? bookCopy.condition.name
-                                : undefined
-                        }
+                        value={bookCopy.condition.name}
                     >
                         <SelectTrigger className="w-[180px]">
                             <SelectValue placeholder="Select Book Cond..." />
@@ -150,11 +164,7 @@ const BookForm: React.FC<BookFormProps> = ({
                         onValueChange={(value) => {
                             handleBookBranchChange(index, 'branch', value);
                         }}
-                        value={
-                            typeof bookCopy.branch === 'object'
-                                ? bookCopy.branch.name
-                                : undefined
-                        }
+                        value={bookCopy.branch.name}
                     >
                         <SelectTrigger className="w-[180px]">
                             <SelectValue placeholder="Select Book Branch" />
@@ -178,26 +188,31 @@ const BookForm: React.FC<BookFormProps> = ({
                     />
                 </div>
                 <div>
-                    <InputLabel htmlFor="code" value="Code" />
-
-                    <TextInput
-                        id="code"
-                        type="text"
-                        name="code"
-                        value={data.book_copies[index]?.code || ''}
-                        className="mt-1 block w-full"
-                        autoComplete="off"
-                        onChange={(e) =>
-                            handleBookBranchChange(
-                                index,
-                                'code',
-                                e.target.value,
-                            )
-                        }
-                    />
-
+                    <InputLabel htmlFor="branch" value="Select Book Status" />
+                    <Select
+                        onValueChange={(value) => {
+                            handleBookBranchChange(index, 'status', value);
+                        }}
+                        value={bookCopy.status.name}
+                    >
+                        <SelectTrigger className="w-[180px]">
+                            <SelectValue placeholder="Select Book Status" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {statuses.map((status) => {
+                                return (
+                                    <SelectItem
+                                        key={status.id}
+                                        value={status.name}
+                                    >
+                                        {status.name}
+                                    </SelectItem>
+                                );
+                            })}
+                        </SelectContent>
+                    </Select>
                     <InputError
-                        message={errors[`book_copies.${index}.code`]}
+                        message={errors[`book_copies.${index}.status`]}
                         className="mt-2"
                     />
                 </div>
@@ -206,10 +221,9 @@ const BookForm: React.FC<BookFormProps> = ({
     };
 
     return (
-        <form onSubmit={submit} className="flex flex-col gap-8">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-8">
             <div>
                 <InputLabel htmlFor="title" value="Title" />
-
                 <TextInput
                     id="title"
                     type="text"
@@ -220,12 +234,10 @@ const BookForm: React.FC<BookFormProps> = ({
                     isFocused={true}
                     onChange={(e) => setData('title', e.target.value)}
                 />
-
                 <InputError message={errors.title} className="mt-2" />
             </div>
             <div>
                 <InputLabel className="uppercase" htmlFor="isbn" value="Isbn" />
-
                 <TextInput
                     id="isbn"
                     type="text"
@@ -235,12 +247,10 @@ const BookForm: React.FC<BookFormProps> = ({
                     autoComplete="off"
                     onChange={(e) => setData('isbn', e.target.value)}
                 />
-
                 <InputError message={errors.isbn} className="mt-2" />
             </div>
             <div>
                 <InputLabel htmlFor="description" value="Description" />
-
                 <TextInput
                     id="description"
                     type="text"
@@ -250,7 +260,6 @@ const BookForm: React.FC<BookFormProps> = ({
                     autoComplete="off"
                     onChange={(e) => setData('description', e.target.value)}
                 />
-
                 <InputError message={errors.description} className="mt-2" />
             </div>
             <div>
@@ -260,13 +269,9 @@ const BookForm: React.FC<BookFormProps> = ({
                 />
                 <Select
                     onValueChange={(value) => {
-                        setData('language', value);
+                        setData('language', { id: 0, name: value });
                     }}
-                    value={
-                        typeof data.language === 'object'
-                            ? data.language.name
-                            : undefined
-                    }
+                    value={data.language.name}
                 >
                     <SelectTrigger className="w-[180px]">
                         <SelectValue placeholder="Select book language" />
@@ -337,16 +342,24 @@ const BookForm: React.FC<BookFormProps> = ({
                     onClick={() => {
                         setData('book_copies', [
                             ...data.book_copies,
-                            { code: '', condition: '', branch: '' },
+                            {
+                                code: '',
+                                condition: { id: 0, name: '' },
+                                branch: { id: 0, name: '' },
+                                status: { id: 0, name: '' },
+                            },
                         ]);
                     }}
                     className="ms-4"
                     type="button"
                 >
-                    Add New Book Instance
+                    Add New Book Copy
                 </Button>
             </div>
-            <InputError message={error} className="text-l mt-2 font-bold" />
+            <InputError
+                message={error || errors.book_copies}
+                className="text-l mt-2 font-bold"
+            />
             <div className="mt-4 flex items-center justify-center">
                 <Button className="ms-4" disabled={processing}>
                     Submit

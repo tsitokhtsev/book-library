@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\BookCopyController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -17,13 +18,15 @@ Route::prefix('admin')
 
             Route::get('/books/add', 'add')->name('books.add');
 
-            Route::post('/book/add', 'save')->name('books.save');
-            Route::post('/book/delete', 'destroy')->name('books.delete');
+            Route::post('/books/add', 'save')->name('books.save');
+            Route::post('/books/delete', 'destroy')->name('books.delete');
 
-            Route::post('/book/edit', 'update')->name('books.edit');
-            Route::post('/books/delete', 'massDelete')->name('books.massDelete');
+            Route::post('/books/edit', 'update')->name('books.edit');
+            Route::post('/books/massDelete', 'massDelete')->name('books.massDelete');
 
-
-            Route::get('/book/show/{isbn}', 'show')->name('books.show');
+            Route::get('/books/show/{isbn}', 'show')->name('books.show');
         });
+
+        Route::post('/book/edit/{code}', [BookCopyController::class, 'update'])->name('book.edit');
+        Route::post('/book/delete/{code}', [BookCopyController::class, 'destroy'])->name('book.delete');
     });

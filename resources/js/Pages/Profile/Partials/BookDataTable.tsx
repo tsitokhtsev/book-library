@@ -12,14 +12,13 @@ import {
     getSortedRowModel,
     useReactTable,
 } from '@tanstack/react-table';
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from 'lucide-react';
+import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
 import * as React from 'react';
 
 import { Button } from '@/Components/Button';
 import { Checkbox } from '@/Components/Checkbox';
 import {
     DropdownMenu,
-    DropdownMenuCheckboxItem,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuLabel,
@@ -35,7 +34,8 @@ import {
     TableHeader,
     TableRow,
 } from '@/Components/table';
-import { Book, BookProps } from '@/Pages/Books/Index';
+import { BookProps } from '@/Pages/Books/Index';
+import { Book, SelectOption } from '@/utils/types';
 
 const data: Book[] = [];
 
@@ -103,7 +103,9 @@ export const columns: ColumnDef<Book>[] = [
         accessorKey: 'language',
         header: 'Language',
         cell: ({ row }) => (
-            <div className="capitalize">{row.getValue('language').name}</div>
+            <div className="capitalize">
+                {row.getValue<SelectOption>('language').name}
+            </div>
         ),
     },
     {
@@ -219,32 +221,6 @@ export function BooksDataTable({ props }: { props: BookProps }) {
                     }
                     className="max-w-sm"
                 />
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="outline" className="ml-auto">
-                            Columns <ChevronDown className="ml-2 h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        {table
-                            .getAllColumns()
-                            .filter((column) => column.getCanHide())
-                            .map((column) => {
-                                return (
-                                    <DropdownMenuCheckboxItem
-                                        key={column.id}
-                                        className="capitalize"
-                                        checked={column.getIsVisible()}
-                                        onCheckedChange={(value) =>
-                                            column.toggleVisibility(!!value)
-                                        }
-                                    >
-                                        {column.id.replace('_', ' ')}
-                                    </DropdownMenuCheckboxItem>
-                                );
-                            })}
-                    </DropdownMenuContent>
-                </DropdownMenu>
             </div>
             <div className="rounded-md border">
                 <Table>

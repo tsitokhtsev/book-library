@@ -30,8 +30,10 @@ class SaveBookRequest extends FormRequest
             'genres' => 'array|required',
             'authors' => 'array|required',
             'book_copies' => 'required|array',
-            'book_copies.*.condition' => 'required|string',
-            'book_copies.*.branch' => 'required|string',
+            'book_copies.*.condition.name' => 'required|string|exists:conditions,name',
+            'book_copies.*.branch.name' => 'required|string|exists:branches,name',
+            'book_copies.*.status.name' => 'required|string|exists:statuses,name',
+            'book_copies.*.code' => 'required|string|unique:book_copies,code'
         ];
     }
 }
