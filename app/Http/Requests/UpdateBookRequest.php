@@ -33,7 +33,7 @@ class UpdateBookRequest extends FormRequest
             'publication_date' => 'required|date',
             'genres' => 'array|required',
             'authors' => 'array|required',
-            'book_copies' => ['required', new UniqueBookCopyCodeRule],
+            'book_copies' => [new UniqueBookCopyCodeRule],
         ];
     }
 }

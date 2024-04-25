@@ -4,9 +4,8 @@ import { useLaravelReactI18n } from 'laravel-react-i18n';
 
 import { Button } from '@/Components/Button';
 import AdminLayout from '@/Layouts/AdminLayout';
+import BookDataTable from '@/Layouts/Partials/DataTables/BookDataTable';
 import { Book } from '@/utils/types';
-
-import { BooksDataTable } from '../Profile/Partials/BookDataTable';
 
 export type BookProps = {
     data: Book[];
@@ -26,8 +25,8 @@ export default function Books({ props }: { props: BookProps }) {
     return (
         <AdminLayout>
             <Head title={t('Books')} />
-            <Button onClick={handleAddClick}>Add New Book</Button>
-            <BooksDataTable props={props} />
+            <Button onClick={handleAddClick}>{t('Add New Book')}</Button>
+            <BookDataTable props={props} />
         </AdminLayout>
     );
 }

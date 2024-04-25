@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SaveBookRequest extends FormRequest
@@ -17,7 +18,7 @@ class SaveBookRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array|string>
      */
     public function rules(): array
     {
@@ -29,7 +30,7 @@ class SaveBookRequest extends FormRequest
             'publication_date' => 'required|date',
             'genres' => 'array|required',
             'authors' => 'array|required',
-            'book_copies' => 'required|array',
+            'book_copies' => 'array',
             'book_copies.*.condition.name' => 'required|string|exists:conditions,name',
             'book_copies.*.branch.name' => 'required|string|exists:branches,name',
             'book_copies.*.status.name' => 'required|string|exists:statuses,name',

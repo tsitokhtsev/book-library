@@ -1,4 +1,5 @@
 import { Head } from '@inertiajs/react';
+import { useLaravelReactI18n } from 'laravel-react-i18n';
 
 import AdminLayout from '@/Layouts/AdminLayout';
 import BookForm from '@/Layouts/Partials/BookForm';
@@ -23,39 +24,43 @@ const Add: React.FC<AddProps> = ({
     conditions,
     flash,
     statuses,
-}) => (
-    <AdminLayout>
-        <Head title="Edit Book" />
-        <BookForm
-            initialValues={{
-                is_enabled: true,
-                title: '',
-                isbn: '',
-                description: '',
-                cover_image: '',
-                publication_date: new Date(),
-                language: { id: 0, name: '' },
-                genres: [],
-                authors: [],
-                book_copies: [
-                    {
-                        code: '',
-                        condition: { id: 0, name: '' },
-                        branch: { id: 0, name: '' },
-                        status: { id: 0, name: '' },
-                    },
-                ],
-            }}
-            languages={languages}
-            genres={genres}
-            authors={authors}
-            branches={branches}
-            conditions={conditions}
-            flash={flash}
-            type={FormType.ADD}
-            statuses={statuses}
-        />
-    </AdminLayout>
-);
+}) => {
+    const { t } = useLaravelReactI18n();
+
+    return (
+        <AdminLayout>
+            <Head title={t('Add Book')} />
+            <BookForm
+                initialValues={{
+                    is_enabled: true,
+                    title: '',
+                    isbn: '',
+                    description: '',
+                    cover_image: '',
+                    publication_date: new Date(),
+                    language: { id: 0, name: '' },
+                    genres: [],
+                    authors: [],
+                    book_copies: [
+                        {
+                            code: '',
+                            condition: { id: 0, name: '' },
+                            branch: { id: 0, name: '' },
+                            status: { id: 0, name: '' },
+                        },
+                    ],
+                }}
+                languages={languages}
+                genres={genres}
+                authors={authors}
+                branches={branches}
+                conditions={conditions}
+                flash={flash}
+                type={FormType.ADD}
+                statuses={statuses}
+            />
+        </AdminLayout>
+    );
+};
 
 export default Add;

@@ -102,10 +102,10 @@ const BookForm: React.FC<BookFormProps> = ({
         return data.book_copies.map((bookCopy, index) => (
             <div key={index} className="flex flex-col gap-8">
                 <h1 className="text-xl font-bold">
-                    Book Instance #{index + 1}
+                    {t('Book Copy')} #{index + 1}
                 </h1>
                 <div>
-                    <InputLabel htmlFor="code" value="Code" />
+                    <InputLabel htmlFor="code" value={t('Code')} />
                     <TextInput
                         id="code"
                         type="text"
@@ -129,7 +129,7 @@ const BookForm: React.FC<BookFormProps> = ({
                 <div>
                     <InputLabel
                         htmlFor="branch"
-                        value="Select Book Condition"
+                        value={t('Select Book Condition')}
                     />
                     <Select
                         onValueChange={(value) => {
@@ -138,7 +138,7 @@ const BookForm: React.FC<BookFormProps> = ({
                         value={bookCopy.condition.name}
                     >
                         <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Select Book Cond..." />
+                            <SelectValue placeholder={t('Book Condition')} />
                         </SelectTrigger>
                         <SelectContent>
                             {conditions.map((condition) => {
@@ -159,7 +159,10 @@ const BookForm: React.FC<BookFormProps> = ({
                     />
                 </div>
                 <div>
-                    <InputLabel htmlFor="branch" value="Select Book Branch" />
+                    <InputLabel
+                        htmlFor="branch"
+                        value={t('Select Book Branch')}
+                    />
                     <Select
                         onValueChange={(value) => {
                             handleBookBranchChange(index, 'branch', value);
@@ -167,7 +170,7 @@ const BookForm: React.FC<BookFormProps> = ({
                         value={bookCopy.branch.name}
                     >
                         <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Select Book Branch" />
+                            <SelectValue placeholder={t('Book Branch')} />
                         </SelectTrigger>
                         <SelectContent>
                             {branches.map((branch) => {
@@ -188,7 +191,10 @@ const BookForm: React.FC<BookFormProps> = ({
                     />
                 </div>
                 <div>
-                    <InputLabel htmlFor="branch" value="Select Book Status" />
+                    <InputLabel
+                        htmlFor="branch"
+                        value={t('Select Book Status')}
+                    />
                     <Select
                         onValueChange={(value) => {
                             handleBookBranchChange(index, 'status', value);
@@ -196,7 +202,7 @@ const BookForm: React.FC<BookFormProps> = ({
                         value={bookCopy.status.name}
                     >
                         <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Select Book Status" />
+                            <SelectValue placeholder={t('Book Status')} />
                         </SelectTrigger>
                         <SelectContent>
                             {statuses.map((status) => {
@@ -223,7 +229,7 @@ const BookForm: React.FC<BookFormProps> = ({
     return (
         <form onSubmit={handleSubmit} className="flex flex-col gap-8">
             <div>
-                <InputLabel htmlFor="title" value="Title" />
+                <InputLabel htmlFor="title" value={t('Title')} />
                 <TextInput
                     id="title"
                     type="text"
@@ -237,7 +243,11 @@ const BookForm: React.FC<BookFormProps> = ({
                 <InputError message={errors.title} className="mt-2" />
             </div>
             <div>
-                <InputLabel className="uppercase" htmlFor="isbn" value="Isbn" />
+                <InputLabel
+                    className="uppercase"
+                    htmlFor="isbn"
+                    value={t('Isbn')}
+                />
                 <TextInput
                     id="isbn"
                     type="text"
@@ -250,7 +260,7 @@ const BookForm: React.FC<BookFormProps> = ({
                 <InputError message={errors.isbn} className="mt-2" />
             </div>
             <div>
-                <InputLabel htmlFor="description" value="Description" />
+                <InputLabel htmlFor="description" value={t('Description')} />
                 <TextInput
                     id="description"
                     type="text"
@@ -265,7 +275,7 @@ const BookForm: React.FC<BookFormProps> = ({
             <div>
                 <InputLabel
                     htmlFor="description"
-                    value="Select Book Language"
+                    value={t('Select Book Language')}
                 />
                 <Select
                     onValueChange={(value) => {
@@ -274,7 +284,7 @@ const BookForm: React.FC<BookFormProps> = ({
                     value={data.language.name}
                 >
                     <SelectTrigger className="w-[180px]">
-                        <SelectValue placeholder="Select book language" />
+                        <SelectValue placeholder={t('Book Language')} />
                     </SelectTrigger>
                     <SelectContent>
                         {languages.map((language) => {
@@ -292,6 +302,10 @@ const BookForm: React.FC<BookFormProps> = ({
                 <InputError message={errors.language} className="mt-2" />
             </div>
             <div>
+                <InputLabel
+                    htmlFor="publication_date"
+                    value={t('Select Book Publication Date')}
+                />
                 <DatePicker
                     onChange={(value: Value) => {
                         if (value instanceof Date) {
@@ -300,6 +314,7 @@ const BookForm: React.FC<BookFormProps> = ({
                     }}
                     className="bg-red"
                     value={data.publication_date}
+                    name="publication_date"
                 />
                 <InputError
                     message={errors.publication_date}
@@ -307,7 +322,10 @@ const BookForm: React.FC<BookFormProps> = ({
                 />
             </div>
             <div>
-                <InputLabel htmlFor="description" value="Select Book Genre" />
+                <InputLabel
+                    htmlFor="description"
+                    value={t('Select Book Genres')}
+                />
                 <Multiselect
                     options={genres}
                     selectedValues={data.genres}
@@ -322,7 +340,10 @@ const BookForm: React.FC<BookFormProps> = ({
                 <InputError message={errors.genres} className="mt-2" />
             </div>
             <div>
-                <InputLabel htmlFor="description" value="Select Book Author" />
+                <InputLabel
+                    htmlFor="description"
+                    value={t('Select Book Authors')}
+                />
                 <Multiselect
                     options={authors}
                     selectedValues={data.authors}
@@ -353,7 +374,7 @@ const BookForm: React.FC<BookFormProps> = ({
                     className="ms-4"
                     type="button"
                 >
-                    Add New Book Copy
+                    {t('Add New Book Copy')}
                 </Button>
             </div>
             <InputError
@@ -362,7 +383,7 @@ const BookForm: React.FC<BookFormProps> = ({
             />
             <div className="mt-4 flex items-center justify-center">
                 <Button className="ms-4" disabled={processing}>
-                    Submit
+                    {t('Submit')}
                 </Button>
             </div>
         </form>

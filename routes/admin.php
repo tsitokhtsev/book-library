@@ -27,6 +27,8 @@ Route::prefix('admin')
             Route::get('/books/show/{isbn}', 'show')->name('books.show');
         });
 
-        Route::post('/book/edit/{code}', [BookCopyController::class, 'update'])->name('book.edit');
-        Route::post('/book/delete/{code}', [BookCopyController::class, 'destroy'])->name('book.delete');
-    });
+        Route::controller(BookCopyController::class)->group(function () {
+            Route::post('/book/edit/{code}', 'update')->name('book.edit');
+            Route::post('/book/delete/{code}', 'destroy')->name('book.delete');
+        });
+});

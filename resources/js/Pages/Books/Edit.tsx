@@ -1,11 +1,11 @@
 import { Head } from '@inertiajs/react';
+import { useLaravelReactI18n } from 'laravel-react-i18n';
 
 import AdminLayout from '@/Layouts/AdminLayout';
 import BookForm, { BookData } from '@/Layouts/Partials/BookForm';
+import BookCopyDataTable from '@/Layouts/Partials/DataTables/BookCopyDataTable';
 import { FormType, SelectOptions } from '@/utils/types';
 import { FlashType } from '@/utils/types';
-
-import { BookCopyDataTable } from '../Profile/Partials/BookCopyDataTable';
 
 export type EditProps = {
     book: BookData;
@@ -28,9 +28,11 @@ const Edit: React.FC<EditProps> = ({
     statuses,
     flash,
 }) => {
+    const { t } = useLaravelReactI18n();
+
     return (
         <AdminLayout>
-            <Head title="Add New Book" />
+            <Head title={t('Edit Book')} />
             <BookForm
                 initialValues={{
                     ...book,
@@ -46,7 +48,7 @@ const Edit: React.FC<EditProps> = ({
                 type={FormType.EDIT}
                 statuses={statuses}
             />
-            <h1 className="m-4 text-center text-xl">Book Copies</h1>
+            <h1 className="m-4 text-center text-xl">{t('Book Copies')}</h1>
             <BookCopyDataTable
                 bookCopies={book.book_copies}
                 branches={branches}

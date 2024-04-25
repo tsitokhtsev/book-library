@@ -2,7 +2,6 @@
 
 import { router } from '@inertiajs/react';
 import {
-    ColumnDef,
     ColumnFiltersState,
     SortingState,
     VisibilityState,
@@ -12,19 +11,10 @@ import {
     getSortedRowModel,
     useReactTable,
 } from '@tanstack/react-table';
-import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
+import { useLaravelReactI18n } from 'laravel-react-i18n';
 import * as React from 'react';
 
 import { Button } from '@/Components/Button';
-import { Checkbox } from '@/Components/Checkbox';
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from '@/Components/DropdownMenu';
 import { Input } from '@/Components/input';
 import {
     Table,
@@ -35,133 +25,12 @@ import {
     TableRow,
 } from '@/Components/table';
 import { BookProps } from '@/Pages/Books/Index';
-import { Book, SelectOption } from '@/utils/types';
 
-const data: Book[] = [];
+import columns from './columns';
 
-export const columns: ColumnDef<Book>[] = [
-    {
-        id: 'select',
-        header: ({ table }) => (
-            <Checkbox
-                checked={
-                    table.getIsAllPageRowsSelected() ||
-                    (table.getIsSomePageRowsSelected() && undefined)
-                }
-                onCheckedChange={(value) =>
-                    table.toggleAllPageRowsSelected(!!value)
-                }
-                aria-label="Select all"
-            />
-        ),
-        cell: ({ row }) => (
-            <Checkbox
-                checked={row.getIsSelected()}
-                onCheckedChange={(value) => row.toggleSelected(!!value)}
-                aria-label="Select row"
-            />
-        ),
-        enableSorting: false,
-        enableHiding: false,
-    },
-    {
-        accessorKey: 'is_enabled',
-        header: 'Status',
-        cell: ({ row }) => (
-            <div className="capitalize">
-                {row.getValue('is_enabled') ? 'Enabled' : 'Disabled'}
-            </div>
-        ),
-    },
-    {
-        accessorKey: 'title',
-        header: ({ column }) => {
-            return (
-                <Button
-                    variant="ghost"
-                    onClick={() =>
-                        column.toggleSorting(column.getIsSorted() === 'asc')
-                    }
-                >
-                    Title
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-            );
-        },
-        cell: ({ row }) => (
-            <div className="lowercase">{row.getValue('title')}</div>
-        ),
-    },
-    {
-        accessorKey: 'isbn',
-        header: 'ISBN',
-        cell: ({ row }) => (
-            <div className="capitalize">{row.getValue('isbn')}</div>
-        ),
-    },
-    {
-        accessorKey: 'language',
-        header: 'Language',
-        cell: ({ row }) => (
-            <div className="capitalize">
-                {row.getValue<SelectOption>('language').name}
-            </div>
-        ),
-    },
-    {
-        header: 'Publication Date',
-        accessorKey: 'publication_date',
-        cell: ({ row }) => (
-            <div className="capitalize">{row.getValue('publication_date')}</div>
-        ),
-    },
-    {
-        id: 'actions',
-        enableHiding: false,
-        cell: ({ row }) => {
-            const book = row.original;
+export function BookDataTable({ props }: { props: BookProps }) {
+    const { t } = useLaravelReactI18n();
 
-            return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                            <span className="sr-only">Open menu</span>
-                            <MoreHorizontal className="h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem
-                            className="bg-green-300 hover:cursor-pointer"
-                            onClick={() => {
-                                router.visit(
-                                    route('admin.books.show', book.isbn),
-                                );
-                            }}
-                        >
-                            View/Edit Book
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem
-                            onClick={() => {
-                                router.post(
-                                    route('admin.books.delete', {
-                                        isbn: book.isbn,
-                                    }),
-                                );
-                            }}
-                            className="bg-red-300 hover:cursor-pointer"
-                        >
-                            Delete
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            );
-        },
-    },
-];
-
-export function BooksDataTable({ props }: { props: BookProps }) {
     const [sorting, setSorting] = React.useState<SortingState>([]);
     const [columnFilters, setColumnFilters] =
         React.useState<ColumnFiltersState>([]);
@@ -204,11 +73,11 @@ export function BooksDataTable({ props }: { props: BookProps }) {
                 disabled={table.getSelectedRowModel().rows.length === 0}
                 onClick={massDeleteBooks}
             >
-                Delete Selected {table.getSelectedRowModel().rows.length}
+                {t('Delete Selected')} {table.getSelectedRowModel().rows.length}
             </Button>
             <div className="flex items-center py-4">
                 <Input
-                    placeholder="Filter books..."
+                    placeholder={t('Filter Books') + '...'}
                     value={
                         (table
                             .getColumn('title')
@@ -268,7 +137,7 @@ export function BooksDataTable({ props }: { props: BookProps }) {
                                     colSpan={columns.length}
                                     className="h-24 text-center"
                                 >
-                                    No results.
+                                    {t('No Results')}.
                                 </TableCell>
                             </TableRow>
                         )}
@@ -277,8 +146,11 @@ export function BooksDataTable({ props }: { props: BookProps }) {
             </div>
             <div className="flex items-center justify-end space-x-2 py-4">
                 <div className="flex-1 text-sm text-muted-foreground">
-                    {table.getFilteredSelectedRowModel().rows.length} of{' '}
-                    {table.getFilteredRowModel().rows.length} row(s) selected.
+                    {t(':selected of :total row(s) selected', {
+                        selected:
+                            table.getFilteredSelectedRowModel().rows.length,
+                        total: table.getFilteredRowModel().rows.length,
+                    })}
                 </div>
                 <div className="space-x-2">
                     <Button
@@ -287,7 +159,7 @@ export function BooksDataTable({ props }: { props: BookProps }) {
                         onClick={() => router.visit(props.prev_page_url)}
                         disabled={props.prev_page_url === null}
                     >
-                        Previous
+                        {t('Previous')}
                     </Button>
                     <Button
                         variant="outline"
@@ -295,10 +167,12 @@ export function BooksDataTable({ props }: { props: BookProps }) {
                         onClick={() => router.visit(props.next_page_url)}
                         disabled={props.next_page_url === null}
                     >
-                        Next
+                        {t('Next')}
                     </Button>
                 </div>
             </div>
         </div>
     );
 }
+
+export default BookDataTable;
