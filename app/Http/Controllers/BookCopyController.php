@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Log;
 
 class BookCopyController extends Controller
 {
+    /**
+     * @param BookCopyService $bookCopyService
+     */
     public function __construct(public BookCopyService $bookCopyService){}
 
     /**
@@ -39,9 +42,19 @@ class BookCopyController extends Controller
      */
     public function destroy(Request $request) {
         try {
-            BookCopy::where('code', $request->route()->parameter('code'))->delete();
+            $bookCopy = BookCopy::where('code', $request->route()->parameter('code'))->first();
 
-            return redirect()->back()->with('success', 'Deleted Successfully');
+            if ($bookCopy) {
+                $book = $bookCopy->book;
+                if ($book->bookCopies()->count() > 1) {
+                    $bookCopy->delete();
+                    return redirect()->back()->with('success', 'Deleted successfully');
+                } else {
+                    return redirect()->back()->with('error', "Cannot delete it because it is the only copy of the book");
+                }
+            } else {
+                return redirect()->back()->with('error', "Book copy not found");
+            }
         } catch (Exception $e) {
             Log::error($e);
             return redirect()->back()->with('error', 'Failed to delete the book. Please try again.');

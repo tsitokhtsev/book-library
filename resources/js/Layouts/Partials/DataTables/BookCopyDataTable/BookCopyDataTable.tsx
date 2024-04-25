@@ -5,6 +5,7 @@ import {
     getCoreRowModel,
     useReactTable,
 } from '@tanstack/react-table';
+import { useLaravelReactI18n } from 'laravel-react-i18n';
 
 import {
     Table,
@@ -34,6 +35,8 @@ export function BookCopyDataTable({
     statuses: SelectOptions;
     flash: FlashType;
 }) {
+    const { t } = useLaravelReactI18n();
+
     const data = bookCopies;
 
     const table = useReactTable({
@@ -96,7 +99,7 @@ export function BookCopyDataTable({
                                     colSpan={columns.length}
                                     className="h-24 text-center"
                                 >
-                                    No results.
+                                    {t('No Results')}
                                 </TableCell>
                             </TableRow>
                         )}

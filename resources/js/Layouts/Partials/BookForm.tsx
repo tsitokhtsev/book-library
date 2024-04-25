@@ -8,6 +8,7 @@ import 'react-date-picker/dist/DatePicker.css';
 import { Button } from '@/Components/Button';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
+import SuccessMessage from '@/Components/SuccessMessage';
 import TextInput from '@/Components/TextInput';
 import {
     Select,
@@ -59,7 +60,7 @@ const BookForm: React.FC<BookFormProps> = ({
     authors,
     branches,
     conditions,
-    flash: { error },
+    flash: { error, success },
     type,
     statuses,
 }) => {
@@ -379,6 +380,10 @@ const BookForm: React.FC<BookFormProps> = ({
             </div>
             <InputError
                 message={error || errors.book_copies}
+                className="text-l mt-2 font-bold"
+            />
+            <SuccessMessage
+                message={success}
                 className="text-l mt-2 font-bold"
             />
             <div className="mt-4 flex items-center justify-center">

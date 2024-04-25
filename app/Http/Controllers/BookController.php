@@ -13,21 +13,36 @@ use App\Models\Language;
 use App\Models\Status;
 use App\Services\BookService;
 use Exception;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class BookController extends Controller
 {
+    /**
+     * @param BookService $bookService
+     */
     public function __construct(public BookService $bookService){}
 
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     */
     public function index(Request $request) {
         return Inertia::render('Books/Index', [
             'props' => Book::with('language')->simplePaginate(10)
         ]);
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     */
     public function add(Request $request) {
         return Inertia::render('Books/Add',[
             'languages' => Language::all(),
@@ -39,6 +54,11 @@ class BookController extends Controller
         ]);
     }
 
+    /**
+     * @param SaveBookRequest $request
+     *
+     * @return RedirectResponse
+     */
     public function save(SaveBookRequest $request) {
         $validated = $request->validated();
 
@@ -57,6 +77,11 @@ class BookController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     */
     public function show(Request $request) {
         return Inertia::render('Books/Edit',[
             'languages' => Language::all(),
@@ -72,6 +97,11 @@ class BookController extends Controller
         ]);
     }
 
+    /**
+     * @param UpdateBookRequest $request
+     *
+     * @return RedirectResponse
+     */
     public function update(UpdateBookRequest $request) {
         $validated = $request->validated();
 
@@ -90,12 +120,22 @@ class BookController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return RedirectResponse
+     */
     public function massDelete(Request $request) {
         Book::whereIn('isbn', $request->get('isbns'))->delete();
 
         return to_route('admin.books');
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return RedirectResponse
+     */
     public function destroy(Request $request) {
         Book::where('isbn', $request->get('isbn'))->first()->delete();
 
