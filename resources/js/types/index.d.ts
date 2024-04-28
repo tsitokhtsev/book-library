@@ -2,22 +2,30 @@ import { RowData } from '@tanstack/react-table';
 
 export type User = {
     id: number;
-    firstname: string;
-    lastname: string;
+    first_name: string;
+    last_name: string;
     email: string;
     email_verified_at: string;
 };
 
 export type Member = {
     id: number;
+    first_name: string;
+    last_name: string;
     email: string;
+    phone_number: string;
     personal_number: string;
-    phone: string;
-    firstname: string;
-    lastname: string;
     email_verified_at: string;
     created_at: string;
     updated_at: string;
+};
+
+export type MemberForm = {
+    first_name: string;
+    last_name: string;
+    email: string;
+    phone_number: string;
+    personal_number: string;
 };
 
 export type PageProps<
