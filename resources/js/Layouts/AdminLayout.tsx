@@ -21,8 +21,14 @@ export default function Admin({ children }: PropsWithChildren) {
                             {t('Dashboard')}
                         </Link>
                     </TabsTrigger>
-                    <TabsTrigger value="members" asChild>
-                        <Link href="">{t('Members')}</Link>
+                    <TabsTrigger
+                        value="members"
+                        active={route().current('admin.members.*')}
+                        asChild
+                    >
+                        <Link href={route('admin.members.index')}>
+                            {t('Members')}
+                        </Link>
                     </TabsTrigger>
                     <TabsTrigger
                         value="books"
