@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\RolesEnum;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -67,5 +68,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function isAdmin(): bool
     {
         return $this->hasRole(RolesEnum::SUPERADMIN) || $this->hasRole(RolesEnum::ADMIN);
+    }
+
+    public function scopeMostRecent(Builder $query): Builder
+    {
+        return $query->orderByDesc('created_at');
     }
 }

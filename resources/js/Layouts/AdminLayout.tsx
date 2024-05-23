@@ -1,11 +1,16 @@
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { useLaravelReactI18n } from 'laravel-react-i18n';
 import { PropsWithChildren } from 'react';
 
+import { Alert, AlertTitle } from '@/Components/Alert';
 import { Tabs, TabsList, TabsTrigger } from '@/Components/Tabs';
 import MainLayout from '@/Layouts/MainLayout';
+import { PageProps } from '@/types';
 
 export default function Admin({ children }: PropsWithChildren) {
+    const {
+        flash: { success, error },
+    } = usePage<PageProps>().props;
     const { t } = useLaravelReactI18n();
 
     return (
@@ -45,7 +50,18 @@ export default function Admin({ children }: PropsWithChildren) {
                 </TabsList>
             </Tabs>
 
-            <div className="container mt-8">{children}</div>
+            <div className="container mt-8">
+                {(success || error) && (
+                    <Alert
+                        variant={error ? 'destructive' : 'default'}
+                        className="mb-8"
+                    >
+                        <AlertTitle>{t(success || error)}</AlertTitle>
+                    </Alert>
+                )}
+
+                {children}
+            </div>
         </MainLayout>
     );
 }

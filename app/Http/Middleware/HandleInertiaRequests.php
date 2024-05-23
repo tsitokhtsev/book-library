@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use App\Enums\RolesEnum;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -40,6 +39,10 @@ class HandleInertiaRequests extends Middleware
                     'last_name' => $request->user()->last_name,
                     'email_verified_at' => $request->user()->email_verified_at,
                 ] : null,
+            ],
+            'flash' => [
+                'success' => fn () => $request->session()->get('success'),
+                'error' => fn () => $request->session()->get('error'),
             ],
         ];
     }
