@@ -1,6 +1,7 @@
 import { ColumnDef } from '@tanstack/react-table';
 
 import { DataTableColumnHeader } from '@/Components/DataTableColumnHeader';
+import Actions from '@/Pages/Admin/Members/Partials/Actions';
 import { Member } from '@/types';
 
 export const columns: ColumnDef<Member>[] = [
@@ -51,5 +52,9 @@ export const columns: ColumnDef<Member>[] = [
 
             return <div>{formatted}</div>;
         },
+    },
+    {
+        id: 'actions',
+        cell: ({ row }) => <Actions member={row.original} />,
     },
 ];

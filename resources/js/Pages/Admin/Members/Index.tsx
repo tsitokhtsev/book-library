@@ -12,14 +12,14 @@ import {
 import { DataTable } from '@/Components/DataTable';
 import AdminLayout from '@/Layouts/AdminLayout';
 import { columns } from '@/Pages/Admin/Members/Partials/columns';
-import { Member, PageProps } from '@/types';
+import { Member } from '@/types';
 
-export default function Index({ members }: PageProps<{ members: Member[] }>) {
+export default function Index({ members }: { members: Member[] }) {
     const { t } = useLaravelReactI18n();
 
     return (
         <AdminLayout>
-            <Head title="Members" />
+            <Head title={t('Members')} />
 
             <Card>
                 <CardHeader className="flex-row justify-between space-y-0">

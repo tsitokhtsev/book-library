@@ -1,5 +1,6 @@
 import { Head, useForm } from '@inertiajs/react';
 import { useLaravelReactI18n } from 'laravel-react-i18n';
+import { FormEventHandler } from 'react';
 
 import { Button } from '@/Components/Button';
 import {
@@ -25,10 +26,10 @@ export default function Create() {
         personal_number: '',
     });
 
-    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    const handleSubmit: FormEventHandler = (e) => {
         e.preventDefault();
         post(route('admin.members.store'));
-    }
+    };
 
     return (
         <AdminLayout>

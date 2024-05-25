@@ -47,12 +47,12 @@ class MemberController extends Controller
         ]);
         $password = Str::random(8);
 
-        $user = User::create([
+        $member = User::create([
             ...$validated,
             'password' => Hash::make($password),
         ])->assignRole(RolesEnum::MEMBER);
 
-        $user->notify(new MemberAdded($password));
+        $member->notify(new MemberAdded($password));
 
         return redirect()
             ->route('admin.members.index')
@@ -62,7 +62,7 @@ class MemberController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show(User $member)
     {
         //
     }
@@ -70,7 +70,7 @@ class MemberController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user)
+    public function edit(User $member)
     {
         //
     }
@@ -78,7 +78,7 @@ class MemberController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, User $member)
     {
         //
     }
@@ -86,8 +86,14 @@ class MemberController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy(User $member): RedirectResponse
     {
-        //
+        $this->authorize('delete', $member);
+
+        $member->delete();
+
+        return redirect()
+            ->route('admin.members.index')
+            ->with('success', 'Member deleted successfully!');
     }
 }
