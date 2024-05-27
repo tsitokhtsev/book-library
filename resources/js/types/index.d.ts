@@ -1,5 +1,6 @@
 import { RowData } from '@tanstack/react-table';
 
+// Models
 export type User = {
     id: number;
     first_name: string;
@@ -19,6 +20,9 @@ export type Member = {
     created_at: string;
     updated_at: string;
 };
+
+// Forms
+export type FormType = 'create' | 'edit';
 
 export type MemberForm = {
     first_name: string;

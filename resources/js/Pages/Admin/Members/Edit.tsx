@@ -10,34 +10,31 @@ import {
 } from '@/Components/Card';
 import AdminLayout from '@/Layouts/AdminLayout';
 import Form from '@/Pages/Admin/Members/Partials/Form';
+import { Member } from '@/types';
 
-const initialData = {
-    first_name: '',
-    last_name: '',
-    email: '',
-    phone_number: '',
-    personal_number: '',
-};
-
-export default function Create() {
+export default function Edit({ member }: { member: Member }) {
     const { t } = useLaravelReactI18n();
 
     return (
         <AdminLayout>
-            <Head title={t('Add Member')} />
+            <Head title={t('Edit Member')} />
 
             <Card>
                 <CardHeader className="flex-row justify-between space-y-0">
                     <div>
-                        <CardTitle>{t('Add Member')}</CardTitle>
+                        <CardTitle>{t('Edit Member')}</CardTitle>
                         <CardDescription>
-                            {t('Add a new member to the library')}
+                            {t('Edit the member of the library')}
                         </CardDescription>
                     </div>
                 </CardHeader>
 
                 <CardContent>
-                    <Form type="create" initialData={initialData} />
+                    <Form
+                        type="edit"
+                        initialData={member}
+                        memberId={member.id}
+                    />
                 </CardContent>
             </Card>
         </AdminLayout>

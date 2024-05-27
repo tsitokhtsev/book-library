@@ -56,7 +56,10 @@ class MemberController extends Controller
 
         return redirect()
             ->route('admin.members.index')
-            ->with('success', 'Member created successfully! An email has been sent to the member with their password.');
+            ->with('success', __(
+                'Member created successfully! An email has been sent to :name (:email) with the password.',
+                ['name' => $member->first_name . ' ' . $member->last_name, 'email' => $member->email]
+            ));
     }
 
     /**
@@ -72,7 +75,9 @@ class MemberController extends Controller
      */
     public function edit(User $member)
     {
-        //
+        return Inertia::render('Admin/Members/Edit', [
+            'member' => $member,
+        ]);
     }
 
     /**
@@ -80,7 +85,22 @@ class MemberController extends Controller
      */
     public function update(Request $request, User $member)
     {
-        //
+        $member->update(
+            $request->validate([
+                'first_name' => 'required|string|max:255',
+                'last_name' => 'required|string|max:255',
+                'email' => 'required|email|unique:users,email,' . $member->id,
+                'phone_number' => 'required|digits:9|unique:users,phone_number,' . $member->id,
+                'personal_number' => 'required|digits:11|unique:users,personal_number,' . $member->id,
+            ])
+        );
+
+        return redirect()
+            ->route('admin.members.index')
+            ->with('success', __(
+                'The profile of :name (:email) has been updated successfully!',
+                ['name' => $member->first_name . ' ' . $member->last_name, 'email' => $member->email]
+            ));
     }
 
     /**
@@ -88,12 +108,13 @@ class MemberController extends Controller
      */
     public function destroy(User $member): RedirectResponse
     {
-        $this->authorize('delete', $member);
-
         $member->delete();
 
         return redirect()
             ->route('admin.members.index')
-            ->with('success', 'Member deleted successfully!');
+            ->with('success', __(
+                'The member :name (:email) has been deleted successfully!',
+                ['name' => $member->first_name . ' ' . $member->last_name, 'email' => $member->email]
+            ));
     }
 }
