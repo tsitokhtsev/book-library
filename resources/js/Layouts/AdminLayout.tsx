@@ -53,7 +53,7 @@ export default function Admin({ children }: PropsWithChildren) {
             <div className="container mt-8">
                 {(success || error) && (
                     <Alert
-                        variant={error ? 'destructive' : 'default'}
+                        variant={error ? 'destructive' : 'success'}
                         className="mb-8"
                     >
                         <AlertTitle>{t(success || error)}</AlertTitle>
