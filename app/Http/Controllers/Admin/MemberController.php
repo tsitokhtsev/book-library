@@ -57,8 +57,8 @@ class MemberController extends Controller
         return redirect()
             ->route('admin.members.index')
             ->with('success', __(
-                'Member created successfully! An email has been sent to :name (:email) with the password.',
-                ['name' => $member->first_name . ' ' . $member->last_name, 'email' => $member->email]
+                'Member created successfully! An email has been sent to :name with the password.',
+                ['name' => $member->first_name . ' ' . $member->last_name]
             ));
     }
 
@@ -98,8 +98,8 @@ class MemberController extends Controller
         return redirect()
             ->route('admin.members.index')
             ->with('success', __(
-                'The profile of :name (:email) has been updated successfully!',
-                ['name' => $member->first_name . ' ' . $member->last_name, 'email' => $member->email]
+                'The profile of :name has been updated successfully!',
+                ['name' => $member->first_name . ' ' . $member->last_name]
             ));
     }
 
@@ -113,8 +113,8 @@ class MemberController extends Controller
         return redirect()
             ->route('admin.members.index')
             ->with('success', __(
-                'The member :name (:email) has been deleted successfully!',
-                ['name' => $member->first_name . ' ' . $member->last_name, 'email' => $member->email]
+                'The member :name has been deleted successfully!',
+                ['name' => $member->first_name . ' ' . $member->last_name]
             ));
     }
 }
