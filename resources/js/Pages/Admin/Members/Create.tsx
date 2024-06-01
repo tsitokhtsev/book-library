@@ -27,13 +27,11 @@ export default function Create() {
             <Head title={t('Add Member')} />
 
             <Card>
-                <CardHeader className="flex-row justify-between space-y-0">
-                    <div>
-                        <CardTitle>{t('Add Member')}</CardTitle>
-                        <CardDescription>
-                            {t('Add a new member to the library')}
-                        </CardDescription>
-                    </div>
+                <CardHeader>
+                    <CardTitle>{t('Add Member')}</CardTitle>
+                    <CardDescription>
+                        {t('Add a new member to the library')}
+                    </CardDescription>
                 </CardHeader>
 
                 <CardContent>

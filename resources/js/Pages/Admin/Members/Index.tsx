@@ -22,20 +22,20 @@ export default function Index({ members }: { members: Member[] }) {
             <Head title={t('Members')} />
 
             <Card>
-                <CardHeader className="flex-row justify-between space-y-0">
-                    <div>
+                <div className="flex flex-col justify-between sm:flex-row">
+                    <CardHeader>
                         <CardTitle>{t('Members')}</CardTitle>
                         <CardDescription>
                             {t('View and manage members of the library')}
                         </CardDescription>
-                    </div>
+                    </CardHeader>
 
-                    <Button asChild>
+                    <Button className="mx-6 sm:m-6" asChild>
                         <Link href={route('admin.members.create')}>
                             {t('Add Member')}
                         </Link>
                     </Button>
-                </CardHeader>
+                </div>
 
                 <CardContent>
                     <DataTable columns={columns} data={members} />

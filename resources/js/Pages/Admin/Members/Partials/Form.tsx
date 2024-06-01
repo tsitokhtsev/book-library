@@ -1,4 +1,4 @@
-import { useForm } from '@inertiajs/react';
+import { Link, useForm } from '@inertiajs/react';
 import { useLaravelReactI18n } from 'laravel-react-i18n';
 import { FormEventHandler } from 'react';
 
@@ -7,11 +7,6 @@ import { Input } from '@/Components/Input';
 import { InputError } from '@/Components/InputError';
 import { Label } from '@/Components/Label';
 import { FormType, MemberForm } from '@/types';
-
-const submitButtonText = {
-    create: 'Add',
-    edit: 'Save',
-};
 
 export default function Form({
     type,
@@ -40,6 +35,11 @@ export default function Form({
                 break;
         }
     };
+
+    const submitButtonText = {
+        create: 'Add',
+        edit: 'Save',
+    }[type];
 
     return (
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
@@ -106,9 +106,14 @@ export default function Form({
                 </div>
             </div>
 
-            <Button type="submit" disabled={processing} className="self-end">
-                {t(submitButtonText[type])}
-            </Button>
+            <div className="flex justify-between">
+                <Button variant="ghost" asChild>
+                    <Link href={route('admin.members.index')}>{t('Back')}</Link>
+                </Button>
+                <Button type="submit" disabled={processing}>
+                    {t(submitButtonText)}
+                </Button>
+            </div>
         </form>
     );
 }

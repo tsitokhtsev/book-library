@@ -20,13 +20,11 @@ export default function Edit({ member }: { member: Member }) {
             <Head title={t('Edit Member')} />
 
             <Card>
-                <CardHeader className="flex-row justify-between space-y-0">
-                    <div>
-                        <CardTitle>{t('Edit Member')}</CardTitle>
-                        <CardDescription>
-                            {t('Edit the member of the library')}
-                        </CardDescription>
-                    </div>
+                <CardHeader>
+                    <CardTitle>{t('Edit Member')}</CardTitle>
+                    <CardDescription>
+                        {t('Edit the member of the library')}
+                    </CardDescription>
                 </CardHeader>
 
                 <CardContent>
