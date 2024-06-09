@@ -15,7 +15,7 @@ import { useLaravelReactI18n } from 'laravel-react-i18n';
 import * as React from 'react';
 
 import { Button } from '@/Components/Button';
-import { Input } from '@/Components/input';
+import { Input } from '@/Components/Input';
 import {
     Table,
     TableBody,
@@ -23,8 +23,8 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from '@/Components/table';
-import { BookProps } from '@/Pages/Books/Index';
+} from '@/Components/Table';
+import { BookProps } from '@/Pages/Admin/Books/Index';
 
 import columns from './columns';
 

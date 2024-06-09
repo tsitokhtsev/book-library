@@ -13,3 +13,8 @@ export type PageProps<
         user: User;
     };
 };
+
+export type SelectOption = {
+    id: number;
+    name: string;
+};

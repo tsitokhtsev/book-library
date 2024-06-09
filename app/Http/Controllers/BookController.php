@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SaveBookRequest;
+use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Models\Author;
 use App\Models\Book;
@@ -25,55 +25,53 @@ class BookController extends Controller
     /**
      * @param BookService $bookService
      */
-    public function __construct(public BookService $bookService){}
+    public function __construct(
+        public BookService $bookService
+    ) {}
 
     /**
-     * @param Request $request
-     *
      * @return Response
      */
-    public function index(Request $request) {
-        return Inertia::render('Books/Index', [
-            'props' => Book::with('language')->simplePaginate(10)
+    public function index(): Response
+    {
+        return Inertia::render('Admin/Books/Index', [
+            'books' => Book::with('language')->simplePaginate(10),
         ]);
     }
 
     /**
-     * @param Request $request
-     *
      * @return Response
      */
-    public function add(Request $request) {
-        return Inertia::render('Books/Add',[
+    public function create(): Response
+    {
+        return Inertia::render('Admin/Books/Create', [
             'languages' => Language::all(),
             'genres' => Genre::get(['id', 'name']),
             'authors' => Author::get(['id', 'name']),
-            'branches' => Branch::get(['id', 'name']),
-            'conditions' => Condition::get(['id', 'name']),
-            'statuses' => Status::get(['id', 'name']),
         ]);
     }
 
     /**
-     * @param SaveBookRequest $request
+     * @param StoreBookRequest $request
      *
      * @return RedirectResponse
      */
-    public function save(SaveBookRequest $request) {
-        $validated = $request->validated();
-
-        DB::beginTransaction();
+    public function store(StoreBookRequest $request): RedirectResponse
+    {
+        $data = $request->validated();
 
         try {
-            $this->bookService->createBook($validated);
-            DB::commit();
+            $this->bookService->createBook($data);
 
-            return to_route('admin.books');
+            return redirect()
+                ->route('admin.books.index')
+                ->with('success', 'Book created successfully!');
         } catch (Exception $e) {
-            DB::rollback();
             Log::error($e);
 
-            return redirect()->back()->with('error', 'Failed to save the book. Please try again.');
+            return redirect()
+                ->back()
+                ->with('error', 'Failed to create the book. Please try again.');
         }
     }
 
@@ -82,8 +80,9 @@ class BookController extends Controller
      *
      * @return Response
      */
-    public function show(Request $request) {
-        return Inertia::render('Books/Edit',[
+    public function show(Request $request)
+    {
+        return Inertia::render('Books/Edit', [
             'languages' => Language::all(),
             'genres' => Genre::get(['id', 'name']),
             'authors' => Author::get(['id', 'name']),
@@ -93,7 +92,7 @@ class BookController extends Controller
             'book' => Book::where('isbn', $request->route()->parameter('isbn'))
                 ->with('bookCopies', 'bookCopies.branch', 'bookCopies.condition', 'bookCopies.status')
                 ->with('genres')->with('authors')->with('language')
-                ->first()
+                ->first(),
         ]);
     }
 
@@ -102,7 +101,8 @@ class BookController extends Controller
      *
      * @return RedirectResponse
      */
-    public function update(UpdateBookRequest $request) {
+    public function update(UpdateBookRequest $request)
+    {
         $validated = $request->validated();
 
         DB::beginTransaction();
@@ -111,7 +111,7 @@ class BookController extends Controller
             $this->bookService->updateBook($validated, $request->get('id'));
             DB::commit();
 
-            return to_route('admin.books');
+            return to_route('admin.books.index');
         } catch (Exception $e) {
             DB::rollback();
             Log::error($e);
@@ -125,10 +125,11 @@ class BookController extends Controller
      *
      * @return RedirectResponse
      */
-    public function massDelete(Request $request) {
+    public function massDelete(Request $request)
+    {
         Book::whereIn('isbn', $request->get('isbns'))->delete();
 
-        return to_route('admin.books');
+        return to_route('admin.books.index');
     }
 
     /**
@@ -136,9 +137,10 @@ class BookController extends Controller
      *
      * @return RedirectResponse
      */
-    public function destroy(Request $request) {
+    public function destroy(Request $request)
+    {
         Book::where('isbn', $request->get('isbn'))->first()->delete();
 
-        return to_route('admin.books');
+        return to_route('admin.books.index');
     }
 }
