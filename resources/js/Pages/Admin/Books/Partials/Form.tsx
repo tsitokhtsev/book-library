@@ -47,7 +47,7 @@ export default function Form({
                 post(route('admin.books.store'));
                 break;
             case FormType.Edit:
-                put(route('admin.books.edit', bookId));
+                put(route('admin.books.update', bookId));
                 break;
             default:
                 break;

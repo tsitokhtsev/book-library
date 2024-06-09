@@ -76,23 +76,41 @@ class BookController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param Book $book
      *
      * @return Response
      */
-    public function show(Request $request)
+    public function show(Book $book): Response
     {
-        return Inertia::render('Books/Edit', [
-            'languages' => Language::all(),
+        return Inertia::render('Admin/Books/Show', [
+            'book' => $book->load('language', 'genres', 'authors'),
+            'book_copies' => $book->bookCopies()
+                ->with('branch', 'condition', 'status')
+                ->get(),
+            'branches' => Branch::get(['id', 'name']),
+            'statuses' => Status::get(['id', 'name']),
+            'conditions' => Condition::get(['id', 'name']),
+        ]);
+    }
+
+    /**
+     * @param Book $book
+     *
+     * @return Response
+     */
+    public function edit(Book $book): Response
+    {
+        return Inertia::render('Admin/Books/Edit', [
+            'book_id' => $book->id,
+            'book' => [
+                ...$book->toArray(),
+                'language' => $book->language_id,
+                'genres' => $book->genres->pluck('id'),
+                'authors' => $book->authors->pluck('id'),
+            ],
+            'languages' => Language::get(['id', 'name']),
             'genres' => Genre::get(['id', 'name']),
             'authors' => Author::get(['id', 'name']),
-            'branches' => Branch::get(['id', 'name']),
-            'conditions' => Condition::get(['id', 'name']),
-            'statuses' => Status::get(['id', 'name']),
-            'book' => Book::where('isbn', $request->route()->parameter('isbn'))
-                ->with('bookCopies', 'bookCopies.branch', 'bookCopies.condition', 'bookCopies.status')
-                ->with('genres')->with('authors')->with('language')
-                ->first(),
         ]);
     }
 

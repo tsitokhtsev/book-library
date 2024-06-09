@@ -14,15 +14,13 @@ Route::prefix('admin')
         })->name('dashboard');
 
         Route::resource('books', BookController::class)
-            ->only(['index', 'create', 'store']);
+            ->only(['index', 'create', 'store', 'show', 'edit']);
 
         Route::controller(BookController::class)->group(function () {
             Route::post('/books/delete', 'destroy')->name('books.delete');
 
-            Route::post('/books/edit', 'update')->name('books.edit');
+            Route::post('/books/edit', 'update')->name('books.update');
             Route::post('/books/massDelete', 'massDelete')->name('books.massDelete');
-
-            Route::get('/books/show/{isbn}', 'show')->name('books.show');
         });
 
         Route::controller(BookCopyController::class)->group(function () {

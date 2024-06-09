@@ -1,14 +1,14 @@
-export type FlashType = {
-    error: string;
-    success: string;
-};
-
 export type Book = {
+    id: number;
     title: string;
     is_enabled: boolean;
     isbn: string;
+    description?: string;
+    cover_image?: string;
+    publication_date: string;
     language: { id: number; name: string };
-    publication_date: Date;
+    genres: { id: number; name: string }[];
+    authors: { id: number; name: string }[];
 };
 
 export type SelectOption = {
@@ -24,8 +24,3 @@ export type BookCopy = {
     code: string;
     status: SelectOption;
 };
-
-export enum FormType {
-    ADD,
-    EDIT,
-}
