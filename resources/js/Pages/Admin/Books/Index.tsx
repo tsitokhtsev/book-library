@@ -9,19 +9,12 @@ import {
     CardHeader,
     CardTitle,
 } from '@/Components/Card';
+import { DataTable } from '@/Components/DataTable';
 import AdminLayout from '@/Layouts/AdminLayout';
-import BookDataTable from '@/Layouts/Partials/DataTables/BookDataTable';
-import { Book } from '@/utils/types';
+import { columns } from '@/Pages/Admin/Books/Partials/columns';
+import { Book } from '@/types/model';
 
-export type BookProps = {
-    data: Book[];
-    prev_page_url: string;
-    next_page_url: string;
-    current_index: number;
-    per_page: number;
-};
-
-export default function Index({ books }: { books: BookProps }) {
+export default function Index({ books }: { books: Book[] }) {
     const { t } = useLaravelReactI18n();
 
     return (
@@ -45,7 +38,12 @@ export default function Index({ books }: { books: BookProps }) {
                 </div>
 
                 <CardContent>
-                    <BookDataTable props={books} />
+                    <DataTable
+                        data={books}
+                        columns={columns}
+                        filterBy="title"
+                        massDeleteRoute="admin.books.massDelete"
+                    />
                 </CardContent>
             </Card>
         </AdminLayout>

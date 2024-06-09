@@ -35,7 +35,7 @@ class BookController extends Controller
     public function index(): Response
     {
         return Inertia::render('Admin/Books/Index', [
-            'books' => Book::with('language')->simplePaginate(10),
+            'books' => Book::with('language')->get(),
         ]);
     }
 
@@ -145,7 +145,7 @@ class BookController extends Controller
      */
     public function massDelete(Request $request)
     {
-        Book::whereIn('isbn', $request->get('isbns'))->delete();
+        Book::whereIn('isbn', $request->get('ids'))->delete();
 
         return to_route('admin.books.index');
     }

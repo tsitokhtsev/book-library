@@ -1,3 +1,5 @@
+import { SelectOption } from '@/types';
+
 export type Book = {
     id: number;
     title: string;
@@ -10,13 +12,6 @@ export type Book = {
     genres: { id: number; name: string }[];
     authors: { id: number; name: string }[];
 };
-
-export type SelectOption = {
-    id: number;
-    name: string;
-};
-
-export type SelectOptions = SelectOption[];
 
 export type BookCopy = {
     condition: SelectOption;

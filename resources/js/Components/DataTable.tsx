@@ -1,13 +1,13 @@
-'use client';
-
 import { router } from '@inertiajs/react';
 import {
+    ColumnDef,
     ColumnFiltersState,
     SortingState,
     VisibilityState,
     flexRender,
     getCoreRowModel,
     getFilteredRowModel,
+    getPaginationRowModel,
     getSortedRowModel,
     useReactTable,
 } from '@tanstack/react-table';
@@ -15,6 +15,8 @@ import { useLaravelReactI18n } from 'laravel-react-i18n';
 import * as React from 'react';
 
 import { Button } from '@/Components/Button';
+import { DataTablePagination } from '@/Components/DataTablePagination';
+import { DataTableViewOptions } from '@/Components/DataTableViewOptions';
 import { Input } from '@/Components/Input';
 import {
     Table,
@@ -24,11 +26,21 @@ import {
     TableHeader,
     TableRow,
 } from '@/Components/Table';
-import { BookProps } from '@/Pages/Admin/Books/Index';
 
-import columns from './columns';
+interface DataTableProps<TData extends { id?: number }, TValue> {
+    columns: ColumnDef<TData, TValue>[];
+    data: TData[];
+}
 
-export function BookDataTable({ props }: { props: BookProps }) {
+export function DataTable<TData extends { id?: number }, TValue>({
+    columns,
+    data,
+    filterBy,
+    massDeleteRoute,
+}: DataTableProps<TData, TValue> & {
+    filterBy: string;
+    massDeleteRoute?: string;
+}) {
     const { t } = useLaravelReactI18n();
 
     const [sorting, setSorting] = React.useState<SortingState>([]);
@@ -38,15 +50,14 @@ export function BookDataTable({ props }: { props: BookProps }) {
         React.useState<VisibilityState>({});
     const [rowSelection, setRowSelection] = React.useState({});
 
-    const data = props.data;
-
     const table = useReactTable({
         data,
         columns,
-        onSortingChange: setSorting,
-        onColumnFiltersChange: setColumnFilters,
         getCoreRowModel: getCoreRowModel(),
+        getPaginationRowModel: getPaginationRowModel(),
+        onSortingChange: setSorting,
         getSortedRowModel: getSortedRowModel(),
+        onColumnFiltersChange: setColumnFilters,
         getFilteredRowModel: getFilteredRowModel(),
         onColumnVisibilityChange: setColumnVisibility,
         onRowSelectionChange: setRowSelection,
@@ -58,39 +69,42 @@ export function BookDataTable({ props }: { props: BookProps }) {
         },
     });
 
-    const massDeleteBooks = () => {
-        const books = table
+    const handleMassDelete = () => {
+        const ids = table
             .getSelectedRowModel()
-            .rows.map((obj) => obj.original.isbn);
+            .rows.map((obj) => obj.original.id);
 
-        router.post(route('admin.books.massDelete', { isbns: books }));
+        router.post(massDeleteRoute!, { ids });
     };
 
     return (
-        <div className="mt-2 w-full">
-            <Button
-                className="bg-red-400"
-                disabled={table.getSelectedRowModel().rows.length === 0}
-                onClick={massDeleteBooks}
-            >
-                {t('Delete Selected')} {table.getSelectedRowModel().rows.length}
-            </Button>
-            <div className="flex items-center py-4">
+        <div>
+            <div className="flex items-center gap-2 py-4">
                 <Input
-                    placeholder={t('Filter Books') + '...'}
+                    placeholder={t('Start searching...')}
                     value={
                         (table
-                            .getColumn('title')
+                            .getColumn(filterBy)
                             ?.getFilterValue() as string) ?? ''
                     }
                     onChange={(event) =>
                         table
-                            .getColumn('title')
+                            .getColumn(filterBy)
                             ?.setFilterValue(event.target.value)
                     }
                     className="max-w-sm"
                 />
+
+                <DataTableViewOptions table={table} />
+
+                {table.getSelectedRowModel().rows.length > 0 && (
+                    <Button variant="destructive" onClick={handleMassDelete}>
+                        {t('Delete')} ({table.getSelectedRowModel().rows.length}
+                        )
+                    </Button>
+                )}
             </div>
+
             <div className="rounded-md border">
                 <Table>
                     <TableHeader>
@@ -137,42 +151,17 @@ export function BookDataTable({ props }: { props: BookProps }) {
                                     colSpan={columns.length}
                                     className="h-24 text-center"
                                 >
-                                    {t('No Results')}.
+                                    {t('No results')}
                                 </TableCell>
                             </TableRow>
                         )}
                     </TableBody>
                 </Table>
             </div>
-            <div className="flex items-center justify-end space-x-2 py-4">
-                <div className="flex-1 text-sm text-muted-foreground">
-                    {t(':selected of :total row(s) selected', {
-                        selected:
-                            table.getFilteredSelectedRowModel().rows.length,
-                        total: table.getFilteredRowModel().rows.length,
-                    })}
-                </div>
-                <div className="space-x-2">
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => router.visit(props.prev_page_url)}
-                        disabled={props.prev_page_url === null}
-                    >
-                        {t('Previous')}
-                    </Button>
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => router.visit(props.next_page_url)}
-                        disabled={props.next_page_url === null}
-                    >
-                        {t('Next')}
-                    </Button>
-                </div>
+
+            <div className="pt-4">
+                <DataTablePagination table={table} />
             </div>
         </div>
     );
 }
-
-export default BookDataTable;
