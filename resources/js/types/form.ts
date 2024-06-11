@@ -6,10 +6,10 @@ export enum FormType {
 export type BookForm = {
     title: string;
     isbn: string;
-    description: string;
+    description: string | null;
     cover_image: string;
     publication_date: string;
-    language: number | null;
+    language_id: number | null;
     genres: number[];
     authors: number[];
 };

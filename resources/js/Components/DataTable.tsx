@@ -14,6 +14,17 @@ import {
 import { useLaravelReactI18n } from 'laravel-react-i18n';
 import * as React from 'react';
 
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from '@/Components/AlertDialog';
 import { Button } from '@/Components/Button';
 import { DataTablePagination } from '@/Components/DataTablePagination';
 import { DataTableViewOptions } from '@/Components/DataTableViewOptions';
@@ -74,7 +85,8 @@ export function DataTable<TData extends { id?: number }, TValue>({
             .getSelectedRowModel()
             .rows.map((obj) => obj.original.id);
 
-        router.post(massDeleteRoute!, { ids });
+        router.post(route(massDeleteRoute!), { ids });
+        table.resetRowSelection();
     };
 
     return (
@@ -98,10 +110,44 @@ export function DataTable<TData extends { id?: number }, TValue>({
                 <DataTableViewOptions table={table} />
 
                 {table.getSelectedRowModel().rows.length > 0 && (
-                    <Button variant="destructive" onClick={handleMassDelete}>
-                        {t('Delete')} ({table.getSelectedRowModel().rows.length}
-                        )
-                    </Button>
+                    <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                            <Button variant="destructive">
+                                {t('Delete')} (
+                                {table.getSelectedRowModel().rows.length})
+                            </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                            <AlertDialogHeader>
+                                <AlertDialogTitle>
+                                    {t('Delete rows')}
+                                </AlertDialogTitle>
+                                <AlertDialogDescription>
+                                    {t(
+                                        'Are you sure you want to delete :count row(s)? This action cannot be undone.',
+                                        {
+                                            count: table.getSelectedRowModel()
+                                                .rows.length,
+                                        },
+                                    )}
+                                </AlertDialogDescription>
+                            </AlertDialogHeader>
+
+                            <AlertDialogFooter>
+                                <AlertDialogCancel>
+                                    {t('Cancel')}
+                                </AlertDialogCancel>
+                                <AlertDialogAction
+                                    variant="destructive"
+                                    asChild
+                                >
+                                    <Button onClick={handleMassDelete}>
+                                        {t('Delete')}
+                                    </Button>
+                                </AlertDialogAction>
+                            </AlertDialogFooter>
+                        </AlertDialogContent>
+                    </AlertDialog>
                 )}
             </div>
 

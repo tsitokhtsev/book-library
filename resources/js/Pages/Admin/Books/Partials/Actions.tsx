@@ -60,9 +60,7 @@ export default function Actions({ book }: { book: Book }) {
                 <AlertDialogTrigger asChild>Delete</AlertDialogTrigger>
                 <AlertDialogContent>
                     <AlertDialogHeader>
-                        <AlertDialogTitle>
-                            {t('Delete member')}
-                        </AlertDialogTitle>
+                        <AlertDialogTitle>{t('Delete book')}</AlertDialogTitle>
                         <AlertDialogDescription>
                             {t(
                                 'Are you sure you want to delete this book? This action cannot be undone.',
@@ -74,7 +72,7 @@ export default function Actions({ book }: { book: Book }) {
                         <AlertDialogCancel>{t('Cancel')}</AlertDialogCancel>
                         <AlertDialogAction variant="destructive" asChild>
                             <Link
-                                href={route('admin.books.delete', book.id)}
+                                href={route('admin.books.destroy', book.id)}
                                 as="button"
                                 method="delete"
                                 preserveScroll

@@ -19,7 +19,7 @@ const initialData = {
     description: '',
     cover_image: '',
     publication_date: '',
-    language: null,
+    language_id: null,
     genres: [],
     authors: [],
 };

@@ -13,15 +13,9 @@ Route::prefix('admin')
             return Inertia::render('Admin/Dashboard');
         })->name('dashboard');
 
-        Route::resource('books', BookController::class)
-            ->only(['index', 'create', 'store', 'show', 'edit']);
-
-        Route::controller(BookController::class)->group(function () {
-            Route::post('/books/delete', 'destroy')->name('books.delete');
-
-            Route::post('/books/edit', 'update')->name('books.update');
-            Route::post('/books/massDelete', 'massDelete')->name('books.massDelete');
-        });
+        Route::resource('books', BookController::class);
+        Route::post('/books/massDelete', [BookController::class, 'massDelete'])
+            ->name('books.massDelete');
 
         Route::controller(BookCopyController::class)->group(function () {
             Route::post('/book/edit/{code}', 'update')->name('book.edit');

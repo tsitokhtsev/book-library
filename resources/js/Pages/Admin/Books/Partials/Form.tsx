@@ -87,7 +87,7 @@ export default function Form({
                 <div className="grid gap-2 sm:col-span-2">
                     <Label htmlFor="description">{t('Description')}</Label>
                     <Textarea
-                        value={data.description}
+                        value={data.description || ''}
                         onChange={(e) => setData('description', e.target.value)}
                         id="description"
                         className="resize-none"
@@ -96,14 +96,14 @@ export default function Form({
                 </div>
 
                 <div className="grid gap-2">
-                    <Label htmlFor="language">{t('Language')}</Label>
+                    <Label htmlFor="language_id">{t('Language')}</Label>
                     <Select
-                        value={data.language?.toString() || ''}
+                        value={data.language_id?.toString() || ''}
                         onValueChange={(value) => {
                             const language = languages.find(
                                 (language) => language.id === parseInt(value),
                             );
-                            setData('language', language?.id || null);
+                            setData('language_id', language?.id || null);
                         }}
                     >
                         <SelectTrigger>
@@ -120,7 +120,7 @@ export default function Form({
                             ))}
                         </SelectContent>
                     </Select>
-                    <InputError message={errors.language} />
+                    <InputError message={errors.language_id} />
                 </div>
 
                 <div className="grid gap-2">

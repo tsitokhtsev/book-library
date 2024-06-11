@@ -2,11 +2,8 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Book;
-use App\Rules\UniqueBookCopyCodeRule;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class UpdateBookRequest extends FormRequest
 {
@@ -26,14 +23,15 @@ class UpdateBookRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|max:255',
-            'isbn' => ['required', 'max:255', Rule::unique(Book::class)->ignore($this->request->get('id'))],
-            'description' => 'max:455',
-            'language' => 'required',
+            'title' => 'required|string|max:255',
+            'isbn' => 'required|string|max:255|unique:books,isbn,' . $this->route('book'),
+            'description' => 'nullable|string|max:255',
             'publication_date' => 'required|date',
-            'genres' => 'array|required',
-            'authors' => 'array|required',
-            'book_copies' => [new UniqueBookCopyCodeRule],
+            'language_id' => 'required|integer',
+            'genres' => 'required|array',
+            'genres.*' => 'integer|exists:genres,id',
+            'authors' => 'required|array',
+            'authors.*' => 'integer|exists:authors,id',
         ];
     }
 }

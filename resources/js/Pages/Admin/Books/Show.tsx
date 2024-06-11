@@ -14,7 +14,7 @@ import { H4 } from '@/Components/Typography/H4';
 import AdminLayout from '@/Layouts/AdminLayout';
 import BookCopyDataTable from '@/Layouts/Partials/DataTables/BookCopyDataTable';
 import { SelectOption } from '@/types';
-import { Book } from '@/utils/types';
+import { Book } from '@/types/model';
 
 export default function Show({
     book,
@@ -86,10 +86,12 @@ export default function Show({
                         </p>
                     </div>
 
-                    <section>
-                        <H4>{t('Description')}</H4>
-                        <p>{book.description}</p>
-                    </section>
+                    {book.description && (
+                        <section>
+                            <H4>{t('Description')}</H4>
+                            <p>{book.description}</p>
+                        </section>
+                    )}
 
                     <section>
                         <H4>{t('Book Copies')}</H4>

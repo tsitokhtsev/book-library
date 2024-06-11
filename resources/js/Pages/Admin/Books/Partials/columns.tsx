@@ -53,6 +53,12 @@ export const columns: ColumnDef<Book>[] = [
         cell: ({ row }) => (
             <div>{row.getValue<SelectOption>('language').name}</div>
         ),
+        sortingFn: (rowA, rowB) => {
+            const languageA = rowA.original.language.name;
+            const languageB = rowB.original.language.name;
+
+            return languageA.localeCompare(languageB);
+        }
     },
     {
         accessorKey: 'publication_date',
