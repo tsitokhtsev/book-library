@@ -20,7 +20,7 @@ import { getParsedDate } from '@/lib/utils';
 import { SelectOption } from '@/types';
 import { BookForm, FormType } from '@/types/form';
 
-export default function Form({
+export function Form({
     type,
     initialData,
     bookId,

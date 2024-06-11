@@ -1,3 +1,5 @@
+import { RowData } from '@tanstack/react-table';
+
 export interface User {
     id: number;
     name: string;
@@ -19,4 +21,10 @@ export type SelectOption = {
     name: string;
 };
 
-export type SelectOptions = SelectOption[];
+declare module '@tanstack/table-core' {
+    interface TableMeta<TData extends RowData> {
+        conditions: SelectOption[];
+        branches: SelectOption[];
+        statuses: SelectOption[];
+    }
+}

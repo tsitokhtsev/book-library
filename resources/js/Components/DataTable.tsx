@@ -3,6 +3,7 @@ import {
     ColumnDef,
     ColumnFiltersState,
     SortingState,
+    TableMeta,
     VisibilityState,
     flexRender,
     getCoreRowModel,
@@ -48,9 +49,11 @@ export function DataTable<TData extends { id?: number }, TValue>({
     data,
     filterBy,
     massDeleteRoute,
+    meta,
 }: DataTableProps<TData, TValue> & {
     filterBy: string;
     massDeleteRoute?: string;
+    meta?: TableMeta<TData>;
 }) {
     const { t } = useLaravelReactI18n();
 
@@ -78,6 +81,7 @@ export function DataTable<TData extends { id?: number }, TValue>({
             columnVisibility,
             rowSelection,
         },
+        meta,
     });
 
     const handleMassDelete = () => {

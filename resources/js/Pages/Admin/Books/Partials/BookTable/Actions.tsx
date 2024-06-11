@@ -12,7 +12,6 @@ import {
     AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
-    AlertDialogTrigger,
 } from '@/Components/AlertDialog';
 import { Button } from '@/Components/Button';
 import {
@@ -23,7 +22,7 @@ import {
 } from '@/Components/DropdownMenu';
 import { Book } from '@/types/model';
 
-export default function Actions({ book }: { book: Book }) {
+export function Actions({ book }: { book: Book }) {
     const { t } = useLaravelReactI18n();
 
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -57,7 +56,6 @@ export default function Actions({ book }: { book: Book }) {
                 open={isDeleteDialogOpen}
                 onOpenChange={setIsDeleteDialogOpen}
             >
-                <AlertDialogTrigger asChild>Delete</AlertDialogTrigger>
                 <AlertDialogContent>
                     <AlertDialogHeader>
                         <AlertDialogTitle>{t('Delete book')}</AlertDialogTitle>

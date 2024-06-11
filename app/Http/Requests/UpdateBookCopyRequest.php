@@ -2,9 +2,8 @@
 
 namespace App\Http\Requests;
 
-use App\Models\BookCopy;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class UpdateBookCopyRequest extends FormRequest
 {
@@ -19,15 +18,15 @@ class UpdateBookCopyRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array|string>
      */
     public function rules(): array
     {
         return [
-            'code' => ['required', 'max:255', Rule::unique(BookCopy::class)->ignore($this->request->get('id'))],
-            'branch.name' => 'required|string|exists:branches,name',
-            'condition.name' => 'required|string|exists:conditions,name',
-            'status.name' => 'required|string|exists:statuses,name',
+            'code' => 'required|string|max:255|unique:book_copies,code,' . $this->route('book_copy'),
+            'branch_id' => 'required|integer|exists:branches,id',
+            'status_id' => 'required|integer|exists:statuses,id',
+            'condition_id' => 'required|integer|exists:conditions,id',
         ];
     }
 }

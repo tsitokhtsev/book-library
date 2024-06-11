@@ -3,7 +3,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { Checkbox } from '@/Components/Checkbox';
 import { DataTableColumnHeader } from '@/Components/DataTableColumnHeader';
 import { IsEnabledBadge } from '@/Components/IsEnabledBadge';
-import Actions from '@/Pages/Admin/Books/Partials/Actions';
+import { Actions } from '@/Pages/Admin/Books/Partials/BookTable/Actions';
 import { SelectOption } from '@/types';
 import { Book } from '@/types/model';
 
@@ -38,7 +38,7 @@ export const columns: ColumnDef<Book>[] = [
     },
     {
         accessorKey: 'is_enabled',
-        header: 'Status',
+        header: ({ column }) => <DataTableColumnHeader column={column} />,
         cell: ({ row }) => (
             <IsEnabledBadge isEnabled={row.getValue('is_enabled')} />
         ),
@@ -50,24 +50,19 @@ export const columns: ColumnDef<Book>[] = [
     {
         accessorKey: 'language',
         header: ({ column }) => <DataTableColumnHeader column={column} />,
-        cell: ({ row }) => (
-            <div>{row.getValue<SelectOption>('language').name}</div>
-        ),
+        cell: ({ row }) => row.getValue<SelectOption>('language').name,
         sortingFn: (rowA, rowB) => {
             const languageA = rowA.original.language.name;
             const languageB = rowB.original.language.name;
-
             return languageA.localeCompare(languageB);
-        }
+        },
     },
     {
         accessorKey: 'publication_date',
         header: ({ column }) => <DataTableColumnHeader column={column} />,
         cell: ({ row }) => {
             const date = row.getValue('publication_date') as string;
-            const formatted = new Date(date).toLocaleDateString();
-
-            return <div>{formatted}</div>;
+            return new Date(date).toLocaleDateString();
         },
     },
     {

@@ -15,49 +15,46 @@ class BookCopyController extends Controller
     /**
      * @param BookCopyService $bookCopyService
      */
-    public function __construct(public BookCopyService $bookCopyService){}
+    public function __construct(
+        public BookCopyService $bookCopyService
+    ) {}
 
     /**
      * @param UpdateBookCopyRequest $request
      *
      * @return RedirectResponse
      */
-    public function update(UpdateBookCopyRequest $request) {
-        $validated = $request->validated();
+    public function update(UpdateBookCopyRequest $request): RedirectResponse
+    {
+        $data = $request->validated();
+        $id = $request->route('book_copy');
 
         try {
-            $this->bookCopyService->updateBookCopy($validated, $request->route()->parameter('code'));
+            $this->bookCopyService->updateBookCopy($data, $id);
 
-            return redirect()->back()->with('success', 'Updated Successfully');
+            return redirect()
+                ->route('admin.books.show', $request->book_id)
+                ->with('success', __('Book updated successfully!'));
         } catch (Exception $e) {
             Log::error($e);
-            return redirect()->back()->with('error', 'Failed to update the book. Please try again.');
+
+            return redirect()
+                ->back()
+                ->with('error', __('Failed to update the book copy. Please try again.'));
         }
     }
 
     /**
-     * @param Request $request
+     * @param BookCopy $bookCopy
      *
      * @return RedirectResponse
      */
-    public function destroy(Request $request) {
-        try {
-            $bookCopy = BookCopy::where('code', $request->route()->parameter('code'))->first();
+    public function destroy(BookCopy $bookCopy): RedirectResponse
+    {
+        $bookCopy->delete();
 
-            if ($bookCopy) {
-                $book = $bookCopy->book;
-                if ($book->bookCopies()->count() > 1) {
-                    $bookCopy->delete();
-                    return redirect()->back()->with('success', 'Deleted successfully');
-                } else {
-                    return redirect()->back()->with('error', "Cannot delete it because it is the only copy of the book");
-                }
-            } else {
-                return redirect()->back()->with('error', "Book copy not found");
-            }
-        } catch (Exception $e) {
-            Log::error($e);
-            return redirect()->back()->with('error', 'Failed to delete the book. Please try again.');
-        }
+        return redirect()
+            ->route('admin.books.show', $bookCopy->book_id)
+            ->with('success', __('Book copy deleted successfully!'));
     }
 }

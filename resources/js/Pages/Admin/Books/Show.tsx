@@ -10,11 +10,12 @@ import {
     CardHeader,
     CardTitle,
 } from '@/Components/Card';
+import { DataTable } from '@/Components/DataTable';
 import { H4 } from '@/Components/Typography/H4';
 import AdminLayout from '@/Layouts/AdminLayout';
-import BookCopyDataTable from '@/Layouts/Partials/DataTables/BookCopyDataTable';
+import { columns } from '@/Pages/Admin/Books/Partials/BookCopyTable/columns';
 import { SelectOption } from '@/types';
-import { Book } from '@/types/model';
+import { Book, BookCopy } from '@/types/model';
 
 export default function Show({
     book,
@@ -24,7 +25,7 @@ export default function Show({
     statuses,
 }: {
     book: Book;
-    book_copies: any[];
+    book_copies: BookCopy[];
     branches: SelectOption[];
     conditions: SelectOption[];
     statuses: SelectOption[];
@@ -95,12 +96,11 @@ export default function Show({
 
                     <section>
                         <H4>{t('Book Copies')}</H4>
-
-                        <BookCopyDataTable
-                            bookCopies={book_copies}
-                            branches={branches}
-                            conditions={conditions}
-                            statuses={statuses}
+                        <DataTable
+                            data={book_copies}
+                            columns={columns}
+                            filterBy="code"
+                            meta={{ branches, statuses, conditions }}
                         />
                     </section>
                 </CardContent>

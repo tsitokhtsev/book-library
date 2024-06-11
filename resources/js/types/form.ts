@@ -13,3 +13,10 @@ export type BookForm = {
     genres: number[];
     authors: number[];
 };
+
+export type BookCopyForm = {
+    code: string;
+    branch_id: number | null;
+    status_id: number | null;
+    condition_id: number | null;
+};

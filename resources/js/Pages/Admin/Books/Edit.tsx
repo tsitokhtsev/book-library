@@ -9,9 +9,9 @@ import {
     CardTitle,
 } from '@/Components/Card';
 import AdminLayout from '@/Layouts/AdminLayout';
-import Form from '@/Pages/Admin/Books/Partials/Form';
-import { BookForm, FormType } from '@/types/form';
+import { Form } from '@/Pages/Admin/Books/Partials/BookForm';
 import { SelectOption } from '@/types';
+import { BookForm, FormType } from '@/types/form';
 
 export default function Edit({
     book,

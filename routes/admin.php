@@ -17,8 +17,6 @@ Route::prefix('admin')
         Route::post('/books/massDelete', [BookController::class, 'massDelete'])
             ->name('books.massDelete');
 
-        Route::controller(BookCopyController::class)->group(function () {
-            Route::post('/book/edit/{code}', 'update')->name('book.edit');
-            Route::post('/book/delete/{code}', 'destroy')->name('book.delete');
-        });
+        Route::resource('book-copies', BookCopyController::class)
+            ->only(['update', 'destroy']);
     });

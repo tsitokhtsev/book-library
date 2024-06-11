@@ -14,8 +14,12 @@ export type Book = {
 };
 
 export type BookCopy = {
-    condition: SelectOption;
-    branch: SelectOption;
+    id: number;
     code: string;
-    status: SelectOption;
+    branch: { id: number; name: string };
+    branch_id: number;
+    status: { id: number; name: string };
+    status_id: number;
+    condition: { id: number; name: string };
+    condition_id: number;
 };
