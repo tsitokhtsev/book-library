@@ -12,6 +12,19 @@ class Book extends Model
 {
     //    use HasFactory;
 
+    protected $fillable = [
+        'title',
+        'isbn',
+        'description',
+        'image_cover',
+        'language_id',
+        'publication_date'
+    ];
+
+    protected $casts = [
+        'published_at' => 'date',
+    ];
+
     public function language(): BelongsTo
     {
         return $this->belongsTo(Language::class);

@@ -39,6 +39,12 @@ class HandleInertiaRequests extends Middleware
                         'is_admin' => $request->user()->isAdmin(),
                     ],
                 ],
+                'flash' => function () use ($request) {
+                    return [
+                        'error' => $request->session()->get('error'),
+                        'success' => $request->session()->get('success'),
+                    ];
+                },
             ];
         }
 

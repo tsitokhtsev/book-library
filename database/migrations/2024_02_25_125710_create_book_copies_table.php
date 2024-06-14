@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('book_copies', function (Blueprint $table) {
             $table->id();
-            $table->string('code');
+            $table->string('code')->unique();
             $table->foreignId('book_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('branch_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('status_id')->constrained()->onUpdate('cascade');
