@@ -9,7 +9,29 @@ class BookCopyService
 {
     /**
      * @param array $data
-     * @param string $code
+     * @param string $bookId
+     *
+     * @return mixed
+     */
+    public function createBookCopies(array $data, string $bookId): mixed
+    {
+        return DB::transaction(function () use ($data, $bookId) {
+            $bookCopies = [];
+
+            foreach ($data['copies'] as $copy) {
+                $bookCopies[] = BookCopy::create([
+                    ...$copy,
+                    'book_id' => $bookId,
+                ]);
+            }
+
+            return $bookCopies;
+        });
+    }
+
+    /**
+     * @param array $data
+     * @param string $id
      *
      * @return mixed
      */

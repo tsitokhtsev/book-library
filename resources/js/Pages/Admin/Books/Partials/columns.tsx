@@ -1,9 +1,11 @@
+import { Link } from '@inertiajs/react';
 import { ColumnDef } from '@tanstack/react-table';
 
+import { Button } from '@/Components/Button';
 import { Checkbox } from '@/Components/Checkbox';
 import { DataTableColumnHeader } from '@/Components/DataTableColumnHeader';
 import { IsEnabledBadge } from '@/Components/IsEnabledBadge';
-import { Actions } from '@/Pages/Admin/Books/Partials/BookTable/Actions';
+import { Actions } from '@/Pages/Admin/Books/Partials/Actions';
 import { SelectOption } from '@/types';
 import { Book } from '@/types/model';
 
@@ -35,6 +37,13 @@ export const columns: ColumnDef<Book>[] = [
     {
         accessorKey: 'title',
         header: ({ column }) => <DataTableColumnHeader column={column} />,
+        cell: ({ row }) => (
+            <Button variant="link" asChild>
+                <Link href={route('admin.books.show', row.original.id)}>
+                    {row.getValue('title')}
+                </Link>
+            </Button>
+        ),
     },
     {
         accessorKey: 'is_enabled',
@@ -45,7 +54,9 @@ export const columns: ColumnDef<Book>[] = [
     },
     {
         accessorKey: 'isbn',
-        header: ({ column }) => <DataTableColumnHeader column={column} />,
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} label="ISBN" />
+        ),
     },
     {
         accessorKey: 'language',
@@ -59,11 +70,19 @@ export const columns: ColumnDef<Book>[] = [
     },
     {
         accessorKey: 'publication_date',
-        header: ({ column }) => <DataTableColumnHeader column={column} />,
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} label="Published" />
+        ),
         cell: ({ row }) => {
             const date = row.getValue('publication_date') as string;
             return new Date(date).toLocaleDateString();
         },
+    },
+    {
+        accessorKey: 'book_copies_count',
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} label="Copies" />
+        ),
     },
     {
         id: 'actions',

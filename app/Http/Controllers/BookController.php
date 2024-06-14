@@ -34,7 +34,9 @@ class BookController extends Controller
     public function index(): Response
     {
         return Inertia::render('Admin/Books/Index', [
-            'books' => Book::with('language')->get(),
+            'books' => Book::with('language')
+                ->withCount('bookCopies')
+                ->get(),
         ]);
     }
 
@@ -57,10 +59,8 @@ class BookController extends Controller
      */
     public function store(StoreBookRequest $request): RedirectResponse
     {
-        $data = $request->validated();
-
         try {
-            $this->bookService->createBook($data);
+            $this->bookService->createBook($request->validated());
 
             return redirect()
                 ->route('admin.books.index')
@@ -84,8 +84,8 @@ class BookController extends Controller
         return Inertia::render('Admin/Books/Show', [
             'book' => $book->load('language', 'genres', 'authors'),
             'book_copies' => $book->bookCopies()
-                ->with('branch', 'condition', 'status')
-                ->get(),
+                ->with('branch:id,name', 'condition:id,name', 'status:id,name')
+                ->get(['id', 'code', 'book_id', 'branch_id', 'status_id', 'condition_id']),
             'branches' => Branch::get(['id', 'name']),
             'statuses' => Status::get(['id', 'name']),
             'conditions' => Condition::get(['id', 'name']),
@@ -114,19 +114,17 @@ class BookController extends Controller
 
     /**
      * @param UpdateBookRequest $request
+     * @param Book $book
      *
      * @return RedirectResponse
      */
-    public function update(UpdateBookRequest $request): RedirectResponse
+    public function update(UpdateBookRequest $request, Book $book): RedirectResponse
     {
-        $data = $request->validated();
-        $id = $request->route('book');
-
         try {
-            $this->bookService->updateBook($data, $id);
+            $this->bookService->updateBook($request->validated(), $book->id);
 
             return redirect()
-                ->route('admin.books.show', $id)
+                ->route('admin.books.show', $book->id)
                 ->with('success', __('Book updated successfully!'));
         } catch (Exception $e) {
             Log::error($e);

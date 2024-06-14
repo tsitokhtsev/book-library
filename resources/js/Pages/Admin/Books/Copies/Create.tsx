@@ -9,41 +9,39 @@ import {
     CardTitle,
 } from '@/Components/Card';
 import AdminLayout from '@/Layouts/AdminLayout';
-import { Form } from '@/Pages/Admin/Books/Partials/BookForm';
+import { Form } from '@/Pages/Admin/Books/Copies/Partials/BookCopyForm';
 import { SelectOption } from '@/types';
 import { FormType } from '@/types/form';
 
 const initialData = {
-    title: '',
-    isbn: '',
-    description: '',
-    cover_image: '',
-    publication_date: '',
-    language_id: null,
-    genres: [],
-    authors: [],
+    code: '',
+    branch_id: null,
+    status_id: null,
+    condition_id: null,
 };
 
 export default function Create({
-    languages,
-    genres,
-    authors,
+    book_id,
+    branches,
+    statuses,
+    conditions,
 }: {
-    languages: SelectOption[];
-    genres: SelectOption[];
-    authors: SelectOption[];
+    book_id: number;
+    branches: SelectOption[];
+    statuses: SelectOption[];
+    conditions: SelectOption[];
 }) {
     const { t } = useLaravelReactI18n();
 
     return (
         <AdminLayout>
-            <Head title={t('Add Book')} />
+            <Head title={t('Add Book Copies')} />
 
             <Card>
                 <CardHeader>
-                    <CardTitle>{t('Add Book')}</CardTitle>
+                    <CardTitle>{t('Add Book Copies')}</CardTitle>
                     <CardDescription>
-                        {t('Add a new book to the library')}
+                        {t('Add new book copies to the library')}
                     </CardDescription>
                 </CardHeader>
 
@@ -51,9 +49,10 @@ export default function Create({
                     <Form
                         type={FormType.Create}
                         initialData={initialData}
-                        languages={languages}
-                        genres={genres}
-                        authors={authors}
+                        bookId={book_id}
+                        branches={branches}
+                        statuses={statuses}
+                        conditions={conditions}
                     />
                 </CardContent>
             </Card>

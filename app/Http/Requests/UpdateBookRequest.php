@@ -24,7 +24,7 @@ class UpdateBookRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'isbn' => 'required|string|max:255|unique:books,isbn,' . $this->route('book'),
+            'isbn' => 'required|string|max:255|unique:books,isbn,' . $this->book->id,
             'description' => 'nullable|string|max:255',
             'publication_date' => 'required|date',
             'language_id' => 'required|integer|exists:languages,id',

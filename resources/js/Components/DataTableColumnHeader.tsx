@@ -9,15 +9,17 @@ import { capitalize } from '@/lib/utils';
 interface DataTableColumnHeaderProps<TData, TValue>
     extends React.HTMLAttributes<HTMLDivElement> {
     column: Column<TData, TValue>;
+    label?: string;
 }
 
 export function DataTableColumnHeader<TData, TValue>({
     column,
+    label,
     className,
 }: DataTableColumnHeaderProps<TData, TValue>) {
     const { t } = useLaravelReactI18n();
 
-    const title = capitalize(column.id.replace(/_/g, ' '));
+    const title = label || capitalize(column.id.replace(/_/g, ' '));
 
     if (!column.getCanSort()) {
         return <div className={cn(className)}>{t(title)}</div>;

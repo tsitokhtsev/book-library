@@ -23,7 +23,7 @@ class UpdateBookCopyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'code' => 'required|string|max:255|unique:book_copies,code,' . $this->route('book_copy'),
+            'code' => 'required|string|max:255|unique:book_copies,code,' . $this->copy->id,
             'branch_id' => 'required|integer|exists:branches,id',
             'status_id' => 'required|integer|exists:statuses,id',
             'condition_id' => 'required|integer|exists:conditions,id',

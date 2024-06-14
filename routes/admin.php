@@ -17,6 +17,7 @@ Route::prefix('admin')
         Route::post('/books/massDelete', [BookController::class, 'massDelete'])
             ->name('books.massDelete');
 
-        Route::resource('book-copies', BookCopyController::class)
-            ->only(['update', 'destroy']);
+        Route::resource('books.copies', BookCopyController::class)
+            ->only(['create', 'store', 'update', 'destroy'])
+            ->shallow();
     });

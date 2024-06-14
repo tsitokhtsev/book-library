@@ -3,7 +3,7 @@ import { useLaravelReactI18n } from 'laravel-react-i18n';
 
 import { Badge } from '@/Components/Badge';
 import { DataTableColumnHeader } from '@/Components/DataTableColumnHeader';
-import { Actions } from '@/Pages/Admin/Books/Partials/BookCopyTable/Actions';
+import { Actions } from '@/Pages/Admin/Books/Copies/Partials/Actions';
 import { SelectOption } from '@/types';
 import { BookCopy } from '@/types/model';
 

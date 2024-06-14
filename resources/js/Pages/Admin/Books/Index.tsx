@@ -11,7 +11,7 @@ import {
 } from '@/Components/Card';
 import { DataTable } from '@/Components/DataTable';
 import AdminLayout from '@/Layouts/AdminLayout';
-import { columns } from '@/Pages/Admin/Books/Partials/BookTable/columns';
+import { columns } from '@/Pages/Admin/Books/Partials/columns';
 import { Book } from '@/types/model';
 
 export default function Index({ books }: { books: Book[] }) {

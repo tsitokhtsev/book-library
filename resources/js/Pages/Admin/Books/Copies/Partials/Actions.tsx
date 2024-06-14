@@ -28,7 +28,7 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from '@/Components/DropdownMenu';
-import { Form } from '@/Pages/Admin/Books/Partials/BookCopyForm';
+import { Form } from '@/Pages/Admin/Books/Copies/Partials/BookCopyForm';
 import { FormType } from '@/types/form';
 import { BookCopy } from '@/types/model';
 
@@ -73,6 +73,7 @@ export function Actions({
                     <Form
                         type={FormType.Edit}
                         initialData={bookCopy}
+                        bookId={bookCopy.book_id}
                         bookCopyId={bookCopy.id}
                         branches={meta.branches}
                         statuses={meta.statuses}
@@ -102,7 +103,7 @@ export function Actions({
                         <AlertDialogAction variant="destructive" asChild>
                             <Link
                                 href={route(
-                                    'admin.book-copies.destroy',
+                                    'admin.copies.destroy',
                                     bookCopy.id,
                                 )}
                                 as="button"

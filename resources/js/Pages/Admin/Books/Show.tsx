@@ -13,7 +13,7 @@ import {
 import { DataTable } from '@/Components/DataTable';
 import { H4 } from '@/Components/Typography/H4';
 import AdminLayout from '@/Layouts/AdminLayout';
-import { columns } from '@/Pages/Admin/Books/Partials/BookCopyTable/columns';
+import { columns } from '@/Pages/Admin/Books/Copies/Partials/columns';
 import { SelectOption } from '@/types';
 import { Book, BookCopy } from '@/types/model';
 
@@ -57,13 +57,22 @@ export default function Show({
                     </CardHeader>
 
                     <div className="mx-6 mb-6 flex gap-2 sm:m-6">
-                        <Button className="w-full" variant="outline">
+                        <Button variant="outline" className="w-full" asChild>
                             <Link href={route('admin.books.edit', book.id)}>
                                 {t('Edit Book')}
                             </Link>
                         </Button>
 
-                        <Button className="w-full">{t('Add Copy')}</Button>
+                        <Button className="w-full" asChild>
+                            <Link
+                                href={route(
+                                    'admin.books.copies.create',
+                                    book.id,
+                                )}
+                            >
+                                {t('Add Copies')}
+                            </Link>
+                        </Button>
                     </div>
                 </div>
 
