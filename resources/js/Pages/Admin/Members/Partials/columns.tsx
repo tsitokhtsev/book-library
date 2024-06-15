@@ -1,8 +1,8 @@
 import { ColumnDef } from '@tanstack/react-table';
 
 import { DataTableColumnHeader } from '@/Components/DataTableColumnHeader';
-import Actions from '@/Pages/Admin/Members/Partials/Actions';
-import { Member } from '@/types';
+import { Actions } from '@/Pages/Admin/Members/Partials/Actions';
+import { Member } from '@/types/model';
 
 export const columns: ColumnDef<Member>[] = [
     {
@@ -28,16 +28,6 @@ export const columns: ColumnDef<Member>[] = [
     {
         accessorKey: 'personal_number',
         header: ({ column }) => <DataTableColumnHeader column={column} />,
-    },
-    {
-        accessorKey: 'created_at',
-        header: ({ column }) => <DataTableColumnHeader column={column} />,
-        cell: ({ row }) => {
-            const date = row.getValue('created_at') as string;
-            const formatted = new Date(date).toLocaleDateString();
-
-            return <div>{formatted}</div>;
-        },
     },
     {
         id: 'actions',

@@ -9,7 +9,8 @@ import {
     CardTitle,
 } from '@/Components/Card';
 import AdminLayout from '@/Layouts/AdminLayout';
-import Form from '@/Pages/Admin/Members/Partials/Form';
+import { Form } from '@/Pages/Admin/Members/Partials/Form';
+import { FormType } from '@/types/form';
 
 const initialData = {
     first_name: '',
@@ -26,7 +27,7 @@ export default function Create() {
         <AdminLayout>
             <Head title={t('Add Member')} />
 
-            <Card>
+            <Card className="flex flex-grow flex-col">
                 <CardHeader>
                     <CardTitle>{t('Add Member')}</CardTitle>
                     <CardDescription>
@@ -34,8 +35,8 @@ export default function Create() {
                     </CardDescription>
                 </CardHeader>
 
-                <CardContent>
-                    <Form type="create" initialData={initialData} />
+                <CardContent className="flex flex-grow flex-col">
+                    <Form type={FormType.Create} initialData={initialData} />
                 </CardContent>
             </Card>
         </AdminLayout>

@@ -21,7 +21,7 @@ export default function Index({ books }: { books: Book[] }) {
         <AdminLayout>
             <Head title={t('Books')} />
 
-            <Card>
+            <Card className="flex flex-grow flex-col">
                 <div className="flex flex-col justify-between sm:flex-row">
                     <CardHeader>
                         <CardTitle>{t('Books')}</CardTitle>
@@ -37,7 +37,7 @@ export default function Index({ books }: { books: Book[] }) {
                     </Button>
                 </div>
 
-                <CardContent>
+                <CardContent className="flex flex-grow flex-col">
                     <DataTable
                         data={books}
                         columns={columns}

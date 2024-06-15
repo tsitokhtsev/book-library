@@ -9,17 +9,23 @@ import {
     CardTitle,
 } from '@/Components/Card';
 import AdminLayout from '@/Layouts/AdminLayout';
-import Form from '@/Pages/Admin/Members/Partials/Form';
-import { Member } from '@/types';
+import { Form } from '@/Pages/Admin/Members/Partials/Form';
+import { FormType, MemberForm } from '@/types/form';
 
-export default function Edit({ member }: { member: Member }) {
+export default function Edit({
+    member,
+    member_id,
+}: {
+    member: MemberForm;
+    member_id: number;
+}) {
     const { t } = useLaravelReactI18n();
 
     return (
         <AdminLayout>
             <Head title={t('Edit Member')} />
 
-            <Card>
+            <Card className="flex flex-grow flex-col">
                 <CardHeader>
                     <CardTitle>{t('Edit Member')}</CardTitle>
                     <CardDescription>
@@ -27,11 +33,11 @@ export default function Edit({ member }: { member: Member }) {
                     </CardDescription>
                 </CardHeader>
 
-                <CardContent>
+                <CardContent className="flex flex-grow flex-col">
                     <Form
-                        type="edit"
+                        type={FormType.Edit}
                         initialData={member}
-                        memberId={member.id}
+                        memberId={member_id}
                     />
                 </CardContent>
             </Card>

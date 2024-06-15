@@ -12,7 +12,7 @@ import {
 import { DataTable } from '@/Components/DataTable';
 import AdminLayout from '@/Layouts/AdminLayout';
 import { columns } from '@/Pages/Admin/Members/Partials/columns';
-import { Member } from '@/types';
+import { Member } from '@/types/model';
 
 export default function Index({ members }: { members: Member[] }) {
     const { t } = useLaravelReactI18n();
@@ -21,7 +21,7 @@ export default function Index({ members }: { members: Member[] }) {
         <AdminLayout>
             <Head title={t('Members')} />
 
-            <Card>
+            <Card className="flex flex-grow flex-col">
                 <div className="flex flex-col justify-between sm:flex-row">
                     <CardHeader>
                         <CardTitle>{t('Members')}</CardTitle>
@@ -37,8 +37,12 @@ export default function Index({ members }: { members: Member[] }) {
                     </Button>
                 </div>
 
-                <CardContent>
-                    <DataTable columns={columns} data={members} />
+                <CardContent className="flex flex-grow flex-col">
+                    <DataTable
+                        data={members}
+                        columns={columns}
+                        filterBy="personal_number"
+                    />
                 </CardContent>
             </Card>
         </AdminLayout>

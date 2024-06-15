@@ -28,7 +28,7 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from '@/Components/DropdownMenu';
-import { Form } from '@/Pages/Admin/Books/Copies/Partials/BookCopyForm';
+import { Form } from '@/Pages/Admin/Books/Copies/Partials/Form';
 import { FormType } from '@/types/form';
 import { BookCopy } from '@/types/model';
 

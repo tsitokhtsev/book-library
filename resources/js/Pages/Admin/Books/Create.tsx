@@ -9,7 +9,7 @@ import {
     CardTitle,
 } from '@/Components/Card';
 import AdminLayout from '@/Layouts/AdminLayout';
-import { Form } from '@/Pages/Admin/Books/Partials/BookForm';
+import { Form } from '@/Pages/Admin/Books/Partials/Form';
 import { SelectOption } from '@/types';
 import { FormType } from '@/types/form';
 
@@ -39,7 +39,7 @@ export default function Create({
         <AdminLayout>
             <Head title={t('Add Book')} />
 
-            <Card>
+            <Card className="flex flex-grow flex-col">
                 <CardHeader>
                     <CardTitle>{t('Add Book')}</CardTitle>
                     <CardDescription>
@@ -47,7 +47,7 @@ export default function Create({
                     </CardDescription>
                 </CardHeader>
 
-                <CardContent>
+                <CardContent className="flex flex-grow flex-col">
                     <Form
                         type={FormType.Create}
                         initialData={initialData}

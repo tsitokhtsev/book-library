@@ -12,7 +12,6 @@ import {
     AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
-    AlertDialogTrigger,
 } from '@/Components/AlertDialog';
 import { Button } from '@/Components/Button';
 import {
@@ -21,9 +20,9 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from '@/Components/DropdownMenu';
-import { Member } from '@/types';
+import { Member } from '@/types/model';
 
-export default function Actions({ member }: { member: Member }) {
+export function Actions({ member }: { member: Member }) {
     const { t } = useLaravelReactI18n();
 
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -52,7 +51,6 @@ export default function Actions({ member }: { member: Member }) {
                 open={isDeleteDialogOpen}
                 onOpenChange={setIsDeleteDialogOpen}
             >
-                <AlertDialogTrigger asChild>Delete</AlertDialogTrigger>
                 <AlertDialogContent>
                     <AlertDialogHeader>
                         <AlertDialogTitle>

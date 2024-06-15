@@ -6,9 +6,9 @@ import { Button } from '@/Components/Button';
 import { Input } from '@/Components/Input';
 import { InputError } from '@/Components/InputError';
 import { Label } from '@/Components/Label';
-import { FormType, MemberForm } from '@/types';
+import { FormType, MemberForm } from '@/types/form';
 
-export default function Form({
+export function Form({
     type,
     initialData,
     memberId,
@@ -25,10 +25,10 @@ export default function Form({
         e.preventDefault();
 
         switch (type) {
-            case 'create':
+            case FormType.Create:
                 post(route('admin.members.store'));
                 break;
-            case 'edit':
+            case FormType.Edit:
                 put(route('admin.members.update', memberId));
                 break;
             default:
@@ -37,12 +37,12 @@ export default function Form({
     };
 
     const submitButtonText = {
-        create: 'Add',
-        edit: 'Save',
+        [FormType.Create]: 'Add',
+        [FormType.Edit]: 'Save',
     }[type];
 
     return (
-        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+        <form onSubmit={handleSubmit} className="flex flex-grow flex-col gap-6">
             <div className="grid items-start gap-4 sm:grid-cols-2">
                 <div className="grid gap-2">
                     <Label htmlFor="first_name">{t('First name')}</Label>
@@ -106,7 +106,7 @@ export default function Form({
                 </div>
             </div>
 
-            <div className="flex justify-between">
+            <div className="flex flex-grow items-end justify-between">
                 <Button variant="ghost" asChild>
                     <Link href={route('admin.members.index')}>{t('Back')}</Link>
                 </Button>

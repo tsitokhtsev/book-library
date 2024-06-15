@@ -36,7 +36,7 @@ export default function Show({
         <AdminLayout>
             <Head title={book.title} />
 
-            <Card>
+            <Card className="flex flex-grow flex-col">
                 <div className="flex flex-col justify-between sm:flex-row">
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
@@ -76,7 +76,7 @@ export default function Show({
                     </div>
                 </div>
 
-                <CardContent>
+                <CardContent className="flex flex-grow flex-col">
                     <div className="grid gap-2 text-muted-foreground">
                         <p>
                             {t('ISBN')}: {book.isbn}
@@ -103,7 +103,7 @@ export default function Show({
                         </section>
                     )}
 
-                    <section>
+                    <section className="flex flex-grow flex-col">
                         <H4>{t('Book Copies')}</H4>
                         <DataTable
                             data={book_copies}

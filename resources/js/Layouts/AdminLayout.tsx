@@ -50,18 +50,15 @@ export default function Admin({ children }: PropsWithChildren) {
                 </TabsList>
             </Tabs>
 
-            <div className="container mt-8">
-                {(success || error) && (
-                    <Alert
-                        variant={error ? 'destructive' : 'success'}
-                        className="mb-8"
-                    >
+            {(success || error) && (
+                <div className="container">
+                    <Alert variant={error ? 'destructive' : 'success'}>
                         <AlertTitle>{t(success || error)}</AlertTitle>
                     </Alert>
-                )}
+                </div>
+            )}
 
-                {children}
-            </div>
+            <div className="container flex flex-grow flex-col">{children}</div>
         </MainLayout>
     );
 }
