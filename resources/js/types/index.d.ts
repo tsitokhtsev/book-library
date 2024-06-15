@@ -1,18 +1,16 @@
 import { RowData } from '@tanstack/react-table';
 
-export interface User {
-    id: number;
-    name: string;
-    email: string;
-    email_verified_at: string;
-    is_admin: boolean;
-}
+import { User } from '@/types/model';
 
 export type PageProps<
     T extends Record<string, unknown> = Record<string, unknown>,
 > = T & {
     auth: {
         user: User;
+    };
+    flash: {
+        success: string;
+        error: string;
     };
 };
 

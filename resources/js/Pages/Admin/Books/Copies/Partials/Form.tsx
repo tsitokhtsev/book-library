@@ -347,7 +347,7 @@ export function Form({
     };
 
     return (
-        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+        <form onSubmit={handleSubmit} className="flex flex-grow flex-col gap-6">
             {type === FormType.Create ? (
                 <>
                     {renderBulkForm()}
@@ -371,7 +371,7 @@ export function Form({
                 renderSingleForm()
             )}
 
-            <div className="flex justify-between">
+            <div className="flex flex-grow items-end justify-between">
                 {type === FormType.Create && (
                     <Button variant="ghost" asChild>
                         <Link href={route('admin.books.show', bookId)}>

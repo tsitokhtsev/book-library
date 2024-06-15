@@ -94,8 +94,8 @@ export function DataTable<TData extends { id?: number }, TValue>({
     };
 
     return (
-        <div>
-            <div className="flex items-center gap-2 py-4">
+        <div className="flex w-full flex-grow flex-col">
+            <div className="flex items-center gap-2 pb-4">
                 <Input
                     placeholder={t('Start searching...')}
                     value={
@@ -209,7 +209,7 @@ export function DataTable<TData extends { id?: number }, TValue>({
                 </Table>
             </div>
 
-            <div className="pt-4">
+            <div className="flex-grow content-end pt-4">
                 <DataTablePagination table={table} />
             </div>
         </div>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\MemberController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookCopyController;
 use Illuminate\Support\Facades\Route;
@@ -12,6 +13,8 @@ Route::prefix('admin')
         Route::get('dashboard', function () {
             return Inertia::render('Admin/Dashboard');
         })->name('dashboard');
+
+        Route::resource('members', MemberController::class);
 
         Route::resource('books', BookController::class);
         Route::post('/books/massDelete', [BookController::class, 'massDelete'])

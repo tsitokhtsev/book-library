@@ -60,7 +60,7 @@ export function Form({
     }[type];
 
     return (
-        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+        <form onSubmit={handleSubmit} className="flex flex-grow flex-col gap-6">
             <div className="grid items-start gap-4 sm:grid-cols-2">
                 <div className="grid gap-2">
                     <Label htmlFor="title">{t('Title')}</Label>
@@ -159,7 +159,7 @@ export function Form({
                 </div>
             </div>
 
-            <div className="flex justify-between">
+            <div className="flex flex-grow items-end justify-between">
                 <Button variant="ghost" asChild>
                     <Link href={route('admin.books.index')}>{t('Back')}</Link>
                 </Button>

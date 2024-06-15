@@ -11,38 +11,37 @@ import {
 } from '@/Components/Card';
 import { DataTable } from '@/Components/DataTable';
 import AdminLayout from '@/Layouts/AdminLayout';
-import { columns } from '@/Pages/Admin/Books/Partials/columns';
-import { Book } from '@/types/model';
+import { columns } from '@/Pages/Admin/Members/Partials/columns';
+import { Member } from '@/types/model';
 
-export default function Index({ books }: { books: Book[] }) {
+export default function Index({ members }: { members: Member[] }) {
     const { t } = useLaravelReactI18n();
 
     return (
         <AdminLayout>
-            <Head title={t('Books')} />
+            <Head title={t('Members')} />
 
             <Card className="flex flex-grow flex-col">
                 <div className="flex flex-col justify-between sm:flex-row">
                     <CardHeader>
-                        <CardTitle>{t('Books')}</CardTitle>
+                        <CardTitle>{t('Members')}</CardTitle>
                         <CardDescription>
-                            {t('View and manage books of the library')}
+                            {t('View and manage members of the library')}
                         </CardDescription>
                     </CardHeader>
 
                     <Button className="mx-6 sm:m-6" asChild>
-                        <Link href={route('admin.books.create')}>
-                            {t('Add Book')}
+                        <Link href={route('admin.members.create')}>
+                            {t('Add Member')}
                         </Link>
                     </Button>
                 </div>
 
                 <CardContent className="flex flex-grow flex-col">
                     <DataTable
-                        data={books}
+                        data={members}
                         columns={columns}
-                        filterBy="title"
-                        massDeleteRoute="admin.books.massDelete"
+                        filterBy="personal_number"
                     />
                 </CardContent>
             </Card>

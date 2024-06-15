@@ -1,5 +1,4 @@
 import { Link } from '@inertiajs/react';
-import { TableMeta } from '@tanstack/react-table';
 import { useLaravelReactI18n } from 'laravel-react-i18n';
 import { MoreHorizontalIcon } from 'lucide-react';
 import { useState } from 'react';
@@ -16,32 +15,16 @@ import {
 } from '@/Components/AlertDialog';
 import { Button } from '@/Components/Button';
 import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-} from '@/Components/Dialog';
-import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from '@/Components/DropdownMenu';
-import { Form } from '@/Pages/Admin/Books/Copies/Partials/Form';
-import { FormType } from '@/types/form';
-import { BookCopy } from '@/types/model';
+import { Member } from '@/types/model';
 
-export function Actions({
-    bookCopy,
-    meta,
-}: {
-    bookCopy: BookCopy;
-    meta: TableMeta<BookCopy>;
-}) {
+export function Actions({ member }: { member: Member }) {
     const { t } = useLaravelReactI18n();
 
-    const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
     return (
@@ -52,35 +35,17 @@ export function Actions({
                     <MoreHorizontalIcon className="h-4 w-4" />
                 </Button>
             </DropdownMenuTrigger>
+
             <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => setIsEditDialogOpen(true)}>
-                    {t('Edit')}
+                <DropdownMenuItem asChild>
+                    <Link href={route('admin.members.edit', member.id)}>
+                        {t('Edit')}
+                    </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => setIsDeleteDialogOpen(true)}>
                     {t('Delete')}
                 </DropdownMenuItem>
             </DropdownMenuContent>
-
-            <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-                <DialogContent className="sm:max-w-[425px]">
-                    <DialogHeader>
-                        <DialogTitle>{t('Edit book copy')}</DialogTitle>
-                        <DialogDescription>
-                            {t('Make changes to the book copy and save.')}
-                        </DialogDescription>
-                    </DialogHeader>
-
-                    <Form
-                        type={FormType.Edit}
-                        initialData={bookCopy}
-                        bookId={bookCopy.book_id}
-                        bookCopyId={bookCopy.id}
-                        branches={meta.branches}
-                        statuses={meta.statuses}
-                        conditions={meta.conditions}
-                    />
-                </DialogContent>
-            </Dialog>
 
             <AlertDialog
                 open={isDeleteDialogOpen}
@@ -89,11 +54,11 @@ export function Actions({
                 <AlertDialogContent>
                     <AlertDialogHeader>
                         <AlertDialogTitle>
-                            {t('Delete book copy')}
+                            {t('Delete member')}
                         </AlertDialogTitle>
                         <AlertDialogDescription>
                             {t(
-                                'Are you sure you want to delete this book copy? This action cannot be undone.',
+                                'Are you sure you want to delete this member? This action cannot be undone.',
                             )}
                         </AlertDialogDescription>
                     </AlertDialogHeader>
@@ -102,10 +67,7 @@ export function Actions({
                         <AlertDialogCancel>{t('Cancel')}</AlertDialogCancel>
                         <AlertDialogAction variant="destructive" asChild>
                             <Link
-                                href={route(
-                                    'admin.copies.destroy',
-                                    bookCopy.id,
-                                )}
+                                href={route('admin.members.destroy', member.id)}
                                 as="button"
                                 method="delete"
                                 preserveScroll

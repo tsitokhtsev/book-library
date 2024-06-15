@@ -3,6 +3,14 @@ export enum FormType {
     Edit,
 }
 
+export type MemberForm = {
+    first_name: string;
+    last_name: string;
+    email: string;
+    phone_number: string;
+    personal_number: string;
+};
+
 export type BookForm = {
     title: string;
     isbn: string;

@@ -10,10 +10,12 @@ export default function Main({ children }: PropsWithChildren) {
     } = usePage<PageProps>().props;
 
     return (
-        <div className="min-h-screen">
+        <div className="flex min-h-screen flex-col">
             <Header user={user} />
 
-            <main className="py-8">{children}</main>
+            <main className="flex flex-grow flex-col gap-8 py-8">
+                {children}
+            </main>
         </div>
     );
 }
