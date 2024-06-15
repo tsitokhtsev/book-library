@@ -27,7 +27,7 @@ import {
     NavigationMenuList,
     navigationMenuTriggerStyle,
 } from '@/Components/NavigationMenu';
-import { User } from '@/types';
+import { User } from '@/types/model';
 
 export default function Header({ user }: { user?: User }) {
     const { getLocales, currentLocale, setLocale, t } = useLaravelReactI18n();
@@ -70,6 +70,18 @@ export default function Header({ user }: { user?: User }) {
                                     </Link>
                                 </NavigationMenuLink>
                             </NavigationMenuItem>
+                            {user?.is_admin && (
+                                <NavigationMenuItem>
+                                    <NavigationMenuLink
+                                        asChild
+                                        className={navigationMenuTriggerStyle()}
+                                    >
+                                        <Link href={route('admin.dashboard')}>
+                                            {t('Dashboard')}
+                                        </Link>
+                                    </NavigationMenuLink>
+                                </NavigationMenuItem>
+                            )}
                         </NavigationMenuList>
                     </NavigationMenu>
                 </div>
@@ -125,7 +137,8 @@ export default function Header({ user }: { user?: User }) {
                                                 </AvatarFallback>
                                             </Avatar>
                                             <p className="font-bold">
-                                                {user.first_name} {user.last_name}
+                                                {user.first_name}{' '}
+                                                {user.last_name}
                                             </p>
                                         </Link>
                                     ) : null}

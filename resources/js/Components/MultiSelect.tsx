@@ -12,7 +12,7 @@ import {
 } from '@/Components/Command';
 import { Skeleton } from '@/Components/Skeleton';
 import { cn } from '@/lib/utils';
-import { SelectOption } from '@/utils/types';
+import { SelectOption } from '@/types';
 
 type MultiSelectProps = {
     options: SelectOption[];
