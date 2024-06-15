@@ -1,36 +1,6 @@
 import { RowData } from '@tanstack/react-table';
 
-// Models
-export type User = {
-    id: number;
-    first_name: string;
-    last_name: string;
-    email: string;
-    email_verified_at: string;
-};
-
-export type Member = {
-    id: number;
-    first_name: string;
-    last_name: string;
-    email: string;
-    phone_number: string;
-    personal_number: string;
-    email_verified_at: string;
-    created_at: string;
-    updated_at: string;
-};
-
-// Forms
-export type FormType = 'create' | 'edit';
-
-export type MemberForm = {
-    first_name: string;
-    last_name: string;
-    email: string;
-    phone_number: string;
-    personal_number: string;
-};
+import { User } from '@/types/model';
 
 export type PageProps<
     T extends Record<string, unknown> = Record<string, unknown>,

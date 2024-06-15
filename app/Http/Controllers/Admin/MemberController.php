@@ -4,29 +4,47 @@ namespace App\Http\Controllers\Admin;
 
 use App\Enums\RolesEnum;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreMemberRequest;
+use App\Http\Requests\UpdateMemberRequest;
 use App\Models\User;
-use App\Notifications\MemberAdded;
+use App\Services\MemberService;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class MemberController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @param MemberService $memberService
+     */
+    public function __construct(
+        public MemberService $memberService
+    ) {}
+
+    /**
+     * @return Response
      */
     public function index(): Response
     {
         return Inertia::render('Admin/Members/Index', [
-            'members' => User::role(RolesEnum::MEMBER)->mostRecent()->get(),
+            'members' => User::role(RolesEnum::MEMBER)
+                ->mostRecent()
+                ->get([
+                    'id',
+                    'first_name',
+                    'last_name',
+                    'email',
+                    'phone_number',
+                    'personal_number',
+                ]),
         ]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * @return Response
      */
     public function create(): Response
     {
@@ -34,36 +52,34 @@ class MemberController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @param StoreMemberRequest $request
+     *
+     * @return RedirectResponse
      */
-    public function store(Request $request): RedirectResponse
+    public function store(StoreMemberRequest $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users',
-            'phone_number' => 'required|digits:9|unique:users',
-            'personal_number' => 'required|digits:11|unique:users',
-        ]);
-        $password = Str::random(8);
+        try {
+            $member = $this->memberService->createMember($request->validated());
 
-        $member = User::create([
-            ...$validated,
-            'password' => Hash::make($password),
-        ])->assignRole(RolesEnum::MEMBER);
+            return redirect()
+                ->route('admin.members.index')
+                ->with('success', __(
+                    'Member created successfully! An email has been sent to :name with the password.',
+                    ['name' => $member->first_name . ' ' . $member->last_name]
+                ));
+        } catch (Exception $e) {
+            Log::error($e);
 
-        $member->notify(new MemberAdded($password));
-
-        return redirect()
-            ->route('admin.members.index')
-            ->with('success', __(
-                'Member created successfully! An email has been sent to :name with the password.',
-                ['name' => $member->first_name . ' ' . $member->last_name]
-            ));
+            return redirect()
+                ->back()
+                ->with('error', __('Failed to create the member. Please try again.'));
+        }
     }
 
     /**
-     * Display the specified resource.
+     * @param User $member
+     *
+     * @return Response
      */
     public function show(User $member)
     {
@@ -71,40 +87,54 @@ class MemberController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * @param User $member
+     *
+     * @return Response
      */
-    public function edit(User $member)
+    public function edit(User $member): Response
     {
         return Inertia::render('Admin/Members/Edit', [
-            'member' => $member,
+            'member_id' => $member->id,
+            'member' => $member->only([
+                'first_name',
+                'last_name',
+                'email',
+                'phone_number',
+                'personal_number',
+            ]),
         ]);
     }
 
     /**
-     * Update the specified resource in storage.
+     * @param UpdateMemberRequest $request
+     * @param User $member
+     *
+     * @return RedirectResponse
      */
-    public function update(Request $request, User $member)
+    public function update(UpdateMemberRequest $request, User $member): RedirectResponse
     {
-        $member->update(
-            $request->validate([
-                'first_name' => 'required|string|max:255',
-                'last_name' => 'required|string|max:255',
-                'email' => 'required|email|unique:users,email,' . $member->id,
-                'phone_number' => 'required|digits:9|unique:users,phone_number,' . $member->id,
-                'personal_number' => 'required|digits:11|unique:users,personal_number,' . $member->id,
-            ])
-        );
+        try {
+            $this->memberService->updateMember($request->validated(), $member->id);
 
-        return redirect()
-            ->route('admin.members.index')
-            ->with('success', __(
-                'The profile of :name has been updated successfully!',
-                ['name' => $member->first_name . ' ' . $member->last_name]
-            ));
+            return redirect()
+                ->route('admin.members.index')
+                ->with('success', __(
+                    'The profile of :name has been updated successfully!',
+                    ['name' => $member->first_name . ' ' . $member->last_name]
+                ));
+        } catch (Exception $e) {
+            Log::error($e);
+
+            return redirect()
+                ->back()
+                ->with('error', __('Failed to update the member. Please try again.'));
+        }
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @param User $member
+     *
+     * @return RedirectResponse
      */
     public function destroy(User $member): RedirectResponse
     {
