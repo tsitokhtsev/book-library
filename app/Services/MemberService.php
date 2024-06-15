@@ -36,7 +36,7 @@ class MemberService
      * @param array $data
      * @param string $id
      *
-     * @return Member
+     * @return User
      *
      * @throws Exception
      */
