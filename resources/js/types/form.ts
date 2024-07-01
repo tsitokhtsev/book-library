@@ -28,3 +28,8 @@ export type BookCopyForm = {
     status_id: number | null;
     condition_id: number | null;
 };
+
+export type AuthorForm = {
+    name: string;
+    bio: string | null;
+};

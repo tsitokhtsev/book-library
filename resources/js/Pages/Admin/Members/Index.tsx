@@ -30,7 +30,7 @@ export default function Index({ members }: { members: Member[] }) {
                         </CardDescription>
                     </CardHeader>
 
-                    <Button className="mx-6 sm:m-6" asChild>
+                    <Button className="mx-6 mb-6 sm:m-6" asChild>
                         <Link href={route('admin.members.create')}>
                             {t('Add Member')}
                         </Link>

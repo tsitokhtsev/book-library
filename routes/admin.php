@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\AuthorController;
+use App\Http\Controllers\Admin\BookController;
+use App\Http\Controllers\Admin\BookCopyController;
 use App\Http\Controllers\Admin\MemberController;
-use App\Http\Controllers\BookController;
-use App\Http\Controllers\BookCopyController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -23,4 +24,7 @@ Route::prefix('admin')
         Route::resource('books.copies', BookCopyController::class)
             ->only(['create', 'store', 'update', 'destroy'])
             ->shallow();
+
+        Route::resource('authors', AuthorController::class)
+            ->only(['index', 'store', 'update', 'destroy']);
     });

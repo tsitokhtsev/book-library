@@ -8,7 +8,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Author extends Model
 {
-//    use HasFactory;
+    use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'bio',
+    ];
 
     public function books(): BelongsToMany
     {

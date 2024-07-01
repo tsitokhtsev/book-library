@@ -21,8 +21,8 @@ export type Book = {
     title: string;
     is_enabled: boolean;
     isbn: string;
-    description?: string;
-    cover_image?: string;
+    description: string | null;
+    cover_image: string | null;
     publication_date: string;
     language: { id: number; name: string };
     genres: { id: number; name: string }[];
@@ -40,4 +40,11 @@ export type BookCopy = {
     status_id: number;
     condition: { id: number; name: string };
     condition_id: number;
+};
+
+export type Author = {
+    id: number;
+    name: string;
+    bio: string | null;
+    books_count: number;
 };
