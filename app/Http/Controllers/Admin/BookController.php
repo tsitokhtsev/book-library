@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Models\Author;
@@ -37,6 +38,9 @@ class BookController extends Controller
             'books' => Book::with('language')
                 ->withCount('bookCopies')
                 ->get(),
+            'books_count' => Book::count(),
+            'authors_count' => Author::count(),
+            'genres_count' => Genre::count(),
         ]);
     }
 
@@ -102,7 +106,7 @@ class BookController extends Controller
         return Inertia::render('Admin/Books/Edit', [
             'book_id' => $book->id,
             'book' => [
-                ...$book->toArray(),
+                 ...$book->toArray(),
                 'genres' => $book->genres->pluck('id'),
                 'authors' => $book->authors->pluck('id'),
             ],
