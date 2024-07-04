@@ -43,7 +43,7 @@ export default function Create({
                 <CardHeader>
                     <CardTitle>{t('Add Book')}</CardTitle>
                     <CardDescription>
-                        {t('Add a new book to the library')}
+                        {t('Create and add a new book')}
                     </CardDescription>
                 </CardHeader>
 

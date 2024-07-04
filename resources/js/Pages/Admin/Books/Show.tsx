@@ -1,5 +1,6 @@
 import { Head, Link } from '@inertiajs/react';
 import { useLaravelReactI18n } from 'laravel-react-i18n';
+import { PencilIcon } from 'lucide-react';
 
 import { Badge } from '@/Components/Badge';
 import { Button } from '@/Components/Button';
@@ -56,10 +57,18 @@ export default function Show({
                         </CardDescription>
                     </CardHeader>
 
-                    <div className="mx-6 mb-6 flex gap-2 sm:m-6">
-                        <Button variant="outline" className="w-full" asChild>
+                    <div className="mx-6 mb-6 flex flex-row-reverse gap-2 sm:m-6 sm:flex-row">
+                        <Button
+                            variant="outline"
+                            size="icon"
+                            className="shrink-0"
+                            asChild
+                        >
                             <Link href={route('admin.books.edit', book.id)}>
-                                {t('Edit Book')}
+                                <span className="sr-only">
+                                    {t('Edit Book')}
+                                </span>
+                                <PencilIcon className="h-4 w-4" />
                             </Link>
                         </Button>
 

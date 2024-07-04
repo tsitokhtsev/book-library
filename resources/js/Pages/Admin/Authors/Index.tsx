@@ -41,7 +41,7 @@ export default function Index({ authors }: { authors: Author[] }) {
                     <CardHeader>
                         <CardTitle>{t('Authors')}</CardTitle>
                         <CardDescription>
-                            {t('View and manage authors of the library')}
+                            {t('View and manage authors')}
                         </CardDescription>
                     </CardHeader>
 
@@ -55,7 +55,7 @@ export default function Index({ authors }: { authors: Author[] }) {
                             <DialogHeader>
                                 <DialogTitle>{t('Add author')}</DialogTitle>
                                 <DialogDescription>
-                                    {t('Add a new member to the library.')}
+                                    {t('Create and add a new author')}
                                 </DialogDescription>
                             </DialogHeader>
 

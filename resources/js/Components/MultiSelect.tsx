@@ -29,7 +29,7 @@ export const MultiSelect = ({
     onValueChange,
     disabled,
     isLoading = false,
-    placeholder = 'Start search...',
+    placeholder = 'Start searching...',
 }: MultiSelectProps) => {
     const { t } = useLaravelReactI18n();
 
