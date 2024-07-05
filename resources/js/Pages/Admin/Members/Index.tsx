@@ -26,7 +26,7 @@ export default function Index({ members }: { members: Member[] }) {
                     <CardHeader>
                         <CardTitle>{t('Members')}</CardTitle>
                         <CardDescription>
-                            {t('View and manage members of the library')}
+                            {t('View and manage members')}
                         </CardDescription>
                     </CardHeader>
 

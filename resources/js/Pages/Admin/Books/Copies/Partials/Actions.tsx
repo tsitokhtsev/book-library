@@ -66,7 +66,7 @@ export function Actions({
                     <DialogHeader>
                         <DialogTitle>{t('Edit book copy')}</DialogTitle>
                         <DialogDescription>
-                            {t('Make changes to the book copy and save.')}
+                            {t('Make changes and save the book copy')}
                         </DialogDescription>
                     </DialogHeader>
 

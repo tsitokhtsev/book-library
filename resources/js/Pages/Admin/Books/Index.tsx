@@ -37,7 +37,7 @@ export default function Index({
                     <CardHeader>
                         <CardTitle>{t('Books')}</CardTitle>
                         <CardDescription>
-                            {t('View and manage books of the library')}
+                            {t('View and manage books')}
                         </CardDescription>
                     </CardHeader>
 
@@ -58,7 +58,7 @@ export default function Index({
                                     </span>
                                     <h2 className="text-sm font-medium">
                                         <BookIcon className="mr-2 h-4 w-4" />
-                                        Books
+                                        {t('Book')}
                                     </h2>
                                 </div>
                             </CardHeader>
@@ -72,7 +72,7 @@ export default function Index({
                                         </span>
                                         <h2 className="text-sm font-medium">
                                             <UsersIcon className="mr-2 h-4 w-4" />
-                                            Authors
+                                            {t('Author')}
                                         </h2>
                                         <ArrowUpRightIcon className="ml-auto self-start" />
                                     </div>
@@ -87,7 +87,7 @@ export default function Index({
                                     </span>
                                     <h2 className="text-sm font-medium">
                                         <DramaIcon className="mr-2 h-4 w-4" />
-                                        Genres
+                                        {t('Genre')}
                                     </h2>
                                     <ArrowUpRightIcon className="ml-auto self-start" />
                                 </div>

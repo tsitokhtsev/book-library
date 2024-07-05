@@ -36,7 +36,7 @@ export default function Edit({
                 <CardHeader>
                     <CardTitle>{t('Edit Book')}</CardTitle>
                     <CardDescription>
-                        {t('Edit the book of the library')}
+                        {t('Make changes and save the book')}
                     </CardDescription>
                 </CardHeader>
 
