@@ -115,7 +115,7 @@ export function Form({
                                     key={language.id}
                                     value={language.id.toString()}
                                 >
-                                    {language.name}
+                                    {t(language.name)}
                                 </SelectItem>
                             ))}
                         </SelectContent>

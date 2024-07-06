@@ -13,6 +13,8 @@
     "row(s)": "ჩანაწერი",
     "Rows per page": "ჩვენება",
     "Page": "გვერდი",
+    "Enabled": "აქტიური",
+    "Disabled": "არააქტიური",
 
     "View": "ვრცლად",
     "Back": "უკან",
@@ -98,6 +100,20 @@
     "Create and add a new member": "შექმენი და დაამატე ახალი მკითხველის დამატება",
     "Delete member": "მკითხველის წაშლა",
     "Are you sure you want to delete this member? This action cannot be undone.": "ნამდვილად გსურს ამ მკითხველის წაშლა? ეს ქმედება შეუქცევადია.",
+
+    "available": "ხელმისაწვდომია",
+    "checked-out": "გატანილია",
+    "lost": "დაკარგულია",
+    "damaged": "დაზიანებულია",
+
+    "new": "ახალი",
+    "good": "კარგი",
+    "fair": "საშუალო",
+    "poor": "ცუდი",
+
+    "active": "აქტიური",
+    "overdue": "ვადაგადაცილებული",
+    "returned": "დაბრუნებული",
 
     "Afrikanns": "აფრიკანსი",
     "Albanian": "ალბანური",

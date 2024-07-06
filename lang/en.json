@@ -13,6 +13,8 @@
     "row(s)": "row (s)",
     "Rows per page": "Rows per page",
     "Page": "Page",
+    "Enabled": "Enabled",
+    "Disabled": "Disabled",
 
     "View": "View",
     "Back": "Back",
@@ -98,6 +100,20 @@
     "Create and add a new member": "Add a new member to the library",
     "Delete member": "Delete member",
     "Are you sure you want to delete this member? This action cannot be undone.": "Are you sure you want to delete this member? This action cannot be undone.",
+
+    "available": "Available",
+    "checked-out": "Checked out",
+    "lost": "Lost",
+    "damaged": "Damaged",
+
+    "new": "New",
+    "good": "Good",
+    "fair": "Fair",
+    "poor": "Poor",
+
+    "active": "Active",
+    "overdue": "Overdue",
+    "returned": "Returned",
 
     "Afrikanns": "Afrikanns",
     "Albanian": "Albanian",
