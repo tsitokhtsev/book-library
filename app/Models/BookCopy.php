@@ -31,7 +31,7 @@ class BookCopy extends Model
 
     public function status(): BelongsTo
     {
-        return $this->belongsTo(Status::class);
+        return $this->belongsTo(BookCopyStatus::class);
     }
 
     public function condition(): BelongsTo

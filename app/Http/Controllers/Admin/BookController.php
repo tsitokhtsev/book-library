@@ -7,11 +7,11 @@ use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Models\Author;
 use App\Models\Book;
+use App\Models\BookCopyStatus;
 use App\Models\Branch;
 use App\Models\Condition;
 use App\Models\Genre;
 use App\Models\Language;
-use App\Models\Status;
 use App\Services\BookService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
@@ -91,7 +91,7 @@ class BookController extends Controller
                 ->with('branch:id,name', 'condition:id,name', 'status:id,name')
                 ->get(['id', 'code', 'book_id', 'branch_id', 'status_id', 'condition_id']),
             'branches' => Branch::get(['id', 'name']),
-            'statuses' => Status::get(['id', 'name']),
+            'statuses' => BookCopyStatus::get(['id', 'name']),
             'conditions' => Condition::get(['id', 'name']),
         ]);
     }
