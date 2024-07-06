@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Book extends Model
 {
-    //    use HasFactory;
+    use HasFactory;
 
     protected $fillable = [
         'title',
@@ -18,7 +18,7 @@ class Book extends Model
         'description',
         'image_cover',
         'language_id',
-        'publication_date'
+        'publication_date',
     ];
 
     protected $casts = [

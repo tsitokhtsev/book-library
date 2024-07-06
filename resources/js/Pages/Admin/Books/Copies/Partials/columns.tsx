@@ -19,6 +19,12 @@ export const columns: ColumnDef<BookCopy>[] = [
             const { t } = useLaravelReactI18n();
             return t(row.getValue<SelectOption>('branch').name);
         },
+        sortingFn: (a, b) => {
+            const { t } = useLaravelReactI18n();
+            return t(a.original.branch.name).localeCompare(
+                t(b.original.branch.name),
+            );
+        },
     },
     {
         accessorKey: 'status',
@@ -31,6 +37,12 @@ export const columns: ColumnDef<BookCopy>[] = [
                 </Badge>
             );
         },
+        sortingFn: (a, b) => {
+            const { t } = useLaravelReactI18n();
+            return t(a.original.status.name).localeCompare(
+                t(b.original.status.name),
+            );
+        },
     },
     {
         accessorKey: 'condition',
@@ -38,6 +50,12 @@ export const columns: ColumnDef<BookCopy>[] = [
         cell: ({ row }) => {
             const { t } = useLaravelReactI18n();
             return t(row.getValue<SelectOption>('condition').name);
+        },
+        sortingFn: (a, b) => {
+            const { t } = useLaravelReactI18n();
+            return t(a.original.condition.name).localeCompare(
+                t(b.original.condition.name),
+            );
         },
     },
     {

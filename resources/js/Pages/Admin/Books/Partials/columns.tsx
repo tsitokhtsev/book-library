@@ -8,6 +8,7 @@ import { IsEnabledBadge } from '@/Components/IsEnabledBadge';
 import { Actions } from '@/Pages/Admin/Books/Partials/Actions';
 import { SelectOption } from '@/types';
 import { Book } from '@/types/model';
+import { useLaravelReactI18n } from 'laravel-react-i18n';
 
 export const columns: ColumnDef<Book>[] = [
     {
@@ -61,11 +62,15 @@ export const columns: ColumnDef<Book>[] = [
     {
         accessorKey: 'language',
         header: ({ column }) => <DataTableColumnHeader column={column} />,
-        cell: ({ row }) => row.getValue<SelectOption>('language').name,
-        sortingFn: (rowA, rowB) => {
-            const languageA = rowA.original.language.name;
-            const languageB = rowB.original.language.name;
-            return languageA.localeCompare(languageB);
+        cell: ({ row }) => {
+            const { t } = useLaravelReactI18n();
+            return t(row.getValue<SelectOption>('language').name);
+        },
+        sortingFn: (a, b) => {
+            const { t } = useLaravelReactI18n();
+            return t(a.original.language.name).localeCompare(
+                t(b.original.language.name),
+            );
         },
     },
     {

@@ -131,7 +131,7 @@ export function Form({
                                     key={status.id}
                                     value={status.id.toString()}
                                 >
-                                    {status.name}
+                                    {t(status.name)}
                                 </SelectItem>
                             ))}
                         </SelectContent>
@@ -161,7 +161,7 @@ export function Form({
                                     key={condition.id}
                                     value={condition.id.toString()}
                                 >
-                                    {condition.name}
+                                    {t(condition.name)}
                                 </SelectItem>
                             ))}
                         </SelectContent>

@@ -7,9 +7,9 @@ use App\Http\Requests\StoreBookCopyRequest;
 use App\Http\Requests\UpdateBookCopyRequest;
 use App\Models\Book;
 use App\Models\BookCopy;
+use App\Models\BookCopyStatus;
 use App\Models\Branch;
 use App\Models\Condition;
-use App\Models\Status;
 use App\Services\BookCopyService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
@@ -37,7 +37,7 @@ class BookCopyController extends Controller
         return Inertia::render('Admin/Books/Copies/Create', [
             'book_id' => $book->id,
             'branches' => Branch::get(['id', 'name']),
-            'statuses' => Status::get(['id', 'name']),
+            'statuses' => BookCopyStatus::get(['id', 'name']),
             'conditions' => Condition::get(['id', 'name']),
         ]);
     }

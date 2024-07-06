@@ -8,7 +8,15 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Branch extends Model
 {
-//    use HasFactory;
+    use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'address',
+        'phone',
+        'email',
+        'working_hours',
+    ];
 
     public function bookCopies(): HasMany
     {

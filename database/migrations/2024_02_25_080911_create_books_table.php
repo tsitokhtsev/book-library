@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->boolean('is_enabled')->default(true);
             $table->string('isbn')->unique();
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->string('cover_image')->nullable();
             $table->date('publication_date');
             $table->foreignId('language_id')->constrained()->onUpdate('cascade');

@@ -91,7 +91,7 @@ export default function Show({
                             {t('ISBN')}: {book.isbn}
                         </p>
                         <p>
-                            {t('Language')}: {book.language.name}
+                            {t('Language')}: {t(book.language.name)}
                         </p>
                         <p>
                             {t('Published')}:{' '}

@@ -9,14 +9,14 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class BookCopy extends Model
 {
-    //    use HasFactory;
+    use HasFactory;
 
     protected $fillable = [
         'code',
         'book_id',
         'branch_id',
+        'status_id',
         'condition_id',
-        'status_id'
     ];
 
     public function book(): BelongsTo
@@ -31,7 +31,7 @@ class BookCopy extends Model
 
     public function status(): BelongsTo
     {
-        return $this->belongsTo(Status::class);
+        return $this->belongsTo(BookCopyStatus::class);
     }
 
     public function condition(): BelongsTo
