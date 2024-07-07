@@ -71,16 +71,71 @@ export default function Header({ user }: { user?: User }) {
                                 </NavigationMenuLink>
                             </NavigationMenuItem>
                             {user?.is_admin && (
-                                <NavigationMenuItem>
-                                    <NavigationMenuLink
-                                        asChild
-                                        className={navigationMenuTriggerStyle()}
-                                    >
-                                        <Link href={route('admin.dashboard')}>
-                                            {t('Dashboard')}
-                                        </Link>
-                                    </NavigationMenuLink>
-                                </NavigationMenuItem>
+                                <>
+                                    <NavigationMenuItem>
+                                        <NavigationMenuLink
+                                            asChild
+                                            className={navigationMenuTriggerStyle()}
+                                        >
+                                            <Link
+                                                href={route('admin.dashboard')}
+                                            >
+                                                {t('Dashboard')}
+                                            </Link>
+                                        </NavigationMenuLink>
+                                    </NavigationMenuItem>
+                                    <NavigationMenuItem>
+                                        <NavigationMenuLink
+                                            asChild
+                                            className={navigationMenuTriggerStyle()}
+                                            active={route().current(
+                                                'admin.members.*',
+                                            )}
+                                        >
+                                            <Link
+                                                href={route(
+                                                    'admin.members.index',
+                                                )}
+                                            >
+                                                {t('Members')}
+                                            </Link>
+                                        </NavigationMenuLink>
+                                    </NavigationMenuItem>
+                                    <NavigationMenuItem>
+                                        <NavigationMenuLink
+                                            asChild
+                                            className={navigationMenuTriggerStyle()}
+                                            active={route().current(
+                                                'admin.books.*',
+                                            )}
+                                        >
+                                            <Link
+                                                href={route(
+                                                    'admin.books.index',
+                                                )}
+                                            >
+                                                {t('Books')}
+                                            </Link>
+                                        </NavigationMenuLink>
+                                    </NavigationMenuItem>
+                                    <NavigationMenuItem>
+                                        <NavigationMenuLink
+                                            asChild
+                                            className={navigationMenuTriggerStyle()}
+                                            active={route().current(
+                                                'admin.configuration',
+                                            )}
+                                        >
+                                            <Link
+                                                href={route(
+                                                    'admin.configuration',
+                                                )}
+                                            >
+                                                {t('Configuration')}
+                                            </Link>
+                                        </NavigationMenuLink>
+                                    </NavigationMenuItem>
+                                </>
                             )}
                         </NavigationMenuList>
                     </NavigationMenu>

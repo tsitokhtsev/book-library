@@ -64,7 +64,7 @@ export default function Index({
                             </CardHeader>
                         </Card>
                         <Card>
-                            <Link href={route('admin.authors.index')}>
+                            <Link href={route('admin.authors')}>
                                 <CardHeader>
                                     <div className="flex items-baseline gap-4 md:gap-6">
                                         <span className="text-5xl">
@@ -80,18 +80,20 @@ export default function Index({
                             </Link>
                         </Card>
                         <Card>
-                            <CardHeader>
-                                <div className="flex items-baseline gap-4 md:gap-6">
-                                    <span className="text-5xl">
-                                        {genres_count}
-                                    </span>
-                                    <h2 className="text-sm font-medium">
-                                        <DramaIcon className="mr-2 h-4 w-4" />
-                                        {t('Genre')}
-                                    </h2>
-                                    <ArrowUpRightIcon className="ml-auto self-start" />
-                                </div>
-                            </CardHeader>
+                            <Link href={route('admin.genres')}>
+                                <CardHeader>
+                                    <div className="flex items-baseline gap-4 md:gap-6">
+                                        <span className="text-5xl">
+                                            {genres_count}
+                                        </span>
+                                        <h2 className="text-sm font-medium">
+                                            <DramaIcon className="mr-2 h-4 w-4" />
+                                            {t('Genre')}
+                                        </h2>
+                                        <ArrowUpRightIcon className="ml-auto self-start" />
+                                    </div>
+                                </CardHeader>
+                            </Link>
                         </Card>
                     </div>
 

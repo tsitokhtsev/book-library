@@ -52,7 +52,7 @@ class ConfigurationController extends Controller
         });
 
         return redirect()
-            ->route('admin.configuration.index')
+            ->route('admin.configuration')
             ->with('success', 'Configuration updated successfully.');
     }
 }

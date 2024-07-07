@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Condition extends Model
 {
 //    use HasFactory;
+    protected $fillable = ['name'];
 
     public function bookCopies(): HasMany
     {

@@ -48,3 +48,32 @@ export type Author = {
     bio: string | null;
     books_count: number;
 };
+
+export type Genre = {
+    id: number;
+    name: string;
+    books_count: number;
+};
+
+export type Condition = {
+    id: number;
+    name: string;
+    books_count: number;
+};
+
+export type Status = {
+    id: number;
+    name: string;
+    books_count: number;
+};
+
+export type Branch = {
+    id: number;
+    is_enabled: boolean;
+    name: string;
+    address: string;
+    phone?: string;
+    email?: string;
+    working_hours: string;
+    books_count: number;
+};

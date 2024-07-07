@@ -13,6 +13,6 @@ class BookCopyStatus extends Model
 
     public function bookCopies(): HasMany
     {
-        return $this->hasMany(BookCopy::class);
+        return $this->hasMany(BookCopy::class, 'status_id');
     }
 }

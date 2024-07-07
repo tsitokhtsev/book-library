@@ -24,7 +24,7 @@ class StoreBookCopyRequest extends FormRequest
         return [
             'copies.*.code' => 'required|string|unique:book_copies',
             'copies.*.branch_id' => 'required|integer|exists:branches,id',
-            'copies.*.status_id' => 'required|integer|exists:book_copy_statuses,id',
+            'copies.*.status_id' => 'required|integer|exists:statuses,id',
             'copies.*.condition_id' => 'required|integer|exists:conditions,id',
         ];
     }

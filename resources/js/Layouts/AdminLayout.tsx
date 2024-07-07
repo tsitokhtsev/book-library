@@ -15,47 +15,6 @@ export default function Admin({ children }: PropsWithChildren) {
 
     return (
         <MainLayout>
-            <Tabs className="container">
-                <TabsList>
-                    <TabsTrigger
-                        value="dashboard"
-                        active={route().current('admin.dashboard')}
-                        asChild
-                    >
-                        <Link href={route('admin.dashboard')}>
-                            {t('Dashboard')}
-                        </Link>
-                    </TabsTrigger>
-                    <TabsTrigger
-                        value="members"
-                        active={route().current('admin.members.*')}
-                        asChild
-                    >
-                        <Link href={route('admin.members.index')}>
-                            {t('Members')}
-                        </Link>
-                    </TabsTrigger>
-                    <TabsTrigger
-                        value="books"
-                        active={route().current('admin.books.*')}
-                        asChild
-                    >
-                        <Link href={route('admin.books.index')}>
-                            {t('Books')}
-                        </Link>
-                    </TabsTrigger>
-                    <TabsTrigger
-                        value="configuration"
-                        active={route().current('admin.configuration.*')}
-                        asChild
-                    >
-                        <Link href={route('admin.configuration.index')}>
-                            {t('Configuration')}
-                        </Link>
-                    </TabsTrigger>
-                </TabsList>
-            </Tabs>
-
             {(success || error) && (
                 <div className="container">
                     <Alert variant={error ? 'destructive' : 'success'}>

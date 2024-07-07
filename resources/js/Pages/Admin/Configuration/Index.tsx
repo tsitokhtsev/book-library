@@ -13,6 +13,13 @@ import {
 import { Input } from '@/Components/Input';
 import { InputError } from '@/Components/InputError';
 import { Label } from '@/Components/Label';
+import {
+    NavigationMenu,
+    NavigationMenuItem,
+    NavigationMenuLink,
+    NavigationMenuList,
+    navigationMenuTriggerStyle,
+} from '@/Components/NavigationMenu';
 import AdminLayout from '@/Layouts/AdminLayout';
 
 type Configurations = {
@@ -42,6 +49,61 @@ export default function Index({
         <AdminLayout>
             <Head title="Configuration" />
 
+            <NavigationMenu className="hidden sm:flex">
+                <NavigationMenuList>
+                    <NavigationMenuItem>
+                        <NavigationMenuLink
+                            asChild
+                            className={navigationMenuTriggerStyle()}
+                        >
+                            <Link href={route('admin.authors')}>
+                                {t('Authors')}
+                            </Link>
+                        </NavigationMenuLink>
+                    </NavigationMenuItem>
+                    <NavigationMenuItem>
+                        <NavigationMenuLink
+                            asChild
+                            className={navigationMenuTriggerStyle()}
+                        >
+                            <Link href={route('admin.genres')}>
+                                {t('Genres')}
+                            </Link>
+                        </NavigationMenuLink>
+                    </NavigationMenuItem>
+                    <NavigationMenuItem>
+                        <NavigationMenuLink
+                            asChild
+                            className={navigationMenuTriggerStyle()}
+                        >
+                            <Link href={route('admin.conditions')}>
+                                {t('Conditions')}
+                            </Link>
+                        </NavigationMenuLink>
+                    </NavigationMenuItem>
+                    <NavigationMenuItem>
+                        <NavigationMenuLink
+                            asChild
+                            className={navigationMenuTriggerStyle()}
+                        >
+                            <Link href={route('admin.statuses')}>
+                                {t('Statuses')}
+                            </Link>
+                        </NavigationMenuLink>
+                    </NavigationMenuItem>
+                    <NavigationMenuItem>
+                        <NavigationMenuLink
+                            asChild
+                            className={navigationMenuTriggerStyle()}
+                        >
+                            <Link href={route('admin.branches')}>
+                                {t('Branches')}
+                            </Link>
+                        </NavigationMenuLink>
+                    </NavigationMenuItem>
+                </NavigationMenuList>
+            </NavigationMenu>
+
             <h1 className="mb-4 text-3xl font-semibold md:mb-8">
                 {t('Configuration')}
             </h1>
@@ -58,9 +120,7 @@ export default function Index({
                         <CardHeader>
                             <CardTitle>{t('Library')}</CardTitle>
                             <CardDescription>
-                                {t(
-                                    "Configure library's policies and settings",
-                                )}
+                                {t("Configure library's policies and settings")}
                             </CardDescription>
                         </CardHeader>
 

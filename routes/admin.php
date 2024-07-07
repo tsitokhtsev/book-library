@@ -7,6 +7,10 @@ use App\Http\Controllers\Admin\CheckoutController;
 use App\Http\Controllers\Admin\ConfigurationController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MemberController;
+use App\Http\Controllers\BranchController;
+use App\Http\Controllers\ConditionController;
+use App\Http\Controllers\Admin\GenreController;
+use App\Http\Controllers\BookCopyStatusController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')
@@ -27,13 +31,25 @@ Route::prefix('admin')
             ->shallow();
 
         Route::resource('authors', AuthorController::class)
-            ->only(['index', 'store', 'update', 'destroy']);
+            ->only(['index', 'store', 'update', 'destroy'])->name('index', 'authors');
+
+        Route::resource('genres', GenreController::class)
+            ->only(['index', 'store', 'update', 'destroy'])->name('index', 'genres');
+
+        Route::resource('conditions', ConditionController::class)
+            ->only(['index', 'store', 'update', 'destroy'])->name('index', 'conditions');
+
+        Route::resource('statuses', BookCopyStatusController::class)
+            ->only(['index', 'store', 'update', 'destroy'])->name('index', 'statuses');
+
+        Route::resource('branches', BranchController::class)
+            ->only(['index', 'store', 'update', 'destroy'])->name('index', 'branches');
 
         Route::resource('checkout', CheckoutController::class)
             ->only(['store']);
 
         Route::get('configuration', [ConfigurationController::class, 'index'])
-            ->name('configuration.index');
+            ->name('configuration');
         Route::put('configuration', [ConfigurationController::class, 'update'])
-            ->name('configuration.update');
+            ->name('configuration');
     });

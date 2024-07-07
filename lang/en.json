@@ -83,7 +83,7 @@
     "Are you sure you want to delete this book copy? This action cannot be undone.": "Are you sure you want to delete this book copy? This action cannot be undone.",
 
     "Author": "Author",
-    "Authors": "Author",
+    "Authors": "Authors",
     "View and manage authors": "View and manage authors",
     "Add Author": "Add Author",
     "Name": "Name",
@@ -201,5 +201,6 @@
     "Uzbek": "Uzbek",
     "Vietnamese": "Vietnamese",
     "Welsh": "Welsh",
-    "Xhosa": "Xhosa"
+    "Xhosa": "Xhosa",
+    "Configuration": "Configuration"
 }
