@@ -4,10 +4,11 @@ use App\Http\Controllers\Admin\AuthorController;
 use App\Http\Controllers\Admin\BookController;
 use App\Http\Controllers\Admin\BookCopyController;
 use App\Http\Controllers\Admin\MemberController;
+use App\Http\Controllers\BranchController;
 use App\Http\Controllers\ConditionController;
 use App\Http\Controllers\ConfigurationController;
 use App\Http\Controllers\Admin\GenreController;
-use App\Http\Controllers\StatusController;
+use App\Http\Controllers\BookCopyStatusController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -38,8 +39,11 @@ Route::prefix('admin')
         Route::resource('conditions', ConditionController::class)
             ->only(['index', 'store', 'update', 'destroy'])->name('index', 'conditions');
 
-        Route::resource('statuses', StatusController::class)
+        Route::resource('statuses', BookCopyStatusController::class)
             ->only(['index', 'store', 'update', 'destroy'])->name('index', 'statuses');
+
+        Route::resource('branches', BranchController::class)
+            ->only(['index', 'store', 'update', 'destroy'])->name('index', 'branches');
 
         Route::resource('configuration', ConfigurationController::class)
             ->only(['index', 'store', 'update', 'destroy'])

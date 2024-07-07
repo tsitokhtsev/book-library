@@ -27,11 +27,11 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from '@/Components/DropdownMenu';
-import { Form } from '@/Pages/Admin/Statuses/Partials/Form';
+import { Form } from '@/Pages/Admin/Branches/Partials/Form';
 import { FormType } from '@/types/form';
-import { Status } from '@/types/model';
+import { Branch } from '@/types/model';
 
-export function Actions({ status }: { status: Status }) {
+export function Actions({ branch }: { branch: Branch }) {
     const { t } = useLaravelReactI18n();
 
     const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
@@ -57,16 +57,16 @@ export function Actions({ status }: { status: Status }) {
             <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
-                        <DialogTitle>{t('Edit status')}</DialogTitle>
+                        <DialogTitle>{t('Edit branch')}</DialogTitle>
                         <DialogDescription>
-                            {t('Make changes and save the status')}
+                            {t('Make changes and save the branch')}
                         </DialogDescription>
                     </DialogHeader>
 
                     <Form
                         type={FormType.Edit}
-                        initialData={status}
-                        statusId={status.id}
+                        initialData={branch}
+                        branchId={branch.id}
                     />
                 </DialogContent>
             </Dialog>
@@ -78,28 +78,28 @@ export function Actions({ status }: { status: Status }) {
                 <AlertDialogContent>
                     <AlertDialogHeader>
                         <AlertDialogTitle>
-                            {t('Delete status')}
+                            {t('Delete branch')}
                         </AlertDialogTitle>
                         <AlertDialogDescription>
-                            {status.books_count
+                            {branch.books_count
                                 ? t(
-                                      'This status has :count books associated with them. This action is not available until you delete all the books associated with this status.',
-                                      { count: status.books_count },
+                                      'This branch has :count books associated with them. This action is not available until you delete all the books associated with this branch.',
+                                      { count: branch.books_count },
                                   )
                                 : t(
-                                      'Are you sure you want to delete this status? This action cannot be undone.',
+                                      'Are you sure you want to delete this branch? This action cannot be undone.',
                                   )}
                         </AlertDialogDescription>
                     </AlertDialogHeader>
 
                     <AlertDialogFooter>
                         <AlertDialogCancel>{t('Cancel')}</AlertDialogCancel>
-                        {!status.books_count && (
+                        {!branch.books_count && (
                             <AlertDialogAction variant="destructive" asChild>
                                 <Link
                                     href={route(
-                                        'admin.statuses.destroy',
-                                        status.id,
+                                        'admin.branches.destroy',
+                                        branch.id,
                                     )}
                                     as="button"
                                     method="delete"

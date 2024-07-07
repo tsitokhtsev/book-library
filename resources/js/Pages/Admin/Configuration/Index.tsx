@@ -65,7 +65,9 @@ const Configuration = () => {
                                 asChild
                                 className={navigationMenuTriggerStyle()}
                             >
-                                <Link href="">{t('Branches')}</Link>
+                                <Link href={route('admin.branches')}>
+                                    {t('Branches')}
+                                </Link>
                             </NavigationMenuLink>
                         </NavigationMenuItem>
                     </NavigationMenuList>

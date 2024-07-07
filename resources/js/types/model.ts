@@ -66,3 +66,14 @@ export type Status = {
     name: string;
     books_count: number;
 };
+
+export type Branch = {
+    id: number;
+    is_enabled: boolean;
+    name: string;
+    address: string;
+    phone?: string;
+    email?: string;
+    working_hours: string;
+    books_count: number;
+};

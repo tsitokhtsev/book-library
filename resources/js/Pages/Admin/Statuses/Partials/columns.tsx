@@ -10,7 +10,7 @@ export const columns: ColumnDef<Status>[] = [
         header: ({ column }) => <DataTableColumnHeader column={column} />,
     },
     {
-        accessorKey: 'books_count',
+        accessorKey: 'book_copies_count',
         header: ({ column }) => (
             <DataTableColumnHeader label={'Books'} column={column} />
         ),
