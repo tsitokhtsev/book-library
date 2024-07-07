@@ -38,6 +38,12 @@
     "Created at": "Created at",
     "Password": "Password",
 
+    "Lend": "Lend",
+    "Lend a book": "Lend a book",
+    "Fill out the form to lend a book": "Fill out the form to lend a book",
+    "Select a member": "Select a member",
+    "Select books": "Select books",
+
     "Book": "Book",
     "Books": "Books",
     "View and manage books": "View and manage books",
@@ -94,12 +100,21 @@
     "Genre": "Genre",
     "Genres": "Genres",
 
+    "Member": "Member",
     "Members": "Members",
     "View and manage members": "View and manage members",
     "Add Member": "Add Member",
     "Create and add a new member": "Add a new member to the library",
     "Delete member": "Delete member",
     "Are you sure you want to delete this member? This action cannot be undone.": "Are you sure you want to delete this member? This action cannot be undone.",
+
+    "Configuration": "Configuration",
+    "Library": "Library",
+    "Configure library's policies and settings": "Configure library's policies and settings",
+    "Days to Return": "Days to Return",
+    "The number of days a member has to return a book.": "The number of days a member has to return a book.",
+    "Max Lent Books": "Max Lent Books",
+    "The maximum number of books a member can borrow at the same time.": "The maximum number of books a member can borrow at the same time.",
 
     "available": "Available",
     "checked-out": "Checked out",

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\BookCopyStatus;
 use App\Models\Branch;
 use App\Models\Condition;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -21,7 +22,7 @@ class BookCopyFactory extends Factory
         return [
             'code' => $this->faker->unique()->numerify('##########'),
             'branch_id' => $this->faker->randomElement(Branch::pluck('id')),
-            'status_id' => 1,
+            'status_id' => BookCopyStatus::AVAILABLE->intValue(),
             'condition_id' => $this->faker->randomElement(Condition::pluck('id')),
         ];
     }
