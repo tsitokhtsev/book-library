@@ -52,7 +52,7 @@ const CommandInput = React.forwardRef<
             ref={ref}
             className={cn(
                 {
-                    'flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50':
+                    'flex h-11 w-full rounded-md border-none bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50':
                         !inline,
                 },
                 {
@@ -74,10 +74,7 @@ const CommandList = React.forwardRef<
 >(({ className, ...props }, ref) => (
     <CommandPrimitive.List
         ref={ref}
-        className={cn(
-            'max-h-[300px] overflow-y-auto overflow-x-hidden',
-            className,
-        )}
+        className={cn('overflow-y-auto overflow-x-hidden', className)}
         {...props}
     />
 ));
@@ -104,7 +101,7 @@ const CommandGroup = React.forwardRef<
     <CommandPrimitive.Group
         ref={ref}
         className={cn(
-            'overflow-hidden p-1 text-foreground [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground',
+            'max-h-[300px] overflow-y-auto p-1 text-foreground [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground',
             className,
         )}
         {...props}

@@ -38,6 +38,12 @@
     "Created at": "დამატებულია",
     "Password": "პაროლი",
 
+    "Lend": "გაცემა",
+    "Lend a book": "წიგნის გაცემა",
+    "Fill out the form to lend a book": "შეავსე ფორმა წიგნის გაცემისთვის",
+    "Select a member": "აირჩიე მკითხველი",
+    "Select books": "აირჩიე წიგნები",
+
     "Book": "წიგნი",
     "Books": "წიგნები",
     "View and manage books": "წიგნების დათვალიერება და მართვა",
@@ -94,12 +100,21 @@
     "Genre": "ჟანრი",
     "Genres": "ჟანრები",
 
+    "Member": "მკითხველი",
     "Members": "მკითხველები",
     "View and manage members": "მკითხველების დათვალიერება და მართვა",
     "Add Member": "მკითხველის დამატება",
     "Create and add a new member": "შექმენი და დაამატე ახალი მკითხველის დამატება",
     "Delete member": "მკითხველის წაშლა",
     "Are you sure you want to delete this member? This action cannot be undone.": "ნამდვილად გსურს ამ მკითხველის წაშლა? ეს ქმედება შეუქცევადია.",
+
+    "Configuration": "კონფიგურაცია",
+    "Library": "ბიბლიოთეკა",
+    "Configure library's policies and settings": "დააკონფიგურირე ბიბლიოთეკის წესები და პარამეტრები",
+    "Days to Return": "დღეები დასაბრუნებლად",
+    "The number of days a member has to return a book.": "რამდენი დღე მკითხველს აქვს წიგნის დასაბრუნებლად.",
+    "Max Lent Books": "გაცემული წიგნების მაქსიმალური რაოდენობა",
+    "The maximum number of books a member can borrow at the same time.": " მკითხველის მიერ ერთდროულად გატანილი წიგნების მაქსიმალური რაოდენობა.",
 
     "available": "ხელმისაწვდომია",
     "checked-out": "გატანილია",
