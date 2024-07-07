@@ -16,9 +16,17 @@ class ConfigurationController extends Controller
      */
     public function index(): Response
     {
+        $keys = [
+            'days_to_return',
+            'max_lent_books',
+        ];
+        $config = Configuration::whereIn('key', $keys)
+            ->get()
+            ->pluck('value', 'key');
+
         return inertia('Admin/Configuration/Index', [
-            'days_to_return' => config('library.days_to_return'),
-            'max_lent_books' => config('library.max_lent_books'),
+            'days_to_return' => $config->get('days_to_return'),
+            'max_lent_books' => $config->get('max_lent_books'),
         ]);
     }
 
