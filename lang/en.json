@@ -101,6 +101,14 @@
     "Delete member": "Delete member",
     "Are you sure you want to delete this member? This action cannot be undone.": "Are you sure you want to delete this member? This action cannot be undone.",
 
+    "Configuration": "Configuration",
+    "Library": "Library",
+    "Configure library's policies and settings": "Configure library's policies and settings",
+    "Days to Return": "Days to Return",
+    "The number of days a member has to return a book.": "The number of days a member has to return a book.",
+    "Max Lent Books": "Max Lent Books",
+    "The maximum number of books a member can borrow at the same time.": "The maximum number of books a member can borrow at the same time.",
+
     "available": "Available",
     "checked-out": "Checked out",
     "lost": "Lost",

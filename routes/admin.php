@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AuthorController;
 use App\Http\Controllers\Admin\BookController;
 use App\Http\Controllers\Admin\BookCopyController;
+use App\Http\Controllers\Admin\ConfigurationController;
 use App\Http\Controllers\Admin\MemberController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -27,4 +28,9 @@ Route::prefix('admin')
 
         Route::resource('authors', AuthorController::class)
             ->only(['index', 'store', 'update', 'destroy']);
+
+        Route::get('configuration', [ConfigurationController::class, 'index'])
+            ->name('configuration.index');
+        Route::put('configuration', [ConfigurationController::class, 'update'])
+            ->name('configuration.update');
     });
