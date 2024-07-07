@@ -38,6 +38,12 @@
     "Created at": "Created at",
     "Password": "Password",
 
+    "Lend": "Lend",
+    "Lend a book": "Lend a book",
+    "Fill out the form to lend a book": "Fill out the form to lend a book",
+    "Select a member": "Select a member",
+    "Select books": "Select books",
+
     "Book": "Book",
     "Books": "Books",
     "View and manage books": "View and manage books",
@@ -94,6 +100,7 @@
     "Genre": "Genre",
     "Genres": "Genres",
 
+    "Member": "Member",
     "Members": "Members",
     "View and manage members": "View and manage members",
     "Add Member": "Add Member",

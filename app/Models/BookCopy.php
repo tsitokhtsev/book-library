@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -52,5 +53,12 @@ class BookCopy extends Model
     public function reviews(): HasMany
     {
         return $this->hasMany(Review::class);
+    }
+
+    public function scopeWithStatus(Builder $query, array $statuses): Builder
+    {
+        return $query->whereHas('status', function ($query) use ($statuses) {
+            $query->whereIn('name', $statuses);
+        });
     }
 }
