@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAuthorRequest;
 use App\Http\Requests\UpdateAuthorRequest;
 use App\Models\Author;
@@ -12,7 +11,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class AuthorController extends Controller
+class ConfigurationController extends Controller
 {
     /**
      * @param AuthorService $authorService
@@ -26,11 +25,7 @@ class AuthorController extends Controller
      */
     public function index(): Response
     {
-        return Inertia::render('Admin/Authors/Index', [
-            'authors' => Author::select('id', 'name', 'bio')
-                ->withCount('books')
-                ->get(),
-        ]);
+        return Inertia::render('Admin/Configuration/Index');
     }
 
     /**
@@ -43,7 +38,7 @@ class AuthorController extends Controller
         $this->authorService->createAuthor($request->validated());
 
         return redirect()
-            ->route('admin.authors')
+            ->route('admin.authors.index')
             ->with('success', __('Author created successfully!'));
     }
 
@@ -58,7 +53,7 @@ class AuthorController extends Controller
         $this->authorService->updateAuthor($request->validated(), $author->id);
 
         return redirect()
-            ->route('admin.authors')
+            ->route('admin.authors.index')
             ->with('success', __('Author updated successfully!'));
     }
 
@@ -72,7 +67,7 @@ class AuthorController extends Controller
         $author->delete();
 
         return redirect()
-            ->route('admin.authors')
+            ->route('admin.authors.index')
             ->with('success', __('Author deleted successfully!'));
     }
 }

@@ -85,14 +85,18 @@ export default {
         },
     },
 
-    plugins: [forms, require('tailwindcss-animate'), function ({ addComponents }) {
-        addComponents({
-            '.container': {
-                maxWidth: '100%',
-                '@screen lg': {
-                    maxWidth: '1280px',
+    plugins: [
+        forms,
+        require('tailwindcss-animate'),
+        function ({ addComponents }) {
+            addComponents({
+                '.container': {
+                    maxWidth: '100%',
+                    '@screen lg': {
+                        maxWidth: '1280px',
+                    },
                 },
-            }
-        })
-    }],
+            });
+        },
+    ],
 };

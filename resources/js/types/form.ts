@@ -33,3 +33,11 @@ export type AuthorForm = {
     name: string;
     bio: string | null;
 };
+
+export type GenreForm = {
+    name: string;
+};
+
+export type ConditionForm = {
+    name: string;
+};
