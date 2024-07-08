@@ -1,5 +1,6 @@
 import { Link } from '@inertiajs/react';
 import { ColumnDef } from '@tanstack/react-table';
+import { useLaravelReactI18n } from 'laravel-react-i18n';
 
 import { Button } from '@/Components/Button';
 import { Checkbox } from '@/Components/Checkbox';
@@ -8,7 +9,6 @@ import { IsEnabledBadge } from '@/Components/IsEnabledBadge';
 import { Actions } from '@/Pages/Admin/Books/Partials/Actions';
 import { SelectOption } from '@/types';
 import { Book } from '@/types/model';
-import { useLaravelReactI18n } from 'laravel-react-i18n';
 
 export const columns: ColumnDef<Book>[] = [
     {
@@ -55,9 +55,7 @@ export const columns: ColumnDef<Book>[] = [
     },
     {
         accessorKey: 'isbn',
-        header: ({ column }) => (
-            <DataTableColumnHeader column={column} />
-        ),
+        header: ({ column }) => <DataTableColumnHeader column={column} />,
     },
     {
         accessorKey: 'language',

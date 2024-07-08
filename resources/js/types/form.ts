@@ -1,3 +1,5 @@
+import { SelectOption } from '.';
+
 export enum FormType {
     Create,
     Edit,
@@ -49,4 +51,14 @@ export type BranchForm = {
     phone?: string;
     email?: string;
     working_hours: string;
+};
+
+export type SearchForm = {
+    genres: number[];
+    authors: number[];
+    title: string;
+    statuses: number[];
+    languages: number[];
+    branches: number[];
+    conditions: number[];
 };

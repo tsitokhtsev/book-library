@@ -1,0 +1,68 @@
+import { PageProps as InertiaPageProps } from '@inertiajs/core';
+import { Link, usePage } from '@inertiajs/react';
+
+import { Button } from '@/Components/Button';
+import MainLayout from '@/Layouts/MainLayout';
+import { PaginationLink } from '@/types/global';
+import { Book } from '@/types/model';
+
+export interface Pagination {
+    data: Book[];
+    links: PaginationLink[];
+    current_page: number;
+    from: number;
+    last_page: number;
+    per_page: number;
+    to: number;
+    total: number;
+}
+
+export interface PageProps extends InertiaPageProps {
+    books: Pagination;
+}
+
+const BooksList = () => {
+    const { books } = usePage<PageProps>().props;
+
+    const { data, links } = books;
+
+    return (
+        <MainLayout>
+            <div className="mx-auto w-9/12">
+                <h1 className="text-2xl font-bold">
+                    {data.length} Search Results
+                </h1>
+                <div className="flex flex-col items-start justify-start">
+                    {data.map((book) => (
+                        <Button key={book.id} variant="link" asChild>
+                            <Link
+                                className="pl-0"
+                                href={route('admin.books.show', book.id)}
+                            >
+                                {book.title} -{' '}
+                                {book.authors
+                                    .map((author) => author.name)
+                                    .join(', ')}
+                            </Link>
+                        </Button>
+                    ))}
+                </div>
+                <div className="mt-4">
+                    <div className="flex justify-center">
+                        {links.map((link, index) => (
+                            <Link
+                                key={index}
+                                disabled={!link.url}
+                                className={`mx-1 px-2 py-1 ${link.active ? 'font-bold' : 'text-gray-500'}`}
+                                href={link.url ? link.url : '#'}
+                                dangerouslySetInnerHTML={{ __html: link.label }}
+                            />
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </MainLayout>
+    );
+};
+
+export default BooksList;
