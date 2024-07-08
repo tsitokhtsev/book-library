@@ -43,7 +43,7 @@ class GenreController extends Controller
         $this->genreService->createGenre($request->validated());
 
         return redirect()
-            ->route('admin.genres')
+            ->route('admin.genres.index')
             ->with('success', __('Genre created successfully!'));
     }
 
@@ -59,7 +59,7 @@ class GenreController extends Controller
         $this->genreService->updateGenre($request->validated(), $genre->id);
 
         return redirect()
-            ->route('admin.genres')
+            ->route('admin.genres.index')
             ->with('success', __('Genre updated successfully!'));
     }
 
@@ -73,7 +73,7 @@ class GenreController extends Controller
         $genre->delete();
 
         return redirect()
-            ->route('admin.genres')
+            ->route('admin.genres.index')
             ->with('success', __('Genre deleted successfully!'));
     }
 }

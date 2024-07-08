@@ -64,7 +64,7 @@ export default function Index({
                             </CardHeader>
                         </Card>
                         <Card>
-                            <Link href={route('admin.authors')}>
+                            <Link href={route('admin.authors.index')}>
                                 <CardHeader>
                                     <div className="flex items-baseline gap-4 md:gap-6">
                                         <span className="text-5xl">
@@ -80,7 +80,7 @@ export default function Index({
                             </Link>
                         </Card>
                         <Card>
-                            <Link href={route('admin.genres')}>
+                            <Link href={route('admin.genres.index')}>
                                 <CardHeader>
                                     <div className="flex items-baseline gap-4 md:gap-6">
                                         <span className="text-5xl">

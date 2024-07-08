@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreConditionRequest;
 use App\Http\Requests\UpdateConditionRequest;
 use App\Models\Condition;
@@ -41,7 +42,7 @@ class ConditionController extends Controller
         $this->conditionService->createCondition($request->validated());
 
         return redirect()
-            ->route('admin.conditions')
+            ->route('admin.conditions.index')
             ->with('success', __('Condition created successfully!'));
     }
 
@@ -57,7 +58,7 @@ class ConditionController extends Controller
         $this->conditionService->updateCondition($request->validated(), $condition->id);
 
         return redirect()
-            ->route('admin.conditions')
+            ->route('admin.conditions.index')
             ->with('success', __('Condition updated successfully!'));
     }
 
@@ -71,7 +72,7 @@ class ConditionController extends Controller
         $condition->delete();
 
         return redirect()
-            ->route('admin.conditions')
+            ->route('admin.conditions.index')
             ->with('success', __('Condition deleted successfully!'));
     }
 }

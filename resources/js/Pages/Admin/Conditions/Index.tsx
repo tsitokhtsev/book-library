@@ -18,7 +18,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from '@/Components/Dialog';
-import AdminLayout from '@/Layouts/AdminLayout';
+import ConfigurationLayout from '@/Layouts/ConfigurationLayout';
 import { Form } from '@/Pages/Admin/Conditions/Partials/Form';
 import { columns } from '@/Pages/Admin/Conditions/Partials/columns';
 import { FormType } from '@/types/form';
@@ -32,15 +32,15 @@ export default function Index({ conditions }: { conditions: Condition[] }) {
     const { t } = useLaravelReactI18n();
 
     return (
-        <AdminLayout>
+        <ConfigurationLayout>
             <Head title={t('Conditions')} />
 
-            <Card className="flex flex-grow flex-col">
+            <Card>
                 <div className="flex flex-col justify-between sm:flex-row">
                     <CardHeader>
-                        <CardTitle>{t('Conditions')}</CardTitle>
+                        <CardTitle>{t('Book Conditions')}</CardTitle>
                         <CardDescription>
-                            {t('View and manage conditions')}
+                            {t('View and manage book conditions')}
                         </CardDescription>
                     </CardHeader>
 
@@ -66,7 +66,7 @@ export default function Index({ conditions }: { conditions: Condition[] }) {
                     </Dialog>
                 </div>
 
-                <CardContent className="flex flex-grow flex-col">
+                <CardContent>
                     <DataTable
                         data={conditions}
                         columns={columns}
@@ -74,6 +74,6 @@ export default function Index({ conditions }: { conditions: Condition[] }) {
                     />
                 </CardContent>
             </Card>
-        </AdminLayout>
+        </ConfigurationLayout>
     );
 }
