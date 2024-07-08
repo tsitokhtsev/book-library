@@ -3,14 +3,14 @@
 use App\Http\Controllers\Admin\AuthorController;
 use App\Http\Controllers\Admin\BookController;
 use App\Http\Controllers\Admin\BookCopyController;
+use App\Http\Controllers\Admin\BookCopyStatusController;
+use App\Http\Controllers\Admin\BranchController;
 use App\Http\Controllers\Admin\CheckoutController;
+use App\Http\Controllers\Admin\ConditionController;
 use App\Http\Controllers\Admin\ConfigurationController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\MemberController;
-use App\Http\Controllers\BranchController;
-use App\Http\Controllers\ConditionController;
 use App\Http\Controllers\Admin\GenreController;
-use App\Http\Controllers\BookCopyStatusController;
+use App\Http\Controllers\Admin\MemberController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')
@@ -30,26 +30,26 @@ Route::prefix('admin')
             ->only(['create', 'store', 'update', 'destroy'])
             ->shallow();
 
-        Route::resource('authors', AuthorController::class)
-            ->only(['index', 'store', 'update', 'destroy'])->name('index', 'authors');
-
-        Route::resource('genres', GenreController::class)
-            ->only(['index', 'store', 'update', 'destroy'])->name('index', 'genres');
-
-        Route::resource('conditions', ConditionController::class)
-            ->only(['index', 'store', 'update', 'destroy'])->name('index', 'conditions');
-
-        Route::resource('statuses', BookCopyStatusController::class)
-            ->only(['index', 'store', 'update', 'destroy'])->name('index', 'statuses');
-
-        Route::resource('branches', BranchController::class)
-            ->only(['index', 'store', 'update', 'destroy'])->name('index', 'branches');
-
         Route::resource('checkout', CheckoutController::class)
             ->only(['store']);
 
+        Route::resource('authors', AuthorController::class)
+            ->only(['index', 'store', 'update', 'destroy']);
+
+        Route::resource('genres', GenreController::class)
+            ->only(['index', 'store', 'update', 'destroy']);
+
+        Route::resource('conditions', ConditionController::class)
+            ->only(['index', 'store', 'update', 'destroy']);
+
+        Route::resource('statuses', BookCopyStatusController::class)
+            ->only(['index', 'store', 'update', 'destroy']);
+
+        Route::resource('branches', BranchController::class)
+            ->only(['index', 'store', 'update', 'destroy']);
+
         Route::get('configuration', [ConfigurationController::class, 'index'])
-            ->name('configuration');
+            ->name('configuration.index');
         Route::put('configuration', [ConfigurationController::class, 'update'])
-            ->name('configuration');
+            ->name('configuration.update');
     });

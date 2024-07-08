@@ -18,7 +18,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from '@/Components/Dialog';
-import AdminLayout from '@/Layouts/AdminLayout';
+import ConfigurationLayout from '@/Layouts/ConfigurationLayout';
 import { Form } from '@/Pages/Admin/Authors/Partials/Form';
 import { columns } from '@/Pages/Admin/Authors/Partials/columns';
 import { FormType } from '@/types/form';
@@ -33,10 +33,10 @@ export default function Index({ authors }: { authors: Author[] }) {
     const { t } = useLaravelReactI18n();
 
     return (
-        <AdminLayout>
+        <ConfigurationLayout>
             <Head title={t('Authors')} />
 
-            <Card className="flex flex-grow flex-col">
+            <Card>
                 <div className="flex flex-col justify-between sm:flex-row">
                     <CardHeader>
                         <CardTitle>{t('Authors')}</CardTitle>
@@ -67,7 +67,7 @@ export default function Index({ authors }: { authors: Author[] }) {
                     </Dialog>
                 </div>
 
-                <CardContent className="flex flex-grow flex-col">
+                <CardContent>
                     <DataTable
                         data={authors}
                         columns={columns}
@@ -75,6 +75,6 @@ export default function Index({ authors }: { authors: Author[] }) {
                     />
                 </CardContent>
             </Card>
-        </AdminLayout>
+        </ConfigurationLayout>
     );
 }

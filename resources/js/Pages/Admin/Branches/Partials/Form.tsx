@@ -110,7 +110,7 @@ export function Form({
                     <InputError message={errors.email} />
                 </div>
                 <div className="grid gap-2">
-                    <Label htmlFor="working_hours">{t('Working Hours')}</Label>
+                    <Label htmlFor="working_hours">{t('Working hours')}</Label>
                     <Input
                         type="text"
                         value={data.working_hours}

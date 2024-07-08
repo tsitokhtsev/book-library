@@ -18,7 +18,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from '@/Components/Dialog';
-import AdminLayout from '@/Layouts/AdminLayout';
+import ConfigurationLayout from '@/Layouts/ConfigurationLayout';
 import { Form } from '@/Pages/Admin/Statuses/Partials/Form';
 import { columns } from '@/Pages/Admin/Statuses/Partials/columns';
 import { FormType } from '@/types/form';
@@ -32,15 +32,15 @@ export default function Index({ statuses }: { statuses: Status[] }) {
     const { t } = useLaravelReactI18n();
 
     return (
-        <AdminLayout>
+        <ConfigurationLayout>
             <Head title={t('Statuses')} />
 
-            <Card className="flex flex-grow flex-col">
+            <Card>
                 <div className="flex flex-col justify-between sm:flex-row">
                     <CardHeader>
-                        <CardTitle>{t('Statuses')}</CardTitle>
+                        <CardTitle>{t('Book Statuses')}</CardTitle>
                         <CardDescription>
-                            {t('View and manage statuses')}
+                            {t('View and manage book statuses')}
                         </CardDescription>
                     </CardHeader>
 
@@ -66,7 +66,7 @@ export default function Index({ statuses }: { statuses: Status[] }) {
                     </Dialog>
                 </div>
 
-                <CardContent className="flex flex-grow flex-col">
+                <CardContent>
                     <DataTable
                         data={statuses}
                         columns={columns}
@@ -74,6 +74,6 @@ export default function Index({ statuses }: { statuses: Status[] }) {
                     />
                 </CardContent>
             </Card>
-        </AdminLayout>
+        </ConfigurationLayout>
     );
 }

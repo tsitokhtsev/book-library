@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreStatusRequest;
 use App\Http\Requests\UpdateStatusRequest;
 use App\Models\BookCopyStatus;
@@ -41,7 +42,7 @@ class BookCopyStatusController extends Controller
         $this->statusService->createStatus($request->validated());
 
         return redirect()
-            ->route('admin.statuses')
+            ->route('admin.statuses.index')
             ->with('success', __('Status created successfully!'));
     }
 
@@ -57,7 +58,7 @@ class BookCopyStatusController extends Controller
         $this->statusService->updateStatus($request->validated(), $status->id);
 
         return redirect()
-            ->route('admin.statuses')
+            ->route('admin.statuses.index')
             ->with('success', __('Status updated successfully!'));
     }
 
@@ -71,7 +72,7 @@ class BookCopyStatusController extends Controller
         $status->delete();
 
         return redirect()
-            ->route('admin.statuses')
+            ->route('admin.statuses.index')
             ->with('success', __('Status deleted successfully!'));
     }
 }

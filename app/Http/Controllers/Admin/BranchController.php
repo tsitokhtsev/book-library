@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreBranchRequest;
 use App\Http\Requests\UpdateBranchRequest;
 use App\Models\Branch;
@@ -41,7 +42,7 @@ class BranchController extends Controller
         $this->branchService->createBranch($request->validated());
 
         return redirect()
-            ->route('admin.branches')
+            ->route('admin.branches.index')
             ->with('success', __('Branch created successfully!'));
     }
 
@@ -57,7 +58,7 @@ class BranchController extends Controller
         $this->branchService->updateBranch($request->validated(), $branch->id);
 
         return redirect()
-            ->route('admin.branches')
+            ->route('admin.branches.index')
             ->with('success', __('Branch updated successfully!'));
     }
 
@@ -71,7 +72,7 @@ class BranchController extends Controller
         $branch->delete();
 
         return redirect()
-            ->route('admin.branches')
+            ->route('admin.branches.index')
             ->with('success', __('Branch deleted successfully!'));
     }
 }

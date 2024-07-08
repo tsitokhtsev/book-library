@@ -1,5 +1,6 @@
 import { Link } from '@inertiajs/react';
 import { ColumnDef } from '@tanstack/react-table';
+import { useLaravelReactI18n } from 'laravel-react-i18n';
 
 import { Button } from '@/Components/Button';
 import { Checkbox } from '@/Components/Checkbox';
@@ -8,7 +9,6 @@ import { IsEnabledBadge } from '@/Components/IsEnabledBadge';
 import { Actions } from '@/Pages/Admin/Books/Partials/Actions';
 import { SelectOption } from '@/types';
 import { Book } from '@/types/model';
-import { useLaravelReactI18n } from 'laravel-react-i18n';
 
 export const columns: ColumnDef<Book>[] = [
     {
@@ -38,13 +38,18 @@ export const columns: ColumnDef<Book>[] = [
     {
         accessorKey: 'title',
         header: ({ column }) => <DataTableColumnHeader column={column} />,
-        cell: ({ row }) => (
-            <Button variant="link" asChild>
-                <Link href={route('admin.books.show', row.original.id)}>
-                    {row.getValue('title')}
-                </Link>
-            </Button>
-        ),
+        cell: ({ row }) => {
+            const title = row.getValue('title') as string;
+            const formattedTitle =
+                title.length > 30 ? `${title.slice(0, 30)}...` : title;
+            return (
+                <Button variant="link" asChild>
+                    <Link href={route('admin.books.show', row.original.id)}>
+                        {formattedTitle}
+                    </Link>
+                </Button>
+            );
+        },
     },
     {
         accessorKey: 'is_enabled',
@@ -55,9 +60,7 @@ export const columns: ColumnDef<Book>[] = [
     },
     {
         accessorKey: 'isbn',
-        header: ({ column }) => (
-            <DataTableColumnHeader column={column} />
-        ),
+        header: ({ column }) => <DataTableColumnHeader column={column} />,
     },
     {
         accessorKey: 'language',

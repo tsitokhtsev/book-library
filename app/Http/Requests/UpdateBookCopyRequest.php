@@ -25,7 +25,7 @@ class UpdateBookCopyRequest extends FormRequest
         return [
             'code' => 'required|string|max:255|unique:book_copies,code,' . $this->copy->id,
             'branch_id' => 'required|integer|exists:branches,id',
-            'status_id' => 'required|integer|exists:statuses,id',
+            'status_id' => 'required|integer|exists:book_copy_statuses,id',
             'condition_id' => 'required|integer|exists:conditions,id',
         ];
     }

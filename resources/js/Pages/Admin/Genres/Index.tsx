@@ -18,7 +18,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from '@/Components/Dialog';
-import AdminLayout from '@/Layouts/AdminLayout';
+import ConfigurationLayout from '@/Layouts/ConfigurationLayout';
 import { Form } from '@/Pages/Admin/Genres/Partials/Form';
 import { columns } from '@/Pages/Admin/Genres/Partials/columns';
 import { FormType } from '@/types/form';
@@ -32,10 +32,10 @@ export default function Index({ genres }: { genres: Genre[] }) {
     const { t } = useLaravelReactI18n();
 
     return (
-        <AdminLayout>
+        <ConfigurationLayout>
             <Head title={t('Genres')} />
 
-            <Card className="flex flex-grow flex-col">
+            <Card>
                 <div className="flex flex-col justify-between sm:flex-row">
                     <CardHeader>
                         <CardTitle>{t('Genres')}</CardTitle>
@@ -66,7 +66,7 @@ export default function Index({ genres }: { genres: Genre[] }) {
                     </Dialog>
                 </div>
 
-                <CardContent className="flex flex-grow flex-col">
+                <CardContent>
                     <DataTable
                         data={genres}
                         columns={columns}
@@ -74,6 +74,6 @@ export default function Index({ genres }: { genres: Genre[] }) {
                     />
                 </CardContent>
             </Card>
-        </AdminLayout>
+        </ConfigurationLayout>
     );
 }

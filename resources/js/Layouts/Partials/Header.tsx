@@ -58,12 +58,13 @@ export default function Header({ user }: { user?: User }) {
                         </Link>
                     </div>
 
-                    <NavigationMenu className="hidden sm:flex">
+                    <NavigationMenu className="hidden md:flex">
                         <NavigationMenuList>
                             <NavigationMenuItem>
                                 <NavigationMenuLink
                                     asChild
                                     className={navigationMenuTriggerStyle()}
+                                    active={route().current('home')}
                                 >
                                     <Link href={route('home')}>
                                         {t('Home')}
@@ -76,6 +77,9 @@ export default function Header({ user }: { user?: User }) {
                                         <NavigationMenuLink
                                             asChild
                                             className={navigationMenuTriggerStyle()}
+                                            active={route().current(
+                                                'admin.dashboard',
+                                            )}
                                         >
                                             <Link
                                                 href={route('admin.dashboard')}
@@ -123,12 +127,12 @@ export default function Header({ user }: { user?: User }) {
                                             asChild
                                             className={navigationMenuTriggerStyle()}
                                             active={route().current(
-                                                'admin.configuration',
+                                                'admin.configuration.*',
                                             )}
                                         >
                                             <Link
                                                 href={route(
-                                                    'admin.configuration',
+                                                    'admin.configuration.index',
                                                 )}
                                             >
                                                 {t('Configuration')}
@@ -167,12 +171,12 @@ export default function Header({ user }: { user?: User }) {
                         </DropdownMenu>
 
                         <Drawer>
-                            <DrawerTrigger asChild className="sm:hidden">
+                            <DrawerTrigger asChild className="md:hidden">
                                 <Button variant="outline" size="icon">
                                     <MenuIcon />
                                 </Button>
                             </DrawerTrigger>
-                            <DrawerContent className="sm:hidden">
+                            <DrawerContent className="md:hidden">
                                 <DrawerHeader className="text-start">
                                     <div className="flex justify-end">
                                         <DrawerClose>
@@ -201,6 +205,38 @@ export default function Header({ user }: { user?: User }) {
                                     <Link href={route('home')}>
                                         {t('Home')}
                                     </Link>
+
+                                    {user?.is_admin && (
+                                        <>
+                                            <Link
+                                                href={route('admin.dashboard')}
+                                            >
+                                                {t('Dashboard')}
+                                            </Link>
+                                            <Link
+                                                href={route(
+                                                    'admin.members.index',
+                                                )}
+                                            >
+                                                {t('Members')}
+                                            </Link>
+                                            <Link
+                                                href={route(
+                                                    'admin.books.index',
+                                                )}
+                                            >
+                                                {t('Books')}
+                                            </Link>
+                                            <Link
+                                                href={route(
+                                                    'admin.configuration.index',
+                                                )}
+                                            >
+                                                {t('Configuration')}
+                                            </Link>
+                                        </>
+                                    )}
+
                                     {user ? (
                                         <Link href={route('profile.edit')}>
                                             {t('Profile')}
@@ -239,7 +275,7 @@ export default function Header({ user }: { user?: User }) {
                         </Drawer>
                     </div>
 
-                    <div className="hidden sm:flex sm:items-center sm:gap-4">
+                    <div className="hidden md:flex md:items-center md:gap-4">
                         {user ? (
                             <DropdownMenu>
                                 <DropdownMenuTrigger>
