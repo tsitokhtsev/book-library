@@ -78,7 +78,7 @@ export function Actions({ condition }: { condition: Condition }) {
                 <AlertDialogContent>
                     <AlertDialogHeader>
                         <AlertDialogTitle>
-                            {t('Delete Condition')}
+                            {t('Delete condition')}
                         </AlertDialogTitle>
                         <AlertDialogDescription>
                             {condition.books_count
