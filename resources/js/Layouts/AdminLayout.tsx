@@ -1,9 +1,8 @@
-import { Link, usePage } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
 import { useLaravelReactI18n } from 'laravel-react-i18n';
 import { PropsWithChildren } from 'react';
 
 import { Alert, AlertTitle } from '@/Components/Alert';
-import { Tabs, TabsList, TabsTrigger } from '@/Components/Tabs';
 import MainLayout from '@/Layouts/MainLayout';
 import { PageProps } from '@/types';
 

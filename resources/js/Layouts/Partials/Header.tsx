@@ -1,6 +1,8 @@
 import { Link } from '@inertiajs/react';
+import { router } from '@inertiajs/react';
 import { useLaravelReactI18n } from 'laravel-react-i18n';
-import { ChevronDownIcon, MenuIcon, XIcon } from 'lucide-react';
+import { ChevronDownIcon, MenuIcon, SearchIcon, XIcon } from 'lucide-react';
+import { useState } from 'react';
 
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import { Avatar, AvatarFallback } from '@/Components/Avatar';
@@ -20,6 +22,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/Components/DropdownMenu';
+import { Input } from '@/Components/Input';
 import {
     NavigationMenu,
     NavigationMenuItem,
@@ -47,6 +50,12 @@ export default function Header({ user }: { user?: User }) {
                 return locale.charAt(0).toUpperCase() + locale.slice(1);
         }
     }
+
+    const [searchQuery, setSearchQuery] = useState('');
+
+    const handleSearch = () => {
+        router.get(route('books.search'), { title: searchQuery });
+    };
 
     return (
         <header className="border-b">
@@ -146,6 +155,41 @@ export default function Header({ user }: { user?: User }) {
                 </div>
 
                 <div className="flex items-center gap-4">
+                    <DropdownMenu modal={false}>
+                        <DropdownMenuTrigger>
+                            <div className="inline-flex items-center gap-2">
+                                <Input
+                                    type="text"
+                                    value={searchQuery}
+                                    onChange={(e) =>
+                                        setSearchQuery(e.target.value)
+                                    }
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter') {
+                                            e.preventDefault();
+                                            handleSearch();
+                                        }
+                                    }}
+                                    id="search"
+                                    placeholder="Search Books By Title..."
+                                />
+                                <SearchIcon
+                                    onClick={handleSearch}
+                                    onKeyDown={handleSearch}
+                                    size={20}
+                                />
+                            </div>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                            <Link
+                                as="button"
+                                className="p-2"
+                                href={route('search')}
+                            >
+                                {t('Deep Search')}
+                            </Link>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
                     <div className="flex items-center gap-4">
                         <DropdownMenu modal={false}>
                             <DropdownMenuTrigger>
