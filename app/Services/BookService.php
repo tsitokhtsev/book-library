@@ -6,6 +6,7 @@ use App\Models\Book;
 use DateTime;
 use Exception;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class BookService
 {
@@ -19,6 +20,11 @@ class BookService
     public function createBook(array $data): Book
     {
         return DB::transaction(function () use ($data) {
+            if (isset($data['cover_image']) && $data['cover_image'] instanceof \Illuminate\Http\UploadedFile) {
+                $path = $data['cover_image']->store('books', 'public');
+                $data['cover_image'] = $path;
+            }
+
             $publicationDate = new DateTime($data['publication_date']);
 
             $book = Book::create([
@@ -32,6 +38,7 @@ class BookService
             return $book;
         });
     }
+
 
     /**
      * @param array $data

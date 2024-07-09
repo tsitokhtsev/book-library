@@ -17,7 +17,7 @@ const initialData = {
     title: '',
     isbn: '',
     description: '',
-    cover_image: '',
+    cover_image: undefined,
     publication_date: '',
     language_id: null,
     genres: [],

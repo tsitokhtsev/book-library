@@ -64,7 +64,13 @@ class BookController extends Controller
     public function store(StoreBookRequest $request): RedirectResponse
     {
         try {
-            $this->bookService->createBook($request->validated());
+            $validatedData = $request->validated();
+
+            if ($request->hasFile('cover_image')) {
+                $validatedData['cover_image'] = $request->file('cover_image');
+            }
+
+            $this->bookService->createBook($validatedData);
 
             return redirect()
                 ->route('admin.books.index')
