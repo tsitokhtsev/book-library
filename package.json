@@ -43,6 +43,7 @@
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.1.0",
         "cmdk": "^1.0.0",
+        "embla-carousel-react": "^8.1.6",
         "laravel-react-i18n": "^2.0.4",
         "lucide-react": "^0.340.0",
         "react-aria": "^3.33.1",
