@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('bio')->nullable();
+            $table->string('cover_image')->nullable();
             $table->timestamps();
         });
     }

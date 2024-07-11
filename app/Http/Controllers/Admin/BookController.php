@@ -37,6 +37,7 @@ class BookController extends Controller
         return Inertia::render('Admin/Books/Index', [
             'books' => Book::with('language')
                 ->withCount('bookCopies')
+                ->orderBy('created_at', 'desc')
                 ->get(),
             'books_count' => Book::count(),
             'authors_count' => Author::count(),
@@ -131,7 +132,13 @@ class BookController extends Controller
     public function update(UpdateBookRequest $request, Book $book): RedirectResponse
     {
         try {
-            $this->bookService->updateBook($request->validated(), $book->id);
+            $validatedData = $request->validated();
+
+            if ($request->hasFile('cover_image')) {
+                $validatedData['cover_image'] = $request->file('cover_image');
+            }
+
+            $this->bookService->updateBook($validatedData, $book->id);
 
             return redirect()
                 ->route('admin.books.show', $book->id)

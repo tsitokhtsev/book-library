@@ -22,7 +22,7 @@ export type Book = {
     is_enabled: boolean;
     isbn: string;
     description: string | null;
-    cover_image: string;
+    cover_image?: string;
     publication_date: string;
     language: { id: number; name: string };
     genres: { id: number; name: string }[];
@@ -47,6 +47,8 @@ export type Author = {
     name: string;
     bio: string | null;
     books_count: number;
+    books?: Book[];
+    cover_image?: string;
 };
 
 export type Genre = {

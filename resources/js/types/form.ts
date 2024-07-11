@@ -33,6 +33,7 @@ export type BookCopyForm = {
 
 export type AuthorForm = {
     name: string;
+    cover_image?: File;
     bio: string | null;
 };
 

@@ -37,7 +37,10 @@ export function Form({
 }) {
     const { t } = useLaravelReactI18n();
     const { data, setData, post, put, processing, errors, progress } =
-        useForm<BookForm>(initialData);
+        useForm<BookForm>({
+            ...initialData,
+            cover_image: undefined,
+        });
 
     const handleSubmit: FormEventHandler = (e) => {
         e.preventDefault();
@@ -84,7 +87,7 @@ export function Form({
                     <Input
                         type="file"
                         name="image"
-                        required={true}
+                        required={type === FormType.Edit ? false : true}
                         onChange={handleFileChange}
                     />
                     <InputError message={errors.cover_image} />
