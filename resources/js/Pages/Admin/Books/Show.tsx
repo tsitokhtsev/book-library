@@ -12,6 +12,7 @@ import {
     CardTitle,
 } from '@/Components/Card';
 import { DataTable } from '@/Components/DataTable';
+import Image from '@/Components/Image';
 import { H4 } from '@/Components/Typography/H4';
 import AdminLayout from '@/Layouts/AdminLayout';
 import { columns } from '@/Pages/Admin/Books/Copies/Partials/columns';
@@ -92,7 +93,11 @@ export default function Show({
                         <p>
                             {t('ISBN')}: {book.isbn}
                         </p>
-                        <img src={'/storage/' + book.cover_image} />
+                        <Image
+                            src={'/storage/' + book.cover_image}
+                            alt={book.title}
+                            fallbackSrc="https://via.placeholder.com/150?text=Author+Image"
+                        />
                         <p>
                             {t('Language')}: {t(book.language.name)}
                         </p>
