@@ -32,6 +32,7 @@ class StoreBookRequest extends FormRequest
             'genres.*' => 'integer|exists:genres,id',
             'authors' => 'required|array',
             'authors.*' => 'integer|exists:authors,id',
+            'cover_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 }

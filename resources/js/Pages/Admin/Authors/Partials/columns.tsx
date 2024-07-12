@@ -11,7 +11,9 @@ export const columns: ColumnDef<Author>[] = [
     },
     {
         accessorKey: 'books_count',
-        header: ({ column }) => <DataTableColumnHeader label={'Books'} column={column} />,
+        header: ({ column }) => (
+            <DataTableColumnHeader label={'Books'} column={column} />
+        ),
     },
     {
         id: 'actions',

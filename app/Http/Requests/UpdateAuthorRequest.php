@@ -22,8 +22,9 @@ class UpdateAuthorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
+            'name' => 'string|max:255',
             'bio' => 'nullable|string|max:500',
+            'cover_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 }

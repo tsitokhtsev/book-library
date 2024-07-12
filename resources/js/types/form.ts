@@ -17,7 +17,7 @@ export type BookForm = {
     title: string;
     isbn: string;
     description: string | null;
-    cover_image: string;
+    cover_image?: File;
     publication_date: string;
     language_id: number | null;
     genres: number[];
@@ -33,6 +33,7 @@ export type BookCopyForm = {
 
 export type AuthorForm = {
     name: string;
+    cover_image?: File;
     bio: string | null;
 };
 
