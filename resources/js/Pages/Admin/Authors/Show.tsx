@@ -1,11 +1,10 @@
 import { Head } from '@inertiajs/react';
-import { log } from 'console';
 import { useLaravelReactI18n } from 'laravel-react-i18n';
-import { env } from 'process';
 
 import { Button } from '@/Components/Button';
 import { Card, CardContent } from '@/Components/Card';
 import { DataTable } from '@/Components/DataTable';
+import Image from '@/Components/Image';
 import { H4 } from '@/Components/Typography/H4';
 import AdminLayout from '@/Layouts/AdminLayout';
 import { columns } from '@/Pages/Admin/Books/Partials/columns';
@@ -19,7 +18,6 @@ export default function Show({
     books?: Book[];
 }) {
     const { t } = useLaravelReactI18n();
-    console.log(author.cover_image);
 
     return (
         <AdminLayout>
@@ -36,7 +34,11 @@ export default function Show({
                         <H4>{t('Bio')}</H4>
                         <p>{author.bio}</p>
                     </section>
-
+                    <Image
+                        src={'/storage/' + author.cover_image}
+                        alt={author.name}
+                        fallbackSrc="https://via.placeholder.com/150?text=Author+Image"
+                    />
                     <section className="flex flex-grow flex-col">
                         <H4>{t('Books')}</H4>
                         <DataTable

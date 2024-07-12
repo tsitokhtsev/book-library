@@ -24,12 +24,14 @@ export default function Show({
     branches,
     conditions,
     statuses,
+    image,
 }: {
     book: Book;
     book_copies: BookCopy[];
     branches: SelectOption[];
     conditions: SelectOption[];
     statuses: SelectOption[];
+    image: string;
 }) {
     const { t } = useLaravelReactI18n();
 
@@ -90,6 +92,7 @@ export default function Show({
                         <p>
                             {t('ISBN')}: {book.isbn}
                         </p>
+                        <img src={'/storage/' + book.cover_image} />
                         <p>
                             {t('Language')}: {t(book.language.name)}
                         </p>

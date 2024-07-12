@@ -16,7 +16,7 @@ class AuthorService
     public function createAuthor(array $data): Author
     {
         if (isset($data['cover_image']) && $data['cover_image'] instanceof UploadedFile) {
-            $path = $data['cover_image']->store('authors', 'local');
+            $path = $data['cover_image']->store('authors', 'public');
             $data['cover_image'] = $path;
         }
 
