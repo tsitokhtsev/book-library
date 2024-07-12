@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 interface ImageComponentProps {
-    src: string;
+    src?: string;
     alt: string;
     fallbackSrc: string;
     [key: string]: any; // Allows additional props

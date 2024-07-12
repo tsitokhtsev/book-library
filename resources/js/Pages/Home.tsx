@@ -25,13 +25,13 @@ export default function Home({
     return (
         <MainLayout>
             <Head title={t('Home')} />
-            <div className="container mx-auto px-4">
+            <div className="container mx-auto px-4 pb-10">
                 <Carousel>
                     <h1 className="mb-4 text-2xl font-bold">New Books</h1>
                     <CarouselContent>
                         {newBooks.map((book) => (
                             <CarouselItem
-                                className="md:basis-1/2 lg:basis-1/3"
+                                className="mb-6 md:basis-1/2 lg:basis-1/3"
                                 key={book.id}
                             >
                                 <BookCard book={book} />
@@ -46,7 +46,7 @@ export default function Home({
                     <CarouselContent>
                         {authors.map((author) => (
                             <CarouselItem
-                                className="md:basis-1/2 lg:basis-1/3"
+                                className="mb-6 md:basis-1/2 lg:basis-1/3"
                                 key={author.id}
                             >
                                 <AuthorCard author={author} />
