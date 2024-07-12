@@ -80,6 +80,17 @@ export default function Header({ user }: { user?: User }) {
                                     </Link>
                                 </NavigationMenuLink>
                             </NavigationMenuItem>
+                            <NavigationMenuItem>
+                                <NavigationMenuLink
+                                    asChild
+                                    className={navigationMenuTriggerStyle()}
+                                    active={route().current('about')}
+                                >
+                                    <Link href={route('about')}>
+                                        {t('About Us')}
+                                    </Link>
+                                </NavigationMenuLink>
+                            </NavigationMenuItem>
                             {user?.is_admin && (
                                 <>
                                     <NavigationMenuItem>

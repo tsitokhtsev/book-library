@@ -19,7 +19,7 @@ class DashboardController extends Controller
      */
     public function index(): Response
     {
-        $maxLentBooks = Configuration::where('key', 'max_lent_books')->first()->value;
+        $maxLentBooks = Configuration::where('key', 'max_length_books')->first()->value;
 
         return Inertia::render('Admin/Dashboard', [
             'lend_data' => [

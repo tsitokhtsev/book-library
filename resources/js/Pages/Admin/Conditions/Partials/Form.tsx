@@ -6,7 +6,6 @@ import { Button } from '@/Components/Button';
 import { Input } from '@/Components/Input';
 import { InputError } from '@/Components/InputError';
 import { Label } from '@/Components/Label';
-import { Textarea } from '@/Components/Textarea';
 import { FormType, GenreForm } from '@/types/form';
 
 export function Form({

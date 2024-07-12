@@ -8,7 +8,6 @@ import { Checkbox } from '@/Components/Checkbox';
 import { Input } from '@/Components/Input';
 import { InputError } from '@/Components/InputError';
 import { Label } from '@/Components/Label';
-import { Textarea } from '@/Components/Textarea';
 import { BranchForm, FormType } from '@/types/form';
 
 export function Form({
