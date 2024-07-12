@@ -34,7 +34,7 @@ Route::prefix('admin')
             ->only(['store']);
 
         Route::resource('authors', AuthorController::class)
-            ->only(['index', 'store', 'update', 'destroy']);
+            ->only(['index', 'show', 'store', 'update', 'destroy']);
 
         Route::resource('genres', GenreController::class)
             ->only(['index', 'store', 'update', 'destroy']);

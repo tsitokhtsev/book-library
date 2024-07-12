@@ -24,6 +24,7 @@ class StoreAuthorRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'bio' => 'nullable|string|max:500',
+            'cover_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 }

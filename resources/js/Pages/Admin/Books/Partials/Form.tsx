@@ -36,8 +36,11 @@ export function Form({
     authors: SelectOption[];
 }) {
     const { t } = useLaravelReactI18n();
-    const { data, setData, post, put, processing, errors } =
-        useForm<BookForm>(initialData);
+    const { data, setData, post, put, processing, errors, progress } =
+        useForm<BookForm>({
+            ...initialData,
+            cover_image: undefined,
+        });
 
     const handleSubmit: FormEventHandler = (e) => {
         e.preventDefault();
@@ -51,6 +54,12 @@ export function Form({
                 break;
             default:
                 break;
+        }
+    };
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files.length > 0) {
+            setData('cover_image', e.target.files[0]);
         }
     };
 
@@ -71,6 +80,17 @@ export function Form({
                         id="title"
                     />
                     <InputError message={errors.title} />
+                </div>
+
+                <div className="grid gap-2">
+                    <Label htmlFor="cover_image">Image</Label>
+                    <Input
+                        type="file"
+                        name="image"
+                        required={type === FormType.Edit ? false : true}
+                        onChange={handleFileChange}
+                    />
+                    <InputError message={errors.cover_image} />
                 </div>
 
                 <div className="grid gap-2">

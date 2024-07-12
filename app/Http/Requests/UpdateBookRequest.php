@@ -23,15 +23,16 @@ class UpdateBookRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:255',
-            'isbn' => 'required|string|max:255|unique:books,isbn,' . $this->book->id,
+            'title' => 'string|max:255',
+            'isbn' => 'string|max:255|unique:books,isbn,' . $this->book->id,
             'description' => 'nullable|string|max:500',
-            'publication_date' => 'required|date',
-            'language_id' => 'required|integer|exists:languages,id',
-            'genres' => 'required|array',
+            'publication_date' => 'date',
+            'language_id' => 'integer|exists:languages,id',
+            'genres' => 'array',
             'genres.*' => 'integer|exists:genres,id',
-            'authors' => 'required|array',
+            'authors' => 'array',
             'authors.*' => 'integer|exists:authors,id',
+//            'cover_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 }

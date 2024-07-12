@@ -29,7 +29,17 @@ class AuthorController extends Controller
         return Inertia::render('Admin/Authors/Index', [
             'authors' => Author::select('id', 'name', 'bio')
                 ->withCount('books')
+                ->orderBy('created_at', 'desc')
                 ->get(),
+        ]);
+    }
+
+    public function show(Author $author) {
+        $author->load(['books', 'books.language']);
+
+        return Inertia::render('Admin/Authors/Show', [
+            'author' => $author,
+            'books' => $author->books,
         ]);
     }
 
@@ -40,7 +50,13 @@ class AuthorController extends Controller
      */
     public function store(StoreAuthorRequest $request): RedirectResponse
     {
-        $this->authorService->createAuthor($request->validated());
+        $validatedData = $request->validated();
+
+        if ($request->hasFile('cover_image')) {
+            $validatedData['cover_image'] = $request->file('cover_image');
+        }
+
+        $this->authorService->createAuthor($validatedData);
 
         return redirect()
             ->route('admin.authors.index')

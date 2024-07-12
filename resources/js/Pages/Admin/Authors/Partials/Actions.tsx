@@ -46,6 +46,11 @@ export function Actions({ author }: { author: Author }) {
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
+                <DropdownMenuItem asChild>
+                    <Link href={route('admin.authors.show', author.id)}>
+                        {t('View')}
+                    </Link>
+                </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => setIsEditDialogOpen(true)}>
                     {t('Edit')}
                 </DropdownMenuItem>
