@@ -1,5 +1,3 @@
-import { SelectOption } from '.';
-
 export enum FormType {
     Create,
     Edit,

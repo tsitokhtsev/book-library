@@ -20,18 +20,20 @@ Route::prefix('admin')
         Route::get('dashboard', [DashboardController::class, 'index'])
             ->name('dashboard');
 
+        Route::resource('checkout', CheckoutController::class)
+            ->only(['store']);
+        Route::put('checkout/massUpdate', [CheckoutController::class, 'massUpdate'])
+            ->name('checkout.massUpdate');
+
         Route::resource('members', MemberController::class);
 
         Route::resource('books', BookController::class);
-        Route::post('/books/massDelete', [BookController::class, 'massDelete'])
+        Route::post('books/massDelete', [BookController::class, 'massDelete'])
             ->name('books.massDelete');
 
         Route::resource('books.copies', BookCopyController::class)
             ->only(['create', 'store', 'update', 'destroy'])
             ->shallow();
-
-        Route::resource('checkout', CheckoutController::class)
-            ->only(['store']);
 
         Route::resource('authors', AuthorController::class)
             ->only(['index', 'show', 'store', 'update', 'destroy']);
