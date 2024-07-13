@@ -44,6 +44,12 @@
     "Select a member": "აირჩიე მკითხველი",
     "Select books": "აირჩიე წიგნები",
 
+    "Return": "დაბრუნება",
+    "Return a book": "წიგნის დაბრუნება",
+    "Fill out the form to return a book": "შეავსე ფორმა წიგნის დაბრუნებისთვის",
+    "Lost": "დაკარგული",
+    "Damaged": "დაზიანებული",
+
     "Book": "წიგნი",
     "Books": "წიგნები",
     "View and manage books": "წიგნების დათვალიერება და მართვა",

@@ -42,6 +42,29 @@ export type LendData = {
     max_lent_books: number;
 };
 
+export type ReturnData = {
+    members: {
+        id: number;
+        first_name: string;
+        last_name: string;
+        personal_number: string;
+    }[];
+    checkouts: {
+        id: number;
+        user_id: number;
+        book_copy: {
+            id: number;
+            code: string;
+            book: {
+                id: number;
+                title: string;
+            };
+        };
+        checkout_date: string;
+        due_date: string;
+    }[];
+};
+
 declare module '@tanstack/table-core' {
     interface TableMeta<TData extends RowData> {
         conditions: SelectOption[];
