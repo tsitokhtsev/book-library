@@ -44,6 +44,12 @@
     "Select a member": "Select a member",
     "Select books": "Select books",
 
+    "Return": "Return",
+    "Return a book": "Return a book",
+    "Fill out the form to return a book": "Fill out the form to return a book",
+    "Lost": "Lost",
+    "Damaged": "Damaged",
+
     "Book": "Book",
     "Books": "Books",
     "View and manage books": "View and manage books",

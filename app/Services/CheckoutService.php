@@ -47,4 +47,41 @@ class CheckoutService
             return $updatedBookCopies;
         });
     }
+
+    /**
+     * @param array $data
+     *
+     * @return mixed
+     */
+    public function updateCheckout(array $data): mixed
+    {
+        return DB::transaction(function () use ($data) {
+            $checkouts = [];
+
+            foreach ($data['checkouts'] as $checkout) {
+                if ($checkout['lost']) {
+                    $checkoutStatusId = CheckoutStatus::LOST->intValue();
+                    $bookCopyStatusId = BookCopyStatus::LOST->intValue();
+                } elseif ($checkout['damaged']) {
+                    $checkoutStatusId = CheckoutStatus::DAMAGED->intValue();
+                    $bookCopyStatusId = BookCopyStatus::DAMAGED->intValue();
+                } else {
+                    $checkoutStatusId = CheckoutStatus::RETURNED->intValue();
+                    $bookCopyStatusId = BookCopyStatus::AVAILABLE->intValue();
+                }
+
+                $checkoutModel = Checkout::findOrFail($checkout['id']);
+                $checkouts[] = $checkoutModel->update([
+                    'status_id' => $checkoutStatusId,
+                    'return_date' => now(),
+                ]);
+
+                $checkoutModel->bookCopy->update([
+                    'status_id' => $bookCopyStatusId,
+                ]);
+            }
+
+            return $checkouts;
+        });
+    }
 }
