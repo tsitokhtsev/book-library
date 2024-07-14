@@ -79,6 +79,15 @@ export default function Header({ user }: { user?: User }) {
                                         {t('Home')}
                                     </Link>
                                 </NavigationMenuLink>
+                                <NavigationMenuLink
+                                    asChild
+                                    className={navigationMenuTriggerStyle()}
+                                    active={route().current('catalog')}
+                                >
+                                    <Link href={route('catalog')}>
+                                        {t('Catalog')}
+                                    </Link>
+                                </NavigationMenuLink>
                             </NavigationMenuItem>
                             <NavigationMenuItem>
                                 <NavigationMenuLink
