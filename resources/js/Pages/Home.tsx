@@ -27,7 +27,9 @@ export default function Home({
             <Head title={t('Home')} />
             <div className="container mx-auto px-4 pb-10">
                 <Carousel>
-                    <h1 className="mb-4 text-2xl font-bold">New Books</h1>
+                    <h1 className="mb-4 text-2xl font-bold">
+                        {t('New Books')}
+                    </h1>
                     <CarouselContent>
                         {newBooks.map((book) => (
                             <CarouselItem
@@ -42,7 +44,7 @@ export default function Home({
                     <CarouselNext />
                 </Carousel>
                 <Carousel className="mt-10">
-                    <h1 className="mb-4 text-2xl font-bold">Authors</h1>
+                    <h1 className="mb-4 text-2xl font-bold">{t('Authors')}</h1>
                     <CarouselContent>
                         {authors.map((author) => (
                             <CarouselItem
