@@ -13,21 +13,26 @@ import {
 import { Input } from '@/Components/Input';
 import { InputError } from '@/Components/InputError';
 import { Label } from '@/Components/Label';
+import { Textarea } from '@/Components/Textarea';
 import ConfigurationLayout from '@/Layouts/ConfigurationLayout';
 
 type Configurations = {
     days_to_return: number;
-    max_lent_books: number;
+    max_length_books: number;
+    about: string;
 };
 
 export default function Index({
     days_to_return,
-    max_lent_books,
+    max_length_books,
+    about,
 }: Configurations) {
     const { t } = useLaravelReactI18n();
+
     const { data, setData, put, processing, errors } = useForm<Configurations>({
         days_to_return,
-        max_lent_books,
+        max_length_books,
+        about,
     });
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -80,20 +85,35 @@ export default function Index({
                         </div>
 
                         <div className="grid gap-2">
-                            <Label htmlFor="max_lent_books">
-                                {t('Max Lent Books')}
+                            <Label htmlFor="about">{t('About')}</Label>
+
+                            <Textarea
+                                value={data.about || ''}
+                                onChange={(e) =>
+                                    setData('about', e.target.value)
+                                }
+                                id="about"
+                                className="resize-none"
+                            />
+
+                            <InputError message={errors.about} />
+                        </div>
+
+                        <div className="grid gap-2">
+                            <Label htmlFor="max_length_books">
+                                {t('Max Length Books')}
                             </Label>
 
                             <Input
                                 type="number"
-                                value={data.max_lent_books}
+                                value={data.max_length_books}
                                 onChange={(e) =>
                                     setData(
-                                        'max_lent_books',
+                                        'max_length_books',
                                         parseInt(e.target.value) || 1,
                                     )
                                 }
-                                id="max_lent_books"
+                                id="max_length_books"
                                 min="1"
                             />
 
@@ -103,7 +123,7 @@ export default function Index({
                                 )}
                             </span>
 
-                            <InputError message={errors.max_lent_books} />
+                            <InputError message={errors.max_length_books} />
                         </div>
                     </CardContent>
 
