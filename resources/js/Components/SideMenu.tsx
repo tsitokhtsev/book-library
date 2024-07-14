@@ -1,6 +1,9 @@
+import { useLaravelReactI18n } from 'laravel-react-i18n';
 import React, { useEffect, useState } from 'react';
 
 import { Categories } from '@/Pages/Catalog';
+
+import { Button } from './Button';
 
 interface SideMenuProps {
     categories: Categories;
@@ -18,6 +21,8 @@ const SideMenu: React.FC<SideMenuProps> = ({
     filters,
     onFilterChange,
 }) => {
+    const { t } = useLaravelReactI18n();
+
     const [selectedFilters, setSelectedFilters] = useState<SelectedFilters>({
         authors: filters.authors || [],
         genres: filters.genres || [],
@@ -54,20 +59,23 @@ const SideMenu: React.FC<SideMenuProps> = ({
                 itemId,
             );
 
-        console.log(
-            'AAAAAA',
-            result,
-            selectedFilters[categoryName as keyof SelectedFilters],
-            itemId,
-        );
-
         return result;
     };
 
-    console.log('AAAAA', selectedFilters, filters);
-
     return (
         <div className="side-menu">
+            <Button
+                onClick={() => {
+                    setSelectedFilters({ authors: [], genres: [] });
+                    onFilterChange({ authors: [], genres: [] });
+                }}
+                disabled={
+                    !selectedFilters.authors.length &&
+                    !selectedFilters.genres.length
+                }
+            >
+                {t('Clear')}
+            </Button>
             {Object.entries(categories).map(([categoryName, items]) => (
                 <div key={categoryName}>
                     <h3 className="my-2 text-lg font-bold uppercase">

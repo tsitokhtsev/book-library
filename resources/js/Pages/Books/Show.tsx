@@ -1,23 +1,16 @@
-import { Head, Link } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import { useLaravelReactI18n } from 'laravel-react-i18n';
-import { PencilIcon } from 'lucide-react';
 
 import { Badge } from '@/Components/Badge';
-import { Button } from '@/Components/Button';
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from '@/Components/Card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/Components/Card';
 import { DataTable } from '@/Components/DataTable';
 import Image from '@/Components/Image';
 import { H4 } from '@/Components/Typography/H4';
 import AdminLayout from '@/Layouts/AdminLayout';
-import { columns } from '@/Pages/Admin/Books/Copies/Partials/columns';
 import { SelectOption } from '@/types';
 import { Book, BookCopy } from '@/types/model';
+
+import { columns } from './Partials/columnts';
 
 export default function Show({
     book,
@@ -51,39 +44,7 @@ export default function Show({
                                 {t(book.is_enabled ? 'Enabled' : 'Disabled')}
                             </Badge>
                         </CardTitle>
-                        <CardDescription>
-                            {book.authors
-                                .map((author) => author.name)
-                                .join(', ')}
-                        </CardDescription>
                     </CardHeader>
-
-                    <div className="mx-6 mb-6 flex flex-row-reverse gap-2 sm:m-6 sm:flex-row">
-                        <Button
-                            variant="outline"
-                            size="icon"
-                            className="shrink-0"
-                            asChild
-                        >
-                            <Link href={route('admin.books.edit', book.id)}>
-                                <span className="sr-only">
-                                    {t('Edit Book')}
-                                </span>
-                                <PencilIcon className="h-4 w-4" />
-                            </Link>
-                        </Button>
-
-                        <Button className="w-full" asChild>
-                            <Link
-                                href={route(
-                                    'admin.books.copies.create',
-                                    book.id,
-                                )}
-                            >
-                                {t('Add Copies')}
-                            </Link>
-                        </Button>
-                    </div>
                 </div>
 
                 <CardContent className="flex flex-grow flex-col">
@@ -97,6 +58,16 @@ export default function Show({
                             fallbackSrc="https://via.placeholder.com/150?text=Author+Image"
                         />
                         <p>
+                            {t('Genres')}:{' '}
+                            {book.genres.map((genre) => genre.name).join(', ')}
+                        </p>
+                        <p>
+                            {t('Authors')}:{' '}
+                            {book.authors
+                                .map((author) => author.name)
+                                .join(', ')}
+                        </p>
+                        <p>
                             {t('Language')}: {t(book.language.name)}
                         </p>
                         <p>
@@ -104,10 +75,6 @@ export default function Show({
                             {new Date(
                                 book.publication_date,
                             ).toLocaleDateString()}
-                        </p>
-                        <p>
-                            {t('Genres')}:{' '}
-                            {book.genres.map((genre) => genre.name).join(', ')}
                         </p>
                     </div>
 
@@ -117,7 +84,6 @@ export default function Show({
                             <p>{book.description}</p>
                         </section>
                     )}
-
                     <section className="flex flex-grow flex-col">
                         <H4>{t('Book Copies')}</H4>
                         <DataTable
