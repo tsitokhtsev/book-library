@@ -23,23 +23,29 @@ class DashboardController extends Controller
 
         return Inertia::render('Admin/Dashboard', [
             'lend_data' => [
-                'members' => [
-                    ...User::role(RolesEnum::MEMBER)
-                        ->whereHas('checkouts', fn($query) => $query->isNotReturned(), '<', $maxLentBooks)
-                        ->select('id', 'first_name', 'last_name', 'personal_number')
-                        ->withCount(['checkouts' => fn($query) => $query->isNotReturned()])
-                        ->get(),
-                ],
+                'members' => User::role(RolesEnum::MEMBER)
+                    ->whereHas('checkouts', fn($query) => $query->isNotReturned(), '<', $maxLentBooks)
+                    ->select('id', 'first_name', 'last_name', 'personal_number')
+                    ->withCount(['checkouts' => fn($query) => $query->isNotReturned()])
+                    ->get(),
                 'book_copies' => BookCopy::with('book:id,title', 'branch:id,name')
                     ->withStatus([BookCopyStatus::AVAILABLE])
                     ->select('id', 'code', 'book_id', 'branch_id')
                     ->get(),
                 'max_lent_books' => $maxLentBooks,
             ],
-            'checkouts' => Checkout::with('bookCopy:id,code', 'user:id,first_name,last_name')
-                ->select('id', 'book_copy_id', 'user_id', 'due_date')
-                ->isNotReturned()
-                ->get(),
+            'return_data' => [
+                'members' => User::role(RolesEnum::MEMBER)
+                    ->whereHas('checkouts', fn($query) => $query->isNotReturned())
+                    ->select('id', 'first_name', 'last_name', 'personal_number')
+                    ->get(),
+                'checkouts' => Checkout::with(
+                    'bookCopy:id,code,book_id,status_id',
+                    'bookCopy.book:id,title'
+                )->select('id', 'user_id', 'book_copy_id', 'checkout_date', 'due_date')
+                    ->isNotReturned()
+                    ->get(),
+            ],
         ]);
     }
 }

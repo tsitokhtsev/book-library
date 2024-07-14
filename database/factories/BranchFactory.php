@@ -16,9 +16,11 @@ class BranchFactory extends Factory
      */
     public function definition(): array
     {
+        $street = $this->faker->streetName();
+
         return [
-            'name' => $this->faker->name(),
-            'address' => $this->faker->streetAddress(),
+            'name' => $street,
+            'address' => $street . ' #' . $this->faker->buildingNumber(),
             'phone' => $this->faker->phoneNumber(),
             'email' => $this->faker->email(),
             'working_hours' => '9:00 - 17:00'

@@ -1,6 +1,11 @@
 import { useForm } from '@inertiajs/react';
 import { useLaravelReactI18n } from 'laravel-react-i18n';
-import { CheckIcon, ChevronsUpDownIcon, TrashIcon } from 'lucide-react';
+import {
+    ArrowUpFromLineIcon,
+    CheckIcon,
+    ChevronsUpDownIcon,
+    TrashIcon,
+} from 'lucide-react';
 import * as React from 'react';
 
 import { Button } from '@/Components/Button';
@@ -190,7 +195,10 @@ export default function Lend({
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button className="w-full">{t('Lend')}</Button>
+                <Button className="w-full">
+                    <ArrowUpFromLineIcon className="mr-2 h-4 w-4" />
+                    {t('Lend')}
+                </Button>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
@@ -302,7 +310,14 @@ export default function Lend({
                             {!!data.book_copies.length && renderSelectedBooks()}
                         </div>
 
-                        <Button type="submit">{t('Lend')}</Button>
+                        <Button
+                            type="submit"
+                            disabled={
+                                !data.member_id || !data.book_copies.length
+                            }
+                        >
+                            {t('Lend')}
+                        </Button>
                     </div>
                 </form>
             </DialogContent>
