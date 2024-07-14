@@ -49,6 +49,10 @@
     "Created at": "დამატებულია",
     "Password": "პაროლი",
 
+    "My Wishlist": "ჩემი სასურველები",
+    "Remove From Wishlist": "სასურველების წაშლა",
+    "Add To Wishlist": "სასურველების დამატება",
+
     "Lend": "გაცემა",
     "Lend a book": "წიგნის გაცემა",
     "Fill out the form to lend a book": "შეავსე ფორმა წიგნის გაცემისთვის",
@@ -292,8 +296,6 @@
     "Statuses": "სტატუსები",
     "Conditions": "მდგომარეობები",
     "Reserve": "დაჯავშნა",
-    "Remove From Wishlist": "სასურველების წაშლა",
-    "Add To Wishlist": "სასურველების დამატება",
     "About": "ჩვენს შესახებ",
     "Profile Information": "პროფილის ინფორმაცია",
     "Update your account's profile information and email address.": "განაახლე შენი პროფილის ინფორმაცია და ელ. ფოსტის მისამართი.",
