@@ -105,9 +105,9 @@ export default function BookDetails({
                             className="w-full"
                             onClick={handleWishlistClick}
                         >
-                            {t(
-                                `${book.is_in_wishlist ? 'Remove From' : 'Add To'} Wishlist`,
-                            )}
+                            {book.is_in_wishlist
+                                ? t('Remove From Wishlist')
+                                : t('Add To Wishlist')}
                         </Button>
                     )}
                 </div>

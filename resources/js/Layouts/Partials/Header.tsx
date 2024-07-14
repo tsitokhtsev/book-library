@@ -176,9 +176,11 @@ export default function Header({ user }: { user?: User }) {
                 </div>
 
                 <div className="flex items-center gap-4">
-                    <Link href={route('wishlist')}>
-                        <HeartSolidIcon />
-                    </Link>
+                    {!user?.is_admin && (
+                        <Link href={route('wishlist')}>
+                            <HeartSolidIcon />
+                        </Link>
+                    )}
                     <DropdownMenu modal={false}>
                         <DropdownMenuTrigger>
                             <div className="inline-flex items-center gap-2">
@@ -195,7 +197,7 @@ export default function Header({ user }: { user?: User }) {
                                         }
                                     }}
                                     id="search"
-                                    placeholder="Search Books By Title..."
+                                    placeholder={t('Search Books By Title...')}
                                 />
                                 <SearchIcon
                                     onClick={handleSearch}
@@ -342,7 +344,6 @@ export default function Header({ user }: { user?: User }) {
                             </DrawerContent>
                         </Drawer>
                     </div>
-
                     <div className="hidden md:flex md:items-center md:gap-4">
                         {user ? (
                             <DropdownMenu>
