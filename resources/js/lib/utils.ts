@@ -29,3 +29,7 @@ export function useForwardedRef<T>(ref: React.ForwardedRef<T>) {
 export function getParsedDate(date: string) {
     return date ? parseDate(date.toString()) : null;
 }
+
+export function getMonthFromDate(date: string) {
+    return new Date(date).toLocaleDateString('default', { month: 'long' });
+}

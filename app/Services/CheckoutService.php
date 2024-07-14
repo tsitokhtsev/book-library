@@ -20,7 +20,7 @@ class CheckoutService
     {
         return DB::transaction(function () use ($data) {
             $daysToReturn = Configuration::where('key', 'days_to_return')->first()->value;
-            $maxLentBooks = Configuration::where('key', 'max_length_books')->first()->value;
+            $maxLentBooks = Configuration::where('key', 'max_lent_books')->first()->value;
             $activeCheckouts = Checkout::where('user_id', $data['member_id'])
                 ->isNotReturned()
                 ->count();

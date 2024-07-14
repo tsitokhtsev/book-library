@@ -39,7 +39,7 @@ export type LendData = {
             name: string;
         };
     }[];
-    max_length_books: number;
+    max_lent_books: number;
 };
 
 export type ReturnData = {
@@ -64,6 +64,24 @@ export type ReturnData = {
         due_date: string;
     }[];
 };
+
+export type BooksChartData = {
+    available: number;
+    checked_out: number;
+    lost: number;
+    damaged: number;
+};
+
+export type CheckoutsReturnsChartData = {
+    month: string;
+    checkouts: number;
+    returns: number;
+}[];
+
+export type PopularBooksChartData = {
+    title: string;
+    total: number;
+}[];
 
 declare module '@tanstack/table-core' {
     interface TableMeta<TData extends RowData> {

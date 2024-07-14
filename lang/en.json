@@ -50,6 +50,14 @@
     "Lost": "Lost",
     "Damaged": "Damaged",
 
+    "Per status": "Per status",
+    "Checkouts and Returns": "Checkouts and Returns",
+    "Checked out": "Checked out",
+    "Returned": "Returned",
+    "Popular Books": "Popular Books",
+    "Per checkouts": "Per checkouts",
+    "Count": "Count",
+
     "Book": "Book",
     "Books": "Books",
     "View and manage books": "View and manage books",
@@ -111,7 +119,7 @@
     "Create and add a new genre": "Create and add a new genre",
     "Edit genre": "Edit genre",
     "Make changes and save the genre": "Make changes and save the genre",
-    "Delete genre": "ჟანრის წაშლა",
+    "Delete genre": "Delete genre",
     "This genre has :count books associated with them. This action is not available until you delete all the books associated with this genre.": "This genre has :count books associated with them. This action is not available until you delete all the books associated with this genre.",
     "Are you sure you want to delete this genre? This action cannot be undone.": "Are you sure you want to delete this genre? This action cannot be undone.",
 
@@ -181,6 +189,19 @@
     "active": "Active",
     "overdue": "Overdue",
     "returned": "Returned",
+
+    "January": "January",
+    "February": "February",
+    "March": "March",
+    "April": "April",
+    "May": "May",
+    "June": "June",
+    "July": "July",
+    "August": "August",
+    "September": "September",
+    "October": "October",
+    "November": "November",
+    "December": "December",
 
     "Afrikanns": "Afrikanns",
     "Albanian": "Albanian",

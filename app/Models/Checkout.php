@@ -32,6 +32,11 @@ class Checkout extends Model
         return $this->belongsTo(CheckoutStatus::class);
     }
 
+    public function scopeIsReturned(Builder $query): Builder
+    {
+        return $query->whereNotNull('return_date');
+    }
+
     public function scopeIsNotReturned(Builder $query): Builder
     {
         return $query->whereNull('return_date');

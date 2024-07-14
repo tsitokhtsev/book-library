@@ -18,20 +18,20 @@ import ConfigurationLayout from '@/Layouts/ConfigurationLayout';
 
 type Configurations = {
     days_to_return: number;
-    max_length_books: number;
+    max_lent_books: number;
     about: string;
 };
 
 export default function Index({
     days_to_return,
-    max_length_books,
+    max_lent_books,
     about,
 }: Configurations) {
     const { t } = useLaravelReactI18n();
 
     const { data, setData, put, processing, errors } = useForm<Configurations>({
         days_to_return,
-        max_length_books,
+        max_lent_books,
         about,
     });
 
@@ -85,35 +85,20 @@ export default function Index({
                         </div>
 
                         <div className="grid gap-2">
-                            <Label htmlFor="about">{t('About')}</Label>
-
-                            <Textarea
-                                value={data.about || ''}
-                                onChange={(e) =>
-                                    setData('about', e.target.value)
-                                }
-                                id="about"
-                                className="resize-none"
-                            />
-
-                            <InputError message={errors.about} />
-                        </div>
-
-                        <div className="grid gap-2">
-                            <Label htmlFor="max_length_books">
-                                {t('Max Length Books')}
+                            <Label htmlFor="max_lent_books">
+                                {t('Max Lent Books')}
                             </Label>
 
                             <Input
                                 type="number"
-                                value={data.max_length_books}
+                                value={data.max_lent_books}
                                 onChange={(e) =>
                                     setData(
-                                        'max_length_books',
+                                        'max_lent_books',
                                         parseInt(e.target.value) || 1,
                                     )
                                 }
-                                id="max_length_books"
+                                id="max_lent_books"
                                 min="1"
                             />
 
@@ -123,7 +108,7 @@ export default function Index({
                                 )}
                             </span>
 
-                            <InputError message={errors.max_length_books} />
+                            <InputError message={errors.max_lent_books} />
                         </div>
                     </CardContent>
 
