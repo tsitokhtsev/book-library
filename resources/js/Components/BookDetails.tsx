@@ -1,4 +1,4 @@
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, router, usePage } from '@inertiajs/react';
 import { useLaravelReactI18n } from 'laravel-react-i18n';
 import { PencilIcon } from 'lucide-react';
 
@@ -15,7 +15,7 @@ import { DataTable } from '@/Components/DataTable';
 import Image from '@/Components/Image';
 import { H4 } from '@/Components/Typography/H4';
 import { columns } from '@/Pages/Admin/Books/Copies/Partials/columns';
-import { SelectOption } from '@/types';
+import { PageProps, SelectOption } from '@/types';
 import { Book, BookCopy } from '@/types/model';
 
 export default function BookDetails({
@@ -32,6 +32,26 @@ export default function BookDetails({
     statuses: SelectOption[];
 }) {
     const { t } = useLaravelReactI18n();
+    const {
+        auth: { user },
+    } = usePage<PageProps>().props;
+
+    const addToWishlist = () => {
+        router.post(route('wishlist.store'), { book_id: book.id });
+    };
+
+    const removeFromWishlist = () => {
+        router.delete(route('wishlist.destroy', book.id));
+    };
+
+    const handleWishlistClick = (e: React.MouseEvent) => {
+        e.preventDefault();
+        if (book.is_in_wishlist) {
+            removeFromWishlist();
+        } else {
+            addToWishlist();
+        }
+    };
 
     return (
         <Card className="flex flex-grow flex-col">
@@ -53,25 +73,43 @@ export default function BookDetails({
                 </CardHeader>
 
                 <div className="mx-6 mb-6 flex flex-row-reverse gap-2 sm:m-6 sm:flex-row">
-                    <Button
-                        variant="outline"
-                        size="icon"
-                        className="shrink-0"
-                        asChild
-                    >
-                        <Link href={route('admin.books.edit', book.id)}>
-                            <span className="sr-only">{t('Edit Book')}</span>
-                            <PencilIcon className="h-4 w-4" />
-                        </Link>
-                    </Button>
+                    {user?.is_admin ? (
+                        <>
+                            <Button
+                                variant="outline"
+                                size="icon"
+                                className="shrink-0"
+                                asChild
+                            >
+                                <Link href={route('admin.books.edit', book.id)}>
+                                    <span className="sr-only">
+                                        {t('Edit Book')}
+                                    </span>
+                                    <PencilIcon className="h-4 w-4" />
+                                </Link>
+                            </Button>
 
-                    <Button className="w-full" asChild>
-                        <Link
-                            href={route('admin.books.copies.create', book.id)}
+                            <Button className="w-full" asChild>
+                                <Link
+                                    href={route(
+                                        'admin.books.copies.create',
+                                        book.id,
+                                    )}
+                                >
+                                    {t('Add Copies')}
+                                </Link>
+                            </Button>
+                        </>
+                    ) : (
+                        <Button
+                            className="w-full"
+                            onClick={handleWishlistClick}
                         >
-                            {t('Add Copies')}
-                        </Link>
-                    </Button>
+                            {t(
+                                `${book.is_in_wishlist ? 'Remove From' : 'Add To'} Wishlist`,
+                            )}
+                        </Button>
+                    )}
                 </div>
             </div>
 

@@ -1,9 +1,8 @@
-import { Link, usePage } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import React from 'react';
 
 import Image from '@/Components/Image';
 import useRoute from '@/lib/hooks/useRoute';
-import { PageProps } from '@/types';
 import { Author } from '@/types/model';
 
 interface AuthorCardProps {
@@ -11,10 +10,6 @@ interface AuthorCardProps {
 }
 
 const AuthorCard: React.FC<AuthorCardProps> = ({ author }) => {
-    const {
-        auth: { user },
-    } = usePage<PageProps>().props;
-
     return (
         <Link href={useRoute('authors.show', author.id)}>
             <div className="flex h-max flex-col justify-between rounded-lg p-4 shadow-lg transition-shadow duration-300 hover:shadow-xl">

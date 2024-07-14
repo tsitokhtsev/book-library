@@ -74,4 +74,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $query->orderByDesc('created_at');
     }
+
+    public function wishlists(): HasMany
+    {
+        return $this->hasMany(Wishlist::class);
+    }
 }
