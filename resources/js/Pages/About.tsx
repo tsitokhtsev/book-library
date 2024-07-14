@@ -20,7 +20,19 @@ export default function About({
             <div className="container p-4">
                 <Textarea
                     readOnly
-                    className="active:unset cursor-auto rounded bg-gray-300 p-3 text-base leading-relaxed text-gray-800"
+                    style={{
+                        cursor: 'auto',
+                        borderRadius: '0.375rem',
+                        backgroundColor: '#E2E8F0',
+                        padding: '0.75rem',
+                        fontSize: '1rem',
+                        lineHeight: '1.5',
+                        color: '#2D3748',
+                        outline: 'none',
+                        boxShadow: 'none',
+                        resize: 'none',
+                        userSelect: 'none',
+                    }}
                 >
                     {about}
                 </Textarea>
