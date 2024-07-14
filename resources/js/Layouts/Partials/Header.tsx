@@ -1,8 +1,6 @@
 import { Link } from '@inertiajs/react';
-import { router } from '@inertiajs/react';
 import { useLaravelReactI18n } from 'laravel-react-i18n';
-import { ChevronDownIcon, MenuIcon, SearchIcon, XIcon } from 'lucide-react';
-import * as React from 'react';
+import { ChevronDownIcon, MenuIcon, XIcon } from 'lucide-react';
 
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import { Avatar, AvatarFallback } from '@/Components/Avatar';
@@ -23,7 +21,6 @@ import {
     DropdownMenuTrigger,
 } from '@/Components/DropdownMenu';
 import HeartSolidIcon from '@/Components/HeartSolidIcon';
-import { Input } from '@/Components/Input';
 import {
     NavigationMenu,
     NavigationMenuItem,
@@ -32,7 +29,6 @@ import {
     navigationMenuTriggerStyle,
 } from '@/Components/NavigationMenu';
 import { AdminNav } from '@/Layouts/Partials/AdminNav';
-import { cn } from '@/lib/utils';
 import { User } from '@/types/model';
 
 export default function Header({ user }: { user?: User }) {
@@ -53,12 +49,6 @@ export default function Header({ user }: { user?: User }) {
                 return locale.charAt(0).toUpperCase() + locale.slice(1);
         }
     }
-
-    const [searchQuery, setSearchQuery] = React.useState('');
-
-    const handleSearch = () => {
-        router.get(route('books.search'), { title: searchQuery });
-    };
 
     return (
         <header className="border-b">
@@ -109,40 +99,6 @@ export default function Header({ user }: { user?: User }) {
                         </NavigationMenuList>
                     </NavigationMenu>
                 </div>
-
-                <DropdownMenu modal={false}>
-                    <DropdownMenuTrigger>
-                        <div className="inline-flex items-center gap-2">
-                            <Input
-                                type="text"
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                onKeyDown={(e) => {
-                                    if (e.key === 'Enter') {
-                                        e.preventDefault();
-                                        handleSearch();
-                                    }
-                                }}
-                                id="search"
-                                placeholder={t('Search Books By Title...')}
-                            />
-                            <SearchIcon
-                                onClick={handleSearch}
-                                onKeyDown={handleSearch}
-                                size={20}
-                            />
-                        </div>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent>
-                        <Link
-                            as="button"
-                            className="p-2"
-                            href={route('search')}
-                        >
-                            {t('Deep Search')}
-                        </Link>
-                    </DropdownMenuContent>
-                </DropdownMenu>
 
                 <div className="flex items-center gap-4">
                     {user && !user?.is_admin && (

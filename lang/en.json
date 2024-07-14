@@ -4,6 +4,14 @@
     "About Us": "About Us",
     "Admin": "Admin",
 
+    "Hello, Reader!": "Hello, Reader!",
+    "Find your next book here": "Find your next book here",
+    "Search books by title...": "Search books by title...",
+    "Search": "Search",
+    "or": "or",
+    "Deep Search": "Deep Search",
+    "New Books": "New Books",
+
     "You're logged in!": "You're logged in!",
     "Profile": "Profile",
     "Log Out": "Log Out",
@@ -280,9 +288,6 @@
     "Welsh": "Welsh",
     "Xhosa": "Xhosa",
 
-    "New Books": "New Books",
-    "Search Books By Title...": "Search Books By Title...",
-    "Deep Search": "Deep Search",
     "Languages": "Languages",
     "Statuses": "Statuses",
     "Conditions": "Conditions",

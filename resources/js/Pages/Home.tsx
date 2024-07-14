@@ -1,8 +1,9 @@
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import { useLaravelReactI18n } from 'laravel-react-i18n';
 
 import { AuthorCard } from '@/Components/AuthorCard';
 import { BookCard } from '@/Components/BookCard';
+import { Button } from '@/Components/Button';
 import {
     Carousel,
     CarouselContent,
@@ -10,6 +11,7 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from '@/Components/Carousel';
+import { Search } from '@/Components/Search';
 import { H3 } from '@/Components/Typography/H3';
 import MainLayout from '@/Layouts/MainLayout';
 import { Author, Book } from '@/types/model';
@@ -28,11 +30,17 @@ export default function Home({
             <Head title={t('Home')} />
 
             <div className="-mt-8 bg-primary-foreground py-12">
-                <div className="container">
+                <div className="container flex flex-col items-center gap-4">
                     <h1 className="text-4xl font-bold">
-                        {t('Welcome to the Library')}
+                        {t('Hello, Reader!')}
                     </h1>
                     <p className="text-lg">{t('Find your next book here')}</p>
+
+                    <Search className="my-4 w-full md:w-2/3" />
+                    <p className="text-muted-foreground">{t('or')}</p>
+                    <Button variant="link" asChild>
+                        <Link href={route('search')}>{t('Deep Search')}</Link>
+                    </Button>
                 </div>
             </div>
 
