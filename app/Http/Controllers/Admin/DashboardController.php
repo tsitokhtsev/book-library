@@ -32,7 +32,7 @@ class DashboardController extends Controller
                     ->withStatus([BookCopyStatus::AVAILABLE])
                     ->select('id', 'code', 'book_id', 'branch_id')
                     ->get(),
-                'max_lent_books' => $maxLentBooks,
+                'max_length_books' => $maxLentBooks,
             ],
             'return_data' => [
                 'members' => User::role(RolesEnum::MEMBER)

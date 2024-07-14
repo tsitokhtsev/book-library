@@ -41,7 +41,7 @@ class ConfigurationController extends Controller
     {
         $validated = $request->validate([
             'days_to_return' => 'integer|min:1',
-            'max_lent_books' => 'integer|min:1',
+            'max_length_books' => 'integer|min:1',
             'about' => 'string',
         ]);
 

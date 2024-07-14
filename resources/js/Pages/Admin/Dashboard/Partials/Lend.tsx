@@ -32,7 +32,7 @@ import { cn } from '@/lib/utils';
 import { LendData } from '@/types';
 
 export default function Lend({
-    data: { members, book_copies, max_lent_books },
+    data: { members, book_copies, max_length_books },
 }: {
     data: LendData;
 }) {
@@ -65,7 +65,7 @@ export default function Lend({
     const getAvailableCheckouts = (memberId: number) => {
         const member = members.filter((member) => member.id === memberId)[0];
         return (
-            max_lent_books - member.checkouts_count - data.book_copies.length
+            max_length_books - member.checkouts_count - data.book_copies.length
         );
     };
 
