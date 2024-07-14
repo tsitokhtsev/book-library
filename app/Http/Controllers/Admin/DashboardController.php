@@ -9,19 +9,27 @@ use App\Models\BookCopy;
 use App\Models\Checkout;
 use App\Models\Configuration;
 use App\Models\User;
+use App\Services\DashboardService;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class DashboardController extends Controller
 {
     /**
+     * @param DashboardService $dashboardService
+     */
+    public function __construct(
+        public DashboardService $dashboardService
+    ) {}
+
+    /**
      * @return Response
      */
     public function index(): Response
     {
-        $maxLentBooks = Configuration::where('key', 'max_length_books')->first()->value;
+        $maxLentBooks = Configuration::where('key', 'max_lent_books')->first()->value;
 
-        return Inertia::render('Admin/Dashboard', [
+        return Inertia::render('Admin/Dashboard/Index', [
             'lend_data' => [
                 'members' => User::role(RolesEnum::MEMBER)
                     ->whereHas('checkouts', fn($query) => $query->isNotReturned(), '<', $maxLentBooks)
@@ -32,7 +40,7 @@ class DashboardController extends Controller
                     ->withStatus([BookCopyStatus::AVAILABLE])
                     ->select('id', 'code', 'book_id', 'branch_id')
                     ->get(),
-                'max_length_books' => $maxLentBooks,
+                'max_lent_books' => $maxLentBooks,
             ],
             'return_data' => [
                 'members' => User::role(RolesEnum::MEMBER)
@@ -46,6 +54,14 @@ class DashboardController extends Controller
                     ->isNotReturned()
                     ->get(),
             ],
+            'books_chart' => [
+                'available' => BookCopy::withStatus([BookCopyStatus::AVAILABLE])->count(),
+                'checked_out' => BookCopy::withStatus([BookCopyStatus::CHECKED_OUT])->count(),
+                'lost' => BookCopy::withStatus([BookCopyStatus::LOST])->count(),
+                'damaged' => BookCopy::withStatus([BookCopyStatus::DAMAGED])->count(),
+            ],
+            'checkouts_returns_chart' => $this->dashboardService->getCheckoutsReturnsOverTime(6),
+            'popular_books_chart' => $this->dashboardService->getPopularBooks(3),
         ]);
     }
 }

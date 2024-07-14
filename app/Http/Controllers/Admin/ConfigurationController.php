@@ -18,7 +18,7 @@ class ConfigurationController extends Controller
     {
         $keys = [
             'days_to_return',
-            'max_length_books',
+            'max_lent_books',
             'about'
         ];
         $config = Configuration::whereIn('key', $keys)
@@ -27,7 +27,7 @@ class ConfigurationController extends Controller
 
         return inertia('Admin/Configuration/Index', [
             'days_to_return' => $config->get('days_to_return'),
-            'max_length_books' => $config->get('max_length_books'),
+            'max_lent_books' => $config->get('max_lent_books'),
             'about' => $config->get('about'),
         ]);
     }
@@ -41,7 +41,7 @@ class ConfigurationController extends Controller
     {
         $validated = $request->validate([
             'days_to_return' => 'integer|min:1',
-            'max_length_books' => 'integer|min:1',
+            'max_lent_books' => 'integer|min:1',
             'about' => 'string',
         ]);
 

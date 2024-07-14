@@ -260,6 +260,7 @@ export default function Return({
                             <Label htmlFor="member">{t('Member')}</Label>
 
                             <Popover
+                                modal={true}
                                 open={memberPopoverOpen}
                                 onOpenChange={setMemberPopoverOpen}
                             >

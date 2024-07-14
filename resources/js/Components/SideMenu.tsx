@@ -54,17 +54,8 @@ const SideMenu: React.FC<SideMenuProps> = ({
                 itemId,
             );
 
-        console.log(
-            'AAAAAA',
-            result,
-            selectedFilters[categoryName as keyof SelectedFilters],
-            itemId,
-        );
-
         return result;
     };
-
-    console.log('AAAAA', selectedFilters, filters);
 
     return (
         <div className="side-menu">

@@ -32,7 +32,7 @@ import { cn } from '@/lib/utils';
 import { LendData } from '@/types';
 
 export default function Lend({
-    data: { members, book_copies, max_length_books },
+    data: { members, book_copies, max_lent_books },
 }: {
     data: LendData;
 }) {
@@ -65,7 +65,7 @@ export default function Lend({
     const getAvailableCheckouts = (memberId: number) => {
         const member = members.filter((member) => member.id === memberId)[0];
         return (
-            max_length_books - member.checkouts_count - data.book_copies.length
+            max_lent_books - member.checkouts_count - data.book_copies.length
         );
     };
 
@@ -214,6 +214,7 @@ export default function Lend({
                             <Label htmlFor="member">{t('Member')}</Label>
 
                             <Popover
+                                modal={true}
                                 open={memberPopoverOpen}
                                 onOpenChange={setMemberPopoverOpen}
                             >
@@ -260,6 +261,7 @@ export default function Lend({
                             <Label htmlFor="books">{t('Books')}</Label>
 
                             <Popover
+                                modal={true}
                                 open={bookCopiesPopoverOpen}
                                 onOpenChange={setBookCopiesPopoverOpen}
                             >
