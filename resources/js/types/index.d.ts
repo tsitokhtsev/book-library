@@ -39,7 +39,7 @@ export type LendData = {
             name: string;
         };
     }[];
-    max_lent_books: number;
+    max_length_books: number;
 };
 
 export type ReturnData = {
