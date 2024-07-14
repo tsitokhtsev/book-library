@@ -14,7 +14,10 @@ export default function Show({
     return (
         <MainLayout>
             <Head title={author.name} />
-            <AuthorDetails author={author} books={books} />
+
+            <div className="container flex flex-grow flex-col">
+                <AuthorDetails author={author} books={books} />
+            </div>
         </MainLayout>
     );
 }

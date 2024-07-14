@@ -1,15 +1,18 @@
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import { useLaravelReactI18n } from 'laravel-react-i18n';
 
-import AuthorCard from '@/Components/AuthorCard';
-import BookCard from '@/Components/BookCard';
+import { AuthorCard } from '@/Components/AuthorCard';
+import { BookCard } from '@/Components/BookCard';
+import { Button } from '@/Components/Button';
 import {
     Carousel,
     CarouselContent,
     CarouselItem,
     CarouselNext,
     CarouselPrevious,
-} from '@/Components/carousel';
+} from '@/Components/Carousel';
+import { Search } from '@/Components/Search';
+import { H3 } from '@/Components/Typography/H3';
 import MainLayout from '@/Layouts/MainLayout';
 import { Author, Book } from '@/types/model';
 
@@ -25,33 +28,66 @@ export default function Home({
     return (
         <MainLayout>
             <Head title={t('Home')} />
-            <div className="container mx-auto px-4 pb-10">
-                <Carousel>
-                    <h1 className="mb-4 text-2xl font-bold">
-                        {t('New Books')}
+
+            <div className="-mt-8 bg-primary-foreground py-12">
+                <div className="container flex flex-col items-center gap-4">
+                    <h1 className="text-4xl font-bold">
+                        {t('Hello, Reader!')}
                     </h1>
+                    <p className="text-lg">{t('Find your next book here')}</p>
+
+                    <Search className="my-4 w-full md:w-2/3" />
+                    <p className="text-muted-foreground">{t('or')}</p>
+                    <Button variant="link" asChild>
+                        <Link href={route('search')}>{t('Deep Search')}</Link>
+                    </Button>
+                </div>
+            </div>
+
+            <div className="container">
+                <H3 className="mb-4">{t('New Books')}</H3>
+
+                <Carousel
+                    opts={{
+                        align: 'start',
+                    }}
+                    className="mx-12"
+                >
                     <CarouselContent>
                         {newBooks.map((book) => (
                             <CarouselItem
-                                className="mb-6 md:basis-1/2 lg:basis-1/3"
                                 key={book.id}
+                                className="md:basis-1/3 lg:basis-1/4"
                             >
-                                <BookCard book={book} />
+                                <div className="h-full p-2">
+                                    <BookCard book={book} />
+                                </div>
                             </CarouselItem>
                         ))}
                     </CarouselContent>
                     <CarouselPrevious />
                     <CarouselNext />
                 </Carousel>
-                <Carousel className="mt-10">
-                    <h1 className="mb-4 text-2xl font-bold">{t('Authors')}</h1>
+            </div>
+
+            <div className="container">
+                <H3 className="mb-4">{t('Authors')}</H3>
+
+                <Carousel
+                    opts={{
+                        align: 'start',
+                    }}
+                    className="mx-12"
+                >
                     <CarouselContent>
                         {authors.map((author) => (
                             <CarouselItem
-                                className="mb-6 md:basis-1/2 lg:basis-1/3"
                                 key={author.id}
+                                className="md:basis-1/3 lg:basis-1/4"
                             >
-                                <AuthorCard author={author} />
+                                <div className="h-full p-2">
+                                    <AuthorCard author={author} />
+                                </div>
                             </CarouselItem>
                         ))}
                     </CarouselContent>

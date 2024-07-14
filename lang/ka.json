@@ -1,5 +1,17 @@
 {
-    "Dashboard": "მართვის პანელი",
+    "Home": "მთავარი",
+    "Catalog": "კატალოგი",
+    "About Us": "ჩვენ შესახებ",
+    "Admin": "ადმინი",
+
+    "Hello, Reader!": "გამარჯობა, მკითხველო!",
+    "Find your next book here": "მოძებნე შენი შემდეგი წიგნი აქ",
+    "Search books by title...": "მოიძიე წიგნები სათაურის მიხედვით...",
+    "Search": "ძიება",
+    "or": "ან",
+    "Deep Search": "ღრმა ძიება",
+    "New Books": "ახალი წიგნები",
+
     "You're logged in!": "თქვენ დალოგინებული ხართ!",
     "Profile": "პროფილი",
     "Log Out": "გამოსვლა",
@@ -27,7 +39,6 @@
 
     "Forgot your password?": "პაროლი დაგავიწყდა?",
     "Remember me": "დამიმახსოვრე",
-    "Home": "მთავარი",
     "Don't have an account?": "არ გაქვთ ანგარიში?",
     "Id": "ID",
     "First name": "სახელი",
@@ -37,6 +48,10 @@
     "Personal number": "პირადი ნომერი",
     "Created at": "დამატებულია",
     "Password": "პაროლი",
+
+    "My Wishlist": "ჩემი სასურველები",
+    "Remove From Wishlist": "სასურველების წაშლა",
+    "Add To Wishlist": "სასურველების დამატება",
 
     "Lend": "გაცემა",
     "Lend a book": "წიგნის გაცემა",
@@ -50,6 +65,7 @@
     "Lost": "დაკარგული",
     "Damaged": "დაზიანებული",
 
+    "Dashboard": "მართვის პანელი",
     "Per status": "სტატუსის მიხედვით",
     "Checkouts and Returns": "გაცემების დინამიკა",
     "Checked out": "გაცემული",
@@ -275,18 +291,11 @@
     "Vietnamese": "ვიეტნამური",
     "Welsh": "უელსური",
     "Xhosa": "კოსა",
-    "Catalog": "კატალოგი",
-    "About Us": "ჩვენს შესახებ",
-    "New Books": "ახალი წიგნები",
-    "Search Books By Title...": "სათაურით ძებნა...",
-    "Deep Search": "ღრმა ძებნა",
+
     "Languages": "ენები",
     "Statuses": "სტატუსები",
     "Conditions": "მდგომარეობები",
     "Reserve": "დაჯავშნა",
-    "Remove From Wishlist": "სასურველების წაშლა",
-    "Add To Wishlist": "სასურველების დამატება",
-    "Max Length Books": "წიგნების მაქსიმალური რაოდენობა",
     "About": "ჩვენს შესახებ",
     "Profile Information": "პროფილის ინფორმაცია",
     "Update your account's profile information and email address.": "განაახლე შენი პროფილის ინფორმაცია და ელ. ფოსტის მისამართი.",

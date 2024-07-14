@@ -21,13 +21,16 @@ export default function Show({
     return (
         <MainLayout>
             <Head title={book.title} />
-            <BookDetails
-                book={book}
-                book_copies={book_copies}
-                branches={branches}
-                conditions={conditions}
-                statuses={statuses}
-            />
+
+            <div className="container flex flex-grow flex-col">
+                <BookDetails
+                    book={book}
+                    book_copies={book_copies}
+                    branches={branches}
+                    conditions={conditions}
+                    statuses={statuses}
+                />
+            </div>
         </MainLayout>
     );
 }

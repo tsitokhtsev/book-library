@@ -1,8 +1,6 @@
 import { Link } from '@inertiajs/react';
-import { router } from '@inertiajs/react';
 import { useLaravelReactI18n } from 'laravel-react-i18n';
-import { ChevronDownIcon, MenuIcon, SearchIcon, XIcon } from 'lucide-react';
-import { useState } from 'react';
+import { ChevronDownIcon, MenuIcon, XIcon } from 'lucide-react';
 
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import { Avatar, AvatarFallback } from '@/Components/Avatar';
@@ -23,7 +21,6 @@ import {
     DropdownMenuTrigger,
 } from '@/Components/DropdownMenu';
 import HeartSolidIcon from '@/Components/HeartSolidIcon';
-import { Input } from '@/Components/Input';
 import {
     NavigationMenu,
     NavigationMenuItem,
@@ -31,6 +28,7 @@ import {
     NavigationMenuList,
     navigationMenuTriggerStyle,
 } from '@/Components/NavigationMenu';
+import { AdminNav } from '@/Layouts/Partials/AdminNav';
 import { User } from '@/types/model';
 
 export default function Header({ user }: { user?: User }) {
@@ -51,12 +49,6 @@ export default function Header({ user }: { user?: User }) {
                 return locale.charAt(0).toUpperCase() + locale.slice(1);
         }
     }
-
-    const [searchQuery, setSearchQuery] = useState('');
-
-    const handleSearch = () => {
-        router.get(route('books.search'), { title: searchQuery });
-    };
 
     return (
         <header className="border-b">
@@ -80,6 +72,8 @@ export default function Header({ user }: { user?: User }) {
                                         {t('Home')}
                                     </Link>
                                 </NavigationMenuLink>
+                            </NavigationMenuItem>
+                            <NavigationMenuItem>
                                 <NavigationMenuLink
                                     asChild
                                     className={navigationMenuTriggerStyle()}
@@ -101,121 +95,18 @@ export default function Header({ user }: { user?: User }) {
                                     </Link>
                                 </NavigationMenuLink>
                             </NavigationMenuItem>
-                            {user?.is_admin && (
-                                <>
-                                    <NavigationMenuItem>
-                                        <NavigationMenuLink
-                                            asChild
-                                            className={navigationMenuTriggerStyle()}
-                                            active={route().current(
-                                                'admin.dashboard',
-                                            )}
-                                        >
-                                            <Link
-                                                href={route('admin.dashboard')}
-                                            >
-                                                {t('Dashboard')}
-                                            </Link>
-                                        </NavigationMenuLink>
-                                    </NavigationMenuItem>
-                                    <NavigationMenuItem>
-                                        <NavigationMenuLink
-                                            asChild
-                                            className={navigationMenuTriggerStyle()}
-                                            active={route().current(
-                                                'admin.members.*',
-                                            )}
-                                        >
-                                            <Link
-                                                href={route(
-                                                    'admin.members.index',
-                                                )}
-                                            >
-                                                {t('Members')}
-                                            </Link>
-                                        </NavigationMenuLink>
-                                    </NavigationMenuItem>
-                                    <NavigationMenuItem>
-                                        <NavigationMenuLink
-                                            asChild
-                                            className={navigationMenuTriggerStyle()}
-                                            active={route().current(
-                                                'admin.books.*',
-                                            )}
-                                        >
-                                            <Link
-                                                href={route(
-                                                    'admin.books.index',
-                                                )}
-                                            >
-                                                {t('Books')}
-                                            </Link>
-                                        </NavigationMenuLink>
-                                    </NavigationMenuItem>
-                                    <NavigationMenuItem>
-                                        <NavigationMenuLink
-                                            asChild
-                                            className={navigationMenuTriggerStyle()}
-                                            active={route().current(
-                                                'admin.configuration.*',
-                                            )}
-                                        >
-                                            <Link
-                                                href={route(
-                                                    'admin.configuration.index',
-                                                )}
-                                            >
-                                                {t('Configuration')}
-                                            </Link>
-                                        </NavigationMenuLink>
-                                    </NavigationMenuItem>
-                                </>
-                            )}
+                            {user?.is_admin && <AdminNav />}
                         </NavigationMenuList>
                     </NavigationMenu>
                 </div>
 
                 <div className="flex items-center gap-4">
-                    {!user?.is_admin && (
+                    {user && !user?.is_admin && (
                         <Link href={route('wishlist')}>
                             <HeartSolidIcon />
                         </Link>
                     )}
-                    <DropdownMenu modal={false}>
-                        <DropdownMenuTrigger>
-                            <div className="inline-flex items-center gap-2">
-                                <Input
-                                    type="text"
-                                    value={searchQuery}
-                                    onChange={(e) =>
-                                        setSearchQuery(e.target.value)
-                                    }
-                                    onKeyDown={(e) => {
-                                        if (e.key === 'Enter') {
-                                            e.preventDefault();
-                                            handleSearch();
-                                        }
-                                    }}
-                                    id="search"
-                                    placeholder={t('Search Books By Title...')}
-                                />
-                                <SearchIcon
-                                    onClick={handleSearch}
-                                    onKeyDown={handleSearch}
-                                    size={20}
-                                />
-                            </div>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent>
-                            <Link
-                                as="button"
-                                className="p-2"
-                                href={route('search')}
-                            >
-                                {t('Deep Search')}
-                            </Link>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
+
                     <div className="flex items-center gap-4">
                         <DropdownMenu modal={false}>
                             <DropdownMenuTrigger>
@@ -275,43 +166,22 @@ export default function Header({ user }: { user?: User }) {
                                     <Link href={route('home')}>
                                         {t('Home')}
                                     </Link>
-
-                                    {user?.is_admin && (
-                                        <>
-                                            <Link
-                                                href={route('admin.dashboard')}
-                                            >
-                                                {t('Dashboard')}
-                                            </Link>
-                                            <Link
-                                                href={route(
-                                                    'admin.members.index',
-                                                )}
-                                            >
-                                                {t('Members')}
-                                            </Link>
-                                            <Link
-                                                href={route(
-                                                    'admin.books.index',
-                                                )}
-                                            >
-                                                {t('Books')}
-                                            </Link>
-                                            <Link
-                                                href={route(
-                                                    'admin.configuration.index',
-                                                )}
-                                            >
-                                                {t('Configuration')}
-                                            </Link>
-                                        </>
-                                    )}
+                                    <Link href={route('catalog')}>
+                                        {t('Catalog')}
+                                    </Link>
+                                    <Link href={route('about')}>
+                                        {t('About Us')}
+                                    </Link>
 
                                     {user ? (
                                         <Link href={route('profile.edit')}>
                                             {t('Profile')}
                                         </Link>
                                     ) : null}
+
+                                    {user?.is_admin && (
+                                        <AdminNav mobile={true} />
+                                    )}
                                 </DrawerHeader>
                                 <DrawerFooter className="border-t">
                                     {user ? (

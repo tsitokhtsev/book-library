@@ -1,20 +1,12 @@
 import { Link, router } from '@inertiajs/react';
-import { HeartIcon } from 'lucide-react';
-import React, { useState } from 'react';
+import { BookOpenTextIcon, HeartIcon } from 'lucide-react';
 
+import { Card, CardContent, CardHeader } from '@/Components/Card';
 import Image from '@/Components/Image';
-import useRoute from '@/lib/hooks/useRoute';
+import { cn } from '@/lib/utils';
 import { Book } from '@/types/model';
 
-import HeartSolidIcon from './HeartSolidIcon';
-
-interface BookCardProps {
-    book: Book;
-}
-
-const BookCard: React.FC<BookCardProps> = ({ book }) => {
-    const [isHovered, setIsHovered] = useState(false);
-
+export function BookCard({ book }: { book: Book }) {
     const addToWishlist = () => {
         router.post(route('wishlist.store', { book_id: book.id }));
     };
@@ -25,6 +17,7 @@ const BookCard: React.FC<BookCardProps> = ({ book }) => {
 
     const handleWishlistClick = (e: React.MouseEvent) => {
         e.preventDefault();
+
         if (book.is_in_wishlist) {
             removeFromWishlist();
         } else {
@@ -33,37 +26,38 @@ const BookCard: React.FC<BookCardProps> = ({ book }) => {
     };
 
     return (
-        <Link href={useRoute('books.show', book.id)}>
-            <div className="flex h-max flex-col justify-between rounded-lg p-4 shadow-lg transition-shadow duration-300 hover:shadow-xl">
-                <div>
-                    <h2 className="mb-2 text-lg font-bold">{book.title}</h2>
-                    <div className="relative mb-2 h-72 w-full">
+        <Link href={route('books.show', book.id)}>
+            <Card className="transition-shadow duration-300 hover:shadow-md">
+                <CardHeader className="aspect-3/4 relative justify-center">
+                    <HeartIcon
+                        onClick={handleWishlistClick}
+                        className={cn(
+                            'absolute right-4 top-4 text-red-500 hover:fill-red-500',
+                            { 'fill-red-500': book.is_in_wishlist },
+                        )}
+                    />
+
+                    {book.cover_image ? (
                         <Image
                             src={'/storage/' + book.cover_image}
                             alt={book.title}
-                            className="h-full w-full rounded object-cover"
+                            className="h-full rounded object-cover"
                             fallbackSrc="https://via.placeholder.com/150?text=Book+Image"
                         />
-                        <button
-                            onClick={handleWishlistClick}
-                            onMouseEnter={() => setIsHovered(true)}
-                            onMouseLeave={() => setIsHovered(false)}
-                            className="absolute right-2 top-2 text-red-500"
-                        >
-                            {book.is_in_wishlist || isHovered ? (
-                                <HeartSolidIcon />
-                            ) : (
-                                <HeartIcon />
-                            )}
-                        </button>
-                    </div>
-                </div>
-                <p className="text-sm text-gray-600">
-                    {book.authors.map((author) => author.name).join(', ')}
-                </p>
-            </div>
+                    ) : (
+                        <BookOpenTextIcon className="h-1/3 w-full text-gray-300" />
+                    )}
+                </CardHeader>
+
+                <CardContent className="flex flex-col gap-1">
+                    <p className="line-clamp-3 text-lg font-semibold">
+                        {book.title}
+                    </p>
+                    <p className="line-clamp-2 text-sm text-muted-foreground">
+                        {book.authors.map((author) => author.name).join(', ')}
+                    </p>
+                </CardContent>
+            </Card>
         </Link>
     );
-};
-
-export default BookCard;
+}
