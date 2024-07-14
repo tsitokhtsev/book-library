@@ -110,47 +110,47 @@ export default function Header({ user }: { user?: User }) {
                     </NavigationMenu>
                 </div>
 
+                <DropdownMenu modal={false}>
+                    <DropdownMenuTrigger>
+                        <div className="inline-flex items-center gap-2">
+                            <Input
+                                type="text"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') {
+                                        e.preventDefault();
+                                        handleSearch();
+                                    }
+                                }}
+                                id="search"
+                                placeholder={t('Search Books By Title...')}
+                            />
+                            <SearchIcon
+                                onClick={handleSearch}
+                                onKeyDown={handleSearch}
+                                size={20}
+                            />
+                        </div>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                        <Link
+                            as="button"
+                            className="p-2"
+                            href={route('search')}
+                        >
+                            {t('Deep Search')}
+                        </Link>
+                    </DropdownMenuContent>
+                </DropdownMenu>
+
                 <div className="flex items-center gap-4">
-                    {!user?.is_admin && (
+                    {user && !user?.is_admin && (
                         <Link href={route('wishlist')}>
                             <HeartSolidIcon />
                         </Link>
                     )}
-                    <DropdownMenu modal={false}>
-                        <DropdownMenuTrigger>
-                            <div className="inline-flex items-center gap-2">
-                                <Input
-                                    type="text"
-                                    value={searchQuery}
-                                    onChange={(e) =>
-                                        setSearchQuery(e.target.value)
-                                    }
-                                    onKeyDown={(e) => {
-                                        if (e.key === 'Enter') {
-                                            e.preventDefault();
-                                            handleSearch();
-                                        }
-                                    }}
-                                    id="search"
-                                    placeholder={t('Search Books By Title...')}
-                                />
-                                <SearchIcon
-                                    onClick={handleSearch}
-                                    onKeyDown={handleSearch}
-                                    size={20}
-                                />
-                            </div>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent>
-                            <Link
-                                as="button"
-                                className="p-2"
-                                href={route('search')}
-                            >
-                                {t('Deep Search')}
-                            </Link>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
+
                     <div className="flex items-center gap-4">
                         <DropdownMenu modal={false}>
                             <DropdownMenuTrigger>

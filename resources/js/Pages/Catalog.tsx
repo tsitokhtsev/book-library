@@ -3,7 +3,7 @@ import { Head, Link, router, usePage } from '@inertiajs/react';
 import { useLaravelReactI18n } from 'laravel-react-i18n';
 import React, { useCallback, useEffect, useState } from 'react';
 
-import BookCard from '@/Components/BookCard';
+import { BookCard } from '@/Components/BookCard';
 import SideMenu, { SelectedFilters } from '@/Components/SideMenu';
 import MainLayout from '@/Layouts/MainLayout';
 import { Author, Condition, Genre } from '@/types/model';

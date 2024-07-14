@@ -82,6 +82,9 @@ export default {
                 'accordion-down': 'accordion-down 0.2s ease-out',
                 'accordion-up': 'accordion-up 0.2s ease-out',
             },
+            aspectRatio: {
+                '3/4': '3 / 4',
+            },
         },
     },
 
@@ -91,17 +94,7 @@ export default {
         function ({ addComponents }) {
             addComponents({
                 '.container': {
-                    maxWidth: '100%',
-                    '@screen sm': {
-                        maxWidth: '640px',
-                    },
-                    '@screen md': {
-                        maxWidth: '768px',
-                    },
-                    '@screen lg': {
-                        maxWidth: '1024px',
-                    },
-                    '@screen xl': {
+                    maxWidth: '100%',                    '@screen xl': {
                         maxWidth: '1280px',
                     },
                 },
