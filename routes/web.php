@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\HomeController;
@@ -33,6 +34,7 @@ Route::get('/books/search', [SearchController::class, 'index'])->name('search');
 Route::get('/books/searchList', [SearchController::class, 'search'])->name('books.search');
 
 Route::get('/books/{book}', [BookController::class, 'show'])->name('books.show');
+Route::get('/authors/{author}', [AuthorController::class, 'show'])->name('authors.show');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
