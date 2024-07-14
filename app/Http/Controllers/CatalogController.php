@@ -6,6 +6,7 @@ use App\Models\Author;
 use App\Models\Book;
 use App\Models\Genre;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class CatalogController extends Controller
@@ -32,6 +33,15 @@ class CatalogController extends Controller
         }
 
         $books = $query->with(['authors', 'genres'])->paginate(27);
+
+        // Get the current user's wishlist book IDs
+        $wishlistBookIds = Auth::check() ? Auth::user()->wishlists->pluck('book_id')->toArray() : [];
+
+        // Attach wishlist information to each book
+        $books->getCollection()->transform(function ($book) use ($wishlistBookIds) {
+            $book->is_in_wishlist = in_array($book->id, $wishlistBookIds);
+            return $book;
+        });
 
         return Inertia::render('Catalog', [
             'books' => $books,

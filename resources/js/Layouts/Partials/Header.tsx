@@ -22,6 +22,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/Components/DropdownMenu';
+import HeartSolidIcon from '@/Components/HeartSolidIcon';
 import { Input } from '@/Components/Input';
 import {
     NavigationMenu,
@@ -175,6 +176,9 @@ export default function Header({ user }: { user?: User }) {
                 </div>
 
                 <div className="flex items-center gap-4">
+                    <Link href={route('wishlist')}>
+                        <HeartSolidIcon />
+                    </Link>
                     <DropdownMenu modal={false}>
                         <DropdownMenuTrigger>
                             <div className="inline-flex items-center gap-2">

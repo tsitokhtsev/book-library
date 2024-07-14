@@ -28,6 +28,7 @@ export type Book = {
     genres: { id: number; name: string }[];
     authors: { id: number; name: string }[];
     book_copies_count: number;
+    is_in_wishlist: boolean;
 };
 
 export type BookCopy = {
