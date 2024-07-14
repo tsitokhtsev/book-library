@@ -25,7 +25,6 @@ class BookFactory extends Factory
             'description' => $this->faker->text(500),
             'publication_date' => $this->faker->date(),
             'language_id' => $this->faker->randomElement(Language::pluck('id')),
-            'cover_image' => $this->faker->imageUrl(640, 480, 'animals', true),
         ];
     }
 }

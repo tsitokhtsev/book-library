@@ -1,5 +1,9 @@
 {
-    "Dashboard": "მართვის პანელი",
+    "Home": "მთავარი",
+    "Catalog": "კატალოგი",
+    "About Us": "ჩვენ შესახებ",
+    "Admin": "ადმინი",
+
     "You're logged in!": "თქვენ დალოგინებული ხართ!",
     "Profile": "პროფილი",
     "Log Out": "გამოსვლა",
@@ -27,7 +31,6 @@
 
     "Forgot your password?": "პაროლი დაგავიწყდა?",
     "Remember me": "დამიმახსოვრე",
-    "Home": "მთავარი",
     "Don't have an account?": "არ გაქვთ ანგარიში?",
     "Id": "ID",
     "First name": "სახელი",
@@ -50,6 +53,7 @@
     "Lost": "დაკარგული",
     "Damaged": "დაზიანებული",
 
+    "Dashboard": "მართვის პანელი",
     "Per status": "სტატუსის მიხედვით",
     "Checkouts and Returns": "გაცემების დინამიკა",
     "Checked out": "გაცემული",
@@ -275,8 +279,7 @@
     "Vietnamese": "ვიეტნამური",
     "Welsh": "უელსური",
     "Xhosa": "კოსა",
-    "Catalog": "კატალოგი",
-    "About Us": "ჩვენს შესახებ",
+
     "New Books": "ახალი წიგნები",
     "Search Books By Title...": "სათაურით ძებნა...",
     "Deep Search": "ღრმა ძებნა",

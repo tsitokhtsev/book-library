@@ -2,7 +2,7 @@ import { Link } from '@inertiajs/react';
 import { router } from '@inertiajs/react';
 import { useLaravelReactI18n } from 'laravel-react-i18n';
 import { ChevronDownIcon, MenuIcon, SearchIcon, XIcon } from 'lucide-react';
-import { useState } from 'react';
+import * as React from 'react';
 
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import { Avatar, AvatarFallback } from '@/Components/Avatar';
@@ -31,6 +31,8 @@ import {
     NavigationMenuList,
     navigationMenuTriggerStyle,
 } from '@/Components/NavigationMenu';
+import { AdminNav } from '@/Layouts/Partials/AdminNav';
+import { cn } from '@/lib/utils';
 import { User } from '@/types/model';
 
 export default function Header({ user }: { user?: User }) {
@@ -52,7 +54,7 @@ export default function Header({ user }: { user?: User }) {
         }
     }
 
-    const [searchQuery, setSearchQuery] = useState('');
+    const [searchQuery, setSearchQuery] = React.useState('');
 
     const handleSearch = () => {
         router.get(route('books.search'), { title: searchQuery });
@@ -80,6 +82,8 @@ export default function Header({ user }: { user?: User }) {
                                         {t('Home')}
                                     </Link>
                                 </NavigationMenuLink>
+                            </NavigationMenuItem>
+                            <NavigationMenuItem>
                                 <NavigationMenuLink
                                     asChild
                                     className={navigationMenuTriggerStyle()}
@@ -101,76 +105,7 @@ export default function Header({ user }: { user?: User }) {
                                     </Link>
                                 </NavigationMenuLink>
                             </NavigationMenuItem>
-                            {user?.is_admin && (
-                                <>
-                                    <NavigationMenuItem>
-                                        <NavigationMenuLink
-                                            asChild
-                                            className={navigationMenuTriggerStyle()}
-                                            active={route().current(
-                                                'admin.dashboard',
-                                            )}
-                                        >
-                                            <Link
-                                                href={route('admin.dashboard')}
-                                            >
-                                                {t('Dashboard')}
-                                            </Link>
-                                        </NavigationMenuLink>
-                                    </NavigationMenuItem>
-                                    <NavigationMenuItem>
-                                        <NavigationMenuLink
-                                            asChild
-                                            className={navigationMenuTriggerStyle()}
-                                            active={route().current(
-                                                'admin.members.*',
-                                            )}
-                                        >
-                                            <Link
-                                                href={route(
-                                                    'admin.members.index',
-                                                )}
-                                            >
-                                                {t('Members')}
-                                            </Link>
-                                        </NavigationMenuLink>
-                                    </NavigationMenuItem>
-                                    <NavigationMenuItem>
-                                        <NavigationMenuLink
-                                            asChild
-                                            className={navigationMenuTriggerStyle()}
-                                            active={route().current(
-                                                'admin.books.*',
-                                            )}
-                                        >
-                                            <Link
-                                                href={route(
-                                                    'admin.books.index',
-                                                )}
-                                            >
-                                                {t('Books')}
-                                            </Link>
-                                        </NavigationMenuLink>
-                                    </NavigationMenuItem>
-                                    <NavigationMenuItem>
-                                        <NavigationMenuLink
-                                            asChild
-                                            className={navigationMenuTriggerStyle()}
-                                            active={route().current(
-                                                'admin.configuration.*',
-                                            )}
-                                        >
-                                            <Link
-                                                href={route(
-                                                    'admin.configuration.index',
-                                                )}
-                                            >
-                                                {t('Configuration')}
-                                            </Link>
-                                        </NavigationMenuLink>
-                                    </NavigationMenuItem>
-                                </>
-                            )}
+                            {user?.is_admin && <AdminNav />}
                         </NavigationMenuList>
                     </NavigationMenu>
                 </div>
@@ -275,43 +210,22 @@ export default function Header({ user }: { user?: User }) {
                                     <Link href={route('home')}>
                                         {t('Home')}
                                     </Link>
-
-                                    {user?.is_admin && (
-                                        <>
-                                            <Link
-                                                href={route('admin.dashboard')}
-                                            >
-                                                {t('Dashboard')}
-                                            </Link>
-                                            <Link
-                                                href={route(
-                                                    'admin.members.index',
-                                                )}
-                                            >
-                                                {t('Members')}
-                                            </Link>
-                                            <Link
-                                                href={route(
-                                                    'admin.books.index',
-                                                )}
-                                            >
-                                                {t('Books')}
-                                            </Link>
-                                            <Link
-                                                href={route(
-                                                    'admin.configuration.index',
-                                                )}
-                                            >
-                                                {t('Configuration')}
-                                            </Link>
-                                        </>
-                                    )}
+                                    <Link href={route('catalog')}>
+                                        {t('Catalog')}
+                                    </Link>
+                                    <Link href={route('about')}>
+                                        {t('About Us')}
+                                    </Link>
 
                                     {user ? (
                                         <Link href={route('profile.edit')}>
                                             {t('Profile')}
                                         </Link>
                                     ) : null}
+
+                                    {user?.is_admin && (
+                                        <AdminNav mobile={true} />
+                                    )}
                                 </DrawerHeader>
                                 <DrawerFooter className="border-t">
                                     {user ? (

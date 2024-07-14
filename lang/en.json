@@ -1,5 +1,9 @@
 {
-    "Dashboard": "Dashboard",
+    "Home": "Home",
+    "Catalog": "Catalog",
+    "About Us": "About Us",
+    "Admin": "Admin",
+
     "You're logged in!": "You're logged in!",
     "Profile": "Profile",
     "Log Out": "Log Out",
@@ -27,7 +31,6 @@
 
     "Forgot your password?": "Forgot your password?",
     "Remember me": "Remember me",
-    "Home": "Home",
     "Don't have an account?": "Don't have an account?",
     "Id": "ID",
     "First name": "First name",
@@ -50,6 +53,7 @@
     "Lost": "Lost",
     "Damaged": "Damaged",
 
+    "Dashboard": "Dashboard",
     "Per status": "Per status",
     "Checkouts and Returns": "Checkouts and Returns",
     "Checked out": "Checked out",
@@ -276,8 +280,6 @@
     "Welsh": "Welsh",
     "Xhosa": "Xhosa",
 
-    "Catalog": "Catalog",
-    "About Us": "About Us",
     "New Books": "New Books",
     "Search Books By Title...": "Search Books By Title...",
     "Deep Search": "Deep Search",
@@ -285,7 +287,6 @@
     "Statuses": "Statuses",
     "Conditions": "Conditions",
     "Reserve": "Reserve",
-    "Max Length Books": "Max Length Books",
     "About": "About",
     "Profile Information": "Profile Information",
     "Update your account's profile information and email address.": "Update your account's profile information and email address.",
