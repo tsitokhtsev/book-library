@@ -1,4 +1,4 @@
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { TableMeta } from '@tanstack/react-table';
 import { useLaravelReactI18n } from 'laravel-react-i18n';
 import { MoreHorizontalIcon } from 'lucide-react';
@@ -29,6 +29,7 @@ import {
     DropdownMenuTrigger,
 } from '@/Components/DropdownMenu';
 import { Form } from '@/Pages/Admin/Books/Copies/Partials/Form';
+import { PageProps } from '@/types';
 import { FormType } from '@/types/form';
 import { BookCopy } from '@/types/model';
 
@@ -41,10 +42,14 @@ export function Actions({
 }) {
     const { t } = useLaravelReactI18n();
 
+    const {
+        auth: { user },
+    } = usePage<PageProps>().props;
+
     const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
-    return (
+    return user?.is_admin ? (
         <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="h-8 w-8 p-0">
@@ -117,5 +122,7 @@ export function Actions({
                 </AlertDialogContent>
             </AlertDialog>
         </DropdownMenu>
+    ) : (
+        <Button>{t('Reserve')}</Button>
     );
 }

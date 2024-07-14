@@ -21,8 +21,7 @@ export default function Admin({ children }: PropsWithChildren) {
                     </Alert>
                 </div>
             )}
-
-            <div className="container flex flex-grow flex-col">{children}</div>
+            {children}
         </MainLayout>
     );
 }

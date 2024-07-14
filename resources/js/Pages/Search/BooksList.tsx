@@ -3,6 +3,7 @@ import { Link, usePage } from '@inertiajs/react';
 
 import { Button } from '@/Components/Button';
 import MainLayout from '@/Layouts/MainLayout';
+import useRoute from '@/lib/hooks/useRoute';
 import { PageProps as MainPageProps } from '@/types';
 import { PaginationLink } from '@/types/global';
 import { Book } from '@/types/model';
@@ -42,11 +43,7 @@ const BooksList = () => {
                         <Button key={book.id} variant="link" asChild>
                             <Link
                                 className="pl-0"
-                                href={
-                                    user?.is_admin
-                                        ? route('admin.books.show', book.id)
-                                        : route('books.show', book.id)
-                                }
+                                href={useRoute('books.show', book.id)}
                             >
                                 {book.title} -{' '}
                                 {book.authors

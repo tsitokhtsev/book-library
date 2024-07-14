@@ -1,4 +1,4 @@
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { useLaravelReactI18n } from 'laravel-react-i18n';
 import { MoreHorizontalIcon } from 'lucide-react';
 import { useState } from 'react';
@@ -20,12 +20,18 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from '@/Components/DropdownMenu';
+import useRoute from '@/lib/hooks/useRoute';
+import { PageProps } from '@/types';
 import { Book } from '@/types/model';
 
 export function Actions({ book }: { book: Book }) {
     const { t } = useLaravelReactI18n();
 
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+
+    const {
+        auth: { user },
+    } = usePage<PageProps>().props;
 
     return (
         <DropdownMenu modal={false}>
@@ -38,18 +44,24 @@ export function Actions({ book }: { book: Book }) {
 
             <DropdownMenuContent align="end">
                 <DropdownMenuItem asChild>
-                    <Link href={route('admin.books.show', book.id)}>
+                    <Link href={useRoute('books.show', book.id)}>
                         {t('View')}
                     </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                    <Link href={route('admin.books.edit', book.id)}>
-                        {t('Edit')}
-                    </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setIsDeleteDialogOpen(true)}>
-                    {t('Delete')}
-                </DropdownMenuItem>
+                {user?.is_admin && (
+                    <>
+                        <DropdownMenuItem asChild>
+                            <Link href={route('admin.books.edit', book.id)}>
+                                {t('Edit')}
+                            </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                            onClick={() => setIsDeleteDialogOpen(true)}
+                        >
+                            {t('Delete')}
+                        </DropdownMenuItem>
+                    </>
+                )}
             </DropdownMenuContent>
 
             <AlertDialog
