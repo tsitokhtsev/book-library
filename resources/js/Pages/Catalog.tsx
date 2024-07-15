@@ -54,26 +54,41 @@ const Catalog: React.FC<CatalogProps> = () => {
                 </div>
 
                 <div className="w-3/4">
-                    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                        {filteredBooks.map((book) => (
-                            <BookCard key={book.id} book={book} />
-                        ))}
-                    </div>
-                    <div className="mt-4">
-                        <div className="flex justify-center">
-                            {links.map((link, index) => (
-                                <Link
-                                    key={index}
-                                    disabled={!link.url}
-                                    className={`mx-1 px-2 py-1 ${link.active ? 'font-bold' : 'text-gray-500'}`}
-                                    href={link.url ? link.url : '#'}
-                                    dangerouslySetInnerHTML={{
-                                        __html: link.label,
-                                    }}
-                                />
-                            ))}
+                    {filteredBooks.length === 0 ? (
+                        <div className="p-10 text-center">
+                            <h2 className="text-2xl font-bold text-gray-700">
+                                {t('No books available')}
+                            </h2>
+                            <p className="mt-4 text-gray-500">
+                                {t(
+                                    'Please adjust your filters or check back later.',
+                                )}
+                            </p>
                         </div>
-                    </div>
+                    ) : (
+                        <>
+                            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                                {filteredBooks.map((book) => (
+                                    <BookCard key={book.id} book={book} />
+                                ))}
+                            </div>
+                            <div className="mt-4">
+                                <div className="flex justify-center">
+                                    {links.map((link, index) => (
+                                        <Link
+                                            key={index}
+                                            disabled={!link.url}
+                                            className={`mx-1 px-2 py-1 ${link.active ? 'font-bold' : 'text-gray-500'}`}
+                                            href={link.url ? link.url : '#'}
+                                            dangerouslySetInnerHTML={{
+                                                __html: link.label,
+                                            }}
+                                        />
+                                    ))}
+                                </div>
+                            </div>
+                        </>
+                    )}
                 </div>
             </div>
         </MainLayout>
