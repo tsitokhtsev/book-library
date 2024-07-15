@@ -12,6 +12,7 @@
     "Deep Search": "Deep Search",
     "New Books": "New Books",
     "Clear": "Clear",
+    "About us": "About us",
 
     "Profile": "Profile",
     "Log Out": "Log Out",
@@ -90,6 +91,7 @@
     "Lost": "Lost",
     "Damaged": "Damaged",
 
+    "Admin Dashboard": "Admin Dashboard",
     "Dashboard": "Dashboard",
     "Per status": "Per status",
     "Checkouts and Returns": "Checkouts and Returns",
@@ -98,6 +100,9 @@
     "Popular Books": "Popular Books",
     "Per checkouts": "Per checkouts",
     "Count": "Count",
+    "Checkout date": "Checkout date",
+    "Due date": "Due date",
+    "Return date": "Returned date",
 
     "Book": "Book",
     "Books": "Books",
@@ -320,6 +325,5 @@
     "Languages": "Languages",
     "Statuses": "Statuses",
     "Conditions": "Conditions",
-    "Reserve": "Reserve",
-    "About": "About"
+    "Reserve": "Reserve"
 }
