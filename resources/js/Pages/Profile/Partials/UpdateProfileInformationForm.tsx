@@ -1,25 +1,32 @@
-import { Transition } from '@headlessui/react';
 import { Link, useForm, usePage } from '@inertiajs/react';
 import { useLaravelReactI18n } from 'laravel-react-i18n';
-import { FormEventHandler } from 'react';
+import { FormEventHandler, useEffect } from 'react';
 
+import { Button } from '@/Components/Button';
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from '@/Components/Card';
+import { Input } from '@/Components/Input';
 import { InputError } from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
+import { Label } from '@/Components/Label';
+import { useToast } from '@/Components/useToast';
 import { PageProps } from '@/types';
 
 export default function UpdateProfileInformation({
     mustVerifyEmail,
     status,
-    className = '',
 }: {
     mustVerifyEmail: boolean;
     status?: string;
-    className?: string;
 }) {
     const user = usePage<PageProps>().props.auth.user;
     const { t } = useLaravelReactI18n();
+    const { toast } = useToast();
 
     const { data, setData, patch, errors, processing, recentlySuccessful } =
         useForm({
@@ -28,117 +35,106 @@ export default function UpdateProfileInformation({
             email: user.email,
         });
 
-    const submit: FormEventHandler = (e) => {
+    const handleSubmit: FormEventHandler = (e) => {
         e.preventDefault();
 
         patch(route('profile.update'));
     };
 
+    useEffect(() => {
+        if (recentlySuccessful) {
+            toast({
+                title: t('Profile updated successfully'),
+            });
+        }
+    }, [recentlySuccessful]);
+
     return (
-        <section className={className}>
-            <header>
-                <h2 className="text-lg font-medium text-gray-900">
-                    {t('Profile Information')}
-                </h2>
-
-                <p className="mt-1 text-sm text-gray-600">
-                    {t(
-                        "Update your account's profile information and email address.",
-                    )}
-                </p>
-            </header>
-
-            <form onSubmit={submit} className="mt-6 space-y-6">
-                <div>
-                    <InputLabel htmlFor="first_name" value={t('First Name')} />
-
-                    <TextInput
-                        id="first_name"
-                        className="mt-1 block w-full"
-                        value={data.first_name}
-                        onChange={(e) => setData('first_name', e.target.value)}
-                        required
-                        isFocused
-                        autoComplete="first_name"
-                    />
-
-                    <InputError className="mt-2" message={errors.first_name} />
-                </div>
-
-                <div>
-                    <InputLabel htmlFor="last_name" value={t('Last Name')} />
-
-                    <TextInput
-                        id="last_name"
-                        className="mt-1 block w-full"
-                        value={data.last_name}
-                        onChange={(e) => setData('last_name', e.target.value)}
-                        required
-                        isFocused
-                        autoComplete="last_name"
-                    />
-
-                    <InputError className="mt-2" message={errors.last_name} />
-                </div>
-
-                <div>
-                    <InputLabel htmlFor="email" value={t('Email')} />
-
-                    <TextInput
-                        id="email"
-                        type="email"
-                        className="mt-1 block w-full"
-                        value={data.email}
-                        onChange={(e) => setData('email', e.target.value)}
-                        required
-                        autoComplete="username"
-                    />
-
-                    <InputError className="mt-2" message={errors.email} />
-                </div>
-
-                {mustVerifyEmail && user.email_verified_at === null && (
-                    <div>
-                        <p className="mt-2 text-sm text-gray-800">
-                            {t('Your email address is unverified.')}
-                            <Link
-                                href={route('verification.send')}
-                                method="post"
-                                as="button"
-                                className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                            >
-                                {t(
-                                    'Click here to re-send the verification email.',
-                                )}
-                            </Link>
-                        </p>
-
-                        {status === 'verification-link-sent' && (
-                            <div className="mt-2 text-sm font-medium text-green-600">
-                                {t(
-                                    'A new verification link has been sent to the email address you provided during registration.',
-                                )}
-                            </div>
+        <form onSubmit={handleSubmit}>
+            <Card className="flex flex-grow flex-col">
+                <CardHeader>
+                    <CardTitle>{t('Profile Information')}</CardTitle>
+                    <CardDescription>
+                        {t(
+                            "Update your account's profile information and email address",
                         )}
+                    </CardDescription>
+                </CardHeader>
+
+                <CardContent className="grid gap-4">
+                    <div className="grid gap-2">
+                        <Label htmlFor="first_name">{t('First name')}</Label>
+                        <Input
+                            type="text"
+                            value={data.first_name}
+                            onChange={(e) =>
+                                setData('first_name', e.target.value)
+                            }
+                            id="first_name"
+                            autoComplete="first_name"
+                        />
+                        <InputError message={errors.first_name} />
                     </div>
-                )}
 
-                <div className="flex items-center gap-4">
-                    <PrimaryButton disabled={processing}>
+                    <div className="grid gap-2">
+                        <Label htmlFor="last_name">{t('Last name')}</Label>
+                        <Input
+                            type="text"
+                            value={data.last_name}
+                            onChange={(e) =>
+                                setData('last_name', e.target.value)
+                            }
+                            id="last_name"
+                            autoComplete="last_name"
+                        />
+                        <InputError message={errors.last_name} />
+                    </div>
+
+                    <div className="grid gap-2">
+                        <Label htmlFor="email">{t('Email')}</Label>
+                        <Input
+                            type="email"
+                            value={data.email}
+                            onChange={(e) => setData('email', e.target.value)}
+                            id="email"
+                            autoComplete="username"
+                        />
+                        <InputError message={errors.email} />
+                    </div>
+
+                    {mustVerifyEmail && user.email_verified_at === null && (
+                        <div>
+                            <p className="mt-2 text-sm text-gray-800">
+                                {t('Your email address is unverified.')}
+                                <Link
+                                    href={route('verification.send')}
+                                    method="post"
+                                    as="button"
+                                    className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                >
+                                    {t(
+                                        'Click here to re-send the verification email.',
+                                    )}
+                                </Link>
+                            </p>
+
+                            {status === 'verification-link-sent' && (
+                                <div className="mt-2 text-sm font-medium text-green-600">
+                                    {t(
+                                        'A new verification link has been sent to the email address you provided during registration.',
+                                    )}
+                                </div>
+                            )}
+                        </div>
+                    )}
+                </CardContent>
+
+                <CardFooter className="border-t px-6 py-4">
+                    <Button type="submit" disabled={processing}>
                         {t('Save')}
-                    </PrimaryButton>
-
-                    <Transition
-                        show={recentlySuccessful}
-                        enter="transition ease-in-out"
-                        enterFrom="opacity-0"
-                        leave="transition ease-in-out"
-                        leaveTo="opacity-0"
-                    >
-                        <p className="text-sm text-gray-600">{t('Saved')}.</p>
-                    </Transition>
-                </div>
-            </form>
-        </section>
+                    </Button>
+                </CardFooter>
+            </Card>
+        </form>
     );
 }

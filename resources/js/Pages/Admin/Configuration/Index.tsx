@@ -45,7 +45,7 @@ export default function Index({
 
     return (
         <ConfigurationLayout>
-            <Head title="Library" />
+            <Head title={t('Configuration')} />
 
             <form onSubmit={handleSubmit}>
                 <Card className="flex flex-grow flex-col">
