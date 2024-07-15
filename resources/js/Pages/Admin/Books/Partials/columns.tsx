@@ -5,7 +5,6 @@ import { useLaravelReactI18n } from 'laravel-react-i18n';
 import { Button } from '@/Components/Button';
 import { Checkbox } from '@/Components/Checkbox';
 import { DataTableColumnHeader } from '@/Components/DataTableColumnHeader';
-import { IsEnabledBadge } from '@/Components/IsEnabledBadge';
 import { Actions } from '@/Pages/Admin/Books/Partials/Actions';
 import { SelectOption } from '@/types';
 import { Book } from '@/types/model';
@@ -43,21 +42,22 @@ export const columns: ColumnDef<Book>[] = [
             const formattedTitle =
                 title.length > 30 ? `${title.slice(0, 30)}...` : title;
             return (
-                <Button variant="link" asChild>
-                    <Link href={route('admin.books.show', row.original.id)}>
-                        {formattedTitle}
-                    </Link>
-                </Button>
+                <Link
+                    href={route('admin.books.show', row.original.id)}
+                    className="font-medium hover:underline"
+                >
+                    {formattedTitle}
+                </Link>
             );
         },
     },
-    {
-        accessorKey: 'is_enabled',
-        header: ({ column }) => <DataTableColumnHeader column={column} />,
-        cell: ({ row }) => (
-            <IsEnabledBadge isEnabled={row.getValue('is_enabled')} />
-        ),
-    },
+    // {
+    //     accessorKey: 'is_enabled',
+    //     header: ({ column }) => <DataTableColumnHeader column={column} />,
+    //     cell: ({ row }) => (
+    //         <BadgeIsEnabled isEnabled={row.getValue('is_enabled')} />
+    //     ),
+    // },
     {
         accessorKey: 'isbn',
         header: ({ column }) => <DataTableColumnHeader column={column} />,

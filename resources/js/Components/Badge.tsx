@@ -1,4 +1,5 @@
 import { type VariantProps, cva } from 'class-variance-authority';
+import { useLaravelReactI18n } from 'laravel-react-i18n';
 import * as React from 'react';
 
 import { cn } from '@/lib/utils';
@@ -15,6 +16,14 @@ const badgeVariants = cva(
                 destructive:
                     'border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80',
                 outline: 'text-foreground',
+                active: 'border-transparent bg-chart-2 text-primary-foreground hover:bg-chart-2/80',
+                overdue:
+                    'border-transparent bg-chart-4 text-primary-foreground hover:bg-chart-4/80',
+                returned:
+                    'border-transparent bg-chart-3 text-primary-foreground hover:bg-chart-3/80',
+                lost: 'border-transparent bg-chart-1 text-primary-foreground hover:bg-chart-1/80',
+                damaged:
+                    'border-transparent bg-chart-5 text-primary-foreground hover:bg-chart-5/80',
             },
         },
         defaultVariants: {
@@ -33,4 +42,24 @@ function Badge({ className, variant, ...props }: BadgeProps) {
     );
 }
 
-export { Badge, badgeVariants };
+function BadgeIsEnabled({ isEnabled }: { isEnabled: boolean }) {
+    const { t } = useLaravelReactI18n();
+
+    return (
+        <Badge variant={isEnabled ? 'outline' : 'destructive'}>
+            {t(isEnabled ? 'Enabled' : 'Disabled')}
+        </Badge>
+    );
+}
+
+function BadgeCheckoutStatus({
+    status,
+}: {
+    status: keyof typeof badgeVariants;
+}) {
+    const { t } = useLaravelReactI18n();
+
+    return <Badge variant={status}>{t(status)}</Badge>;
+}
+
+export { Badge, BadgeIsEnabled, BadgeCheckoutStatus, badgeVariants };

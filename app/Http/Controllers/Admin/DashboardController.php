@@ -62,6 +62,7 @@ class DashboardController extends Controller
             ],
             'checkouts_returns_chart' => $this->dashboardService->getCheckoutsReturnsOverTime(6),
             'popular_books_chart' => $this->dashboardService->getPopularBooks(3),
+            'checkouts' => $this->dashboardService->getLatestCheckouts(),
         ]);
     }
 }

@@ -80,3 +80,24 @@ export type Branch = {
     working_hours: string;
     books_count: number;
 };
+
+export type Checkout = {
+    id: number;
+    book: {
+        id: number;
+        title: string;
+        code: string;
+    };
+    member: {
+        first_name: string;
+        last_name: string;
+        personal_number: string;
+    };
+    status: {
+        id: number;
+        name: string;
+    };
+    checkout_date: string;
+    due_date: string;
+    return_date: string | null;
+};
