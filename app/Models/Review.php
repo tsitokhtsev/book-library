@@ -9,6 +9,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Review extends Model
 {
 //    use HasFactory;
+    protected $fillable = [
+        'book_id',
+        'user_id',
+        'review',
+        'rating',
+    ];
 
     public function user(): BelongsTo
     {
