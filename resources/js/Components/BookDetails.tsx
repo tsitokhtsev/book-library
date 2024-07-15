@@ -171,19 +171,21 @@ export default function BookDetails({
                         {book.genres.map((genre) => genre.name).join(', ')}
                     </p>
                 </div>
-                {user && (
-                    <ReactStars
-                        count={5}
-                        onChange={(newRating: number) => {
-                            setNewRating(newRating);
-                            setIsReviewDialogOpen(true);
-                        }}
-                        value={average_rating}
-                        size={24}
-                        activeColor="#ffd700"
-                        edit={!user_has_review}
-                    />
-                )}
+                <ReactStars
+                    count={5}
+                    onChange={(newRating: number) => {
+                        if (!user) {
+                            router.visit(route('login'));
+                            return;
+                        }
+                        setNewRating(newRating);
+                        setIsReviewDialogOpen(true);
+                    }}
+                    value={average_rating}
+                    size={24}
+                    activeColor="#ffd700"
+                    edit={!user_has_review}
+                />
 
                 {book.description && (
                     <section>
