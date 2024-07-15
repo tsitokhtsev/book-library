@@ -11,7 +11,8 @@ use Inertia\Inertia;
 
 class BookController extends Controller
 {
-    public function show(Book $book) {
+    public function show(Book $book)
+    {
         $isInWishlist = Auth::check() ? Auth::user()->wishlists()->where('book_id', $book->id)->exists() : false;
 
         $book->load('language', 'genres', 'authors');
@@ -25,6 +26,13 @@ class BookController extends Controller
             'branches' => Branch::get(['id', 'name']),
             'statuses' => BookCopyStatus::get(['id', 'name']),
             'conditions' => Condition::get(['id', 'name']),
+            'reviews' => $book->reviews()
+                ->with('user:id,first_name,last_name')
+                ->orderBy('created_at', 'desc')
+                ->take(5)
+                ->get(['id', 'review', 'rating', 'user_id', 'created_at']),
+            'average_rating' => (float)$book->reviews()->avg('rating'),
+            'user_has_review' => Auth::check() && $book->reviews()->where('user_id', Auth::id())->exists(),
         ]);
     }
 }

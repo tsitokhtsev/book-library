@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('review')->nullable();
             $table->integer('rating');
             $table->timestamps();
+
+            $table->unique(['user_id', 'book_id']);
         });
     }
 

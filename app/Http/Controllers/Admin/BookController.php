@@ -100,6 +100,12 @@ class BookController extends Controller
             'branches' => Branch::get(['id', 'name']),
             'statuses' => BookCopyStatus::get(['id', 'name']),
             'conditions' => Condition::get(['id', 'name']),
+            'reviews' => $book->reviews()
+                ->with('user:id,first_name,last_name')
+                ->orderBy('created_at', 'desc')
+                ->take(5)
+                ->get(['id', 'review', 'rating', 'user_id', 'created_at']),
+            'average_rating' => (float)$book->reviews()->avg('rating'),
         ]);
     }
 

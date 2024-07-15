@@ -101,3 +101,14 @@ export type Checkout = {
     due_date: string;
     return_date: string | null;
 };
+
+export type Review = {
+    id: number;
+    review: string;
+    created_at: Date;
+    rating: number;
+    user: {
+        first_name: string;
+        last_name: string;
+    };
+};
