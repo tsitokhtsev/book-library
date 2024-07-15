@@ -58,10 +58,21 @@ export default function Index({
 
                     <CardContent className="grid gap-4">
                         <div className="grid gap-2">
+                            <Label htmlFor="about">{t('About us')}</Label>
+                            <Textarea
+                                value={data.about || ''}
+                                onChange={(e) =>
+                                    setData('about', e.target.value)
+                                }
+                                id="about"
+                            />
+                            <InputError message={errors.about} />
+                        </div>
+
+                        <div className="grid gap-2">
                             <Label htmlFor="days_to_return">
                                 {t('Days to Return')}
                             </Label>
-
                             <Input
                                 type="number"
                                 value={data.days_to_return}
@@ -74,13 +85,11 @@ export default function Index({
                                 id="days_to_return"
                                 min="1"
                             />
-
                             <span className="text-xs text-muted-foreground">
                                 {t(
                                     'The number of days a member has to return a book.',
                                 )}
                             </span>
-
                             <InputError message={errors.days_to_return} />
                         </div>
 
@@ -88,7 +97,6 @@ export default function Index({
                             <Label htmlFor="max_lent_books">
                                 {t('Max Lent Books')}
                             </Label>
-
                             <Input
                                 type="number"
                                 value={data.max_lent_books}
@@ -101,13 +109,11 @@ export default function Index({
                                 id="max_lent_books"
                                 min="1"
                             />
-
                             <span className="text-xs text-muted-foreground">
                                 {t(
                                     'The maximum number of books a member can borrow at the same time.',
                                 )}
                             </span>
-
                             <InputError message={errors.max_lent_books} />
                         </div>
                     </CardContent>

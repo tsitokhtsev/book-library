@@ -31,6 +31,7 @@ const Catalog: React.FC<CatalogProps> = () => {
     const handleFilterChange = useCallback((filters: SelectedFilters) => {
         router.get('/catalog', filters, {
             preserveState: true,
+            preserveScroll: true,
             onSuccess: () => {
                 setFilteredBooks(data);
             },
@@ -44,7 +45,7 @@ const Catalog: React.FC<CatalogProps> = () => {
     return (
         <MainLayout>
             <Head title={t('Catalog')} />
-            <div className="container flex">
+            <div className="container flex gap-6">
                 <div className="w-1/4">
                     <SideMenu
                         categories={categories}

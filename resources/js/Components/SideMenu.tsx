@@ -1,9 +1,17 @@
 import { useLaravelReactI18n } from 'laravel-react-i18n';
 import React, { useEffect, useState } from 'react';
 
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from '@/Components/Accordion';
+import { Button } from '@/Components/Button';
+import { Checkbox } from '@/Components/Checkbox';
+import { H4 } from '@/Components/Typography/H4';
 import { Categories } from '@/Pages/Catalog';
-
-import { Button } from './Button';
+import { capitalize } from '@/lib/utils';
 
 interface SideMenuProps {
     categories: Categories;
@@ -63,8 +71,9 @@ const SideMenu: React.FC<SideMenuProps> = ({
     };
 
     return (
-        <div className="side-menu">
+        <div className="space-y-4">
             <Button
+                variant="outline"
                 onClick={() => {
                     setSelectedFilters({ authors: [], genres: [] });
                     onFilterChange({ authors: [], genres: [] });
@@ -73,45 +82,50 @@ const SideMenu: React.FC<SideMenuProps> = ({
                     !selectedFilters.authors.length &&
                     !selectedFilters.genres.length
                 }
+                className="w-full"
             >
                 {t('Clear')}
             </Button>
-            {Object.entries(categories).map(([categoryName, items]) => (
-                <div key={categoryName}>
-                    <h3 className="my-2 text-lg font-bold uppercase">
-                        {categoryName}
-                    </h3>
-                    {items.map((item) => (
-                        <div
-                            key={item.id}
-                            className="w-fit rounded-sm p-2 hover:bg-sky-300"
-                        >
-                            <input
-                                id={item.name + item.id}
-                                className="mr-1 cursor-pointer"
-                                type="checkbox"
-                                name={item.name}
-                                checked={isChecked(
-                                    categoryName as keyof SelectedFilters,
-                                    item.id,
-                                )}
-                                onChange={() =>
-                                    handleCheckboxChange(
-                                        categoryName as keyof SelectedFilters,
-                                        item.id,
-                                    )
-                                }
-                            />
-                            <label
-                                className="cursor-pointer"
-                                htmlFor={item.name + item.id}
-                            >
-                                {item.name}
-                            </label>
-                        </div>
-                    ))}
-                </div>
-            ))}
+
+            <Accordion type="multiple" defaultValue={Object.keys(categories)}>
+                {Object.entries(categories).map(([categoryName, items]) => (
+                    <AccordionItem key={categoryName} value={categoryName}>
+                        <AccordionTrigger>
+                            <H4 className="m-0">
+                                {t(capitalize(categoryName))}
+                            </H4>
+                        </AccordionTrigger>
+                        <AccordionContent>
+                            {items.map((item) => (
+                                <div
+                                    key={item.id}
+                                    className="flex items-center gap-2 rounded-sm p-2 hover:bg-muted"
+                                >
+                                    <Checkbox
+                                        checked={isChecked(
+                                            categoryName as keyof SelectedFilters,
+                                            item.id,
+                                        )}
+                                        onCheckedChange={() =>
+                                            handleCheckboxChange(
+                                                categoryName as keyof SelectedFilters,
+                                                item.id,
+                                            )
+                                        }
+                                        id={item.name + item.id}
+                                    />
+                                    <label
+                                        className="w-full cursor-pointer"
+                                        htmlFor={item.name + item.id}
+                                    >
+                                        {item.name}
+                                    </label>
+                                </div>
+                            ))}
+                        </AccordionContent>
+                    </AccordionItem>
+                ))}
+            </Accordion>
         </div>
     );
 };

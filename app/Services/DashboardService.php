@@ -56,4 +56,39 @@ class DashboardService
             ->get()
             ->toArray();
     }
+
+    /**
+     * @return array
+     */
+    public function getLatestCheckouts(): array
+    {
+        return Checkout::with(
+            'user:id,first_name,last_name,personal_number',
+            'bookCopy:id,code,book_id',
+            'bookCopy.book:id,title',
+            'status:id,name'
+        )->orderByDesc('id')
+            ->select('id', 'user_id', 'book_copy_id', 'status_id', 'checkout_date', 'due_date', 'return_date')
+            ->get()
+            ->map(function ($checkout) {
+                return [
+                    'id' => $checkout->id,
+                    'member' => [
+                        'first_name' => $checkout->user->first_name,
+                        'last_name' => $checkout->user->last_name,
+                        'personal_number' => $checkout->user->personal_number,
+                    ],
+                    'book' => [
+                        'id' => $checkout->bookCopy->book->id,
+                        'title' => $checkout->bookCopy->book->title,
+                        'code' => $checkout->bookCopy->code,
+                    ],
+                    'status' => $checkout->status,
+                    'checkout_date' => $checkout->checkout_date,
+                    'due_date' => $checkout->due_date,
+                    'return_date' => $checkout->return_date,
+                ];
+            })
+            ->toArray();
+    }
 }

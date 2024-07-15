@@ -1,18 +1,17 @@
 import { ColumnDef } from '@tanstack/react-table';
 
 import { DataTableColumnHeader } from '@/Components/DataTableColumnHeader';
-import { IsEnabledBadge } from '@/Components/IsEnabledBadge';
 import { Actions } from '@/Pages/Admin/Branches/Partials/Actions';
 import { Branch } from '@/types/model';
 
 export const columns: ColumnDef<Branch>[] = [
-    {
-        accessorKey: 'is_enabled',
-        header: ({ column }) => <DataTableColumnHeader column={column} />,
-        cell: ({ row }) => (
-            <IsEnabledBadge isEnabled={row.getValue('is_enabled')} />
-        ),
-    },
+    // {
+    //     accessorKey: 'is_enabled',
+    //     header: ({ column }) => <DataTableColumnHeader column={column} />,
+    //     cell: ({ row }) => (
+    //         <BadgeIsEnabled isEnabled={row.getValue('is_enabled')} />
+    //     ),
+    // },
     {
         accessorKey: 'name',
         header: ({ column }) => <DataTableColumnHeader column={column} />,

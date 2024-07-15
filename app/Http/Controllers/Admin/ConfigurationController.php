@@ -17,18 +17,18 @@ class ConfigurationController extends Controller
     public function index(): Response
     {
         $keys = [
+            'about',
             'days_to_return',
             'max_lent_books',
-            'about'
         ];
         $config = Configuration::whereIn('key', $keys)
             ->get()
             ->pluck('value', 'key');
 
         return inertia('Admin/Configuration/Index', [
+            'about' => $config->get('about'),
             'days_to_return' => $config->get('days_to_return'),
             'max_lent_books' => $config->get('max_lent_books'),
-            'about' => $config->get('about'),
         ]);
     }
 
@@ -40,9 +40,9 @@ class ConfigurationController extends Controller
     public function update(Request $request): RedirectResponse
     {
         $validated = $request->validate([
+            'about' => 'string',
             'days_to_return' => 'integer|min:1',
             'max_lent_books' => 'integer|min:1',
-            'about' => 'string',
         ]);
 
         DB::transaction(function () use ($validated) {

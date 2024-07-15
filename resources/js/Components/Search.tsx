@@ -31,10 +31,10 @@ export function Search({ className }: { className?: string }) {
                 }}
                 id="search"
                 placeholder={t('Search books by title...')}
-                className="h-11 text-lg"
+                className="h-11"
             />
 
-            <Button size="lg" onClick={handleSearch} className="text-lg">
+            <Button size="lg" onClick={handleSearch}>
                 <SearchIcon className="mr-2 h-4 w-4" />
                 {t('Search')}
             </Button>
