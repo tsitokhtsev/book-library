@@ -44,57 +44,61 @@ export default function Home({
                 </div>
             </div>
 
-            <div className="container">
-                <H3 className="mb-4">{t('New Books')}</H3>
+            {newBooks.length > 0 && (
+                <div className="container">
+                    <H3 className="mb-4">{t('New Books')}</H3>
 
-                <Carousel
-                    opts={{
-                        align: 'start',
-                    }}
-                    className="mx-12"
-                >
-                    <CarouselContent>
-                        {newBooks.map((book) => (
-                            <CarouselItem
-                                key={book.id}
-                                className="md:basis-1/3 lg:basis-1/4"
-                            >
-                                <div className="h-full p-2">
-                                    <BookCard book={book} />
-                                </div>
-                            </CarouselItem>
-                        ))}
-                    </CarouselContent>
-                    <CarouselPrevious />
-                    <CarouselNext />
-                </Carousel>
-            </div>
+                    <Carousel
+                        opts={{
+                            align: 'start',
+                        }}
+                        className="mx-12"
+                    >
+                        <CarouselContent>
+                            {newBooks.map((book) => (
+                                <CarouselItem
+                                    key={book.id}
+                                    className="md:basis-1/3 lg:basis-1/4"
+                                >
+                                    <div className="h-full p-2">
+                                        <BookCard book={book} />
+                                    </div>
+                                </CarouselItem>
+                            ))}
+                        </CarouselContent>
+                        <CarouselPrevious />
+                        <CarouselNext />
+                    </Carousel>
+                </div>
+            )}
 
-            <div className="container">
-                <H3 className="mb-4">{t('Authors')}</H3>
+            {authors.length > 0 && (
+                <div className="container">
+                    <H3 className="mb-4">{t('Authors')}</H3>
 
-                <Carousel
-                    opts={{
-                        align: 'start',
-                    }}
-                    className="mx-12"
-                >
-                    <CarouselContent>
-                        {authors.map((author) => (
-                            <CarouselItem
-                                key={author.id}
-                                className="md:basis-1/3 lg:basis-1/4"
-                            >
-                                <div className="h-full p-2">
-                                    <AuthorCard author={author} />
-                                </div>
-                            </CarouselItem>
-                        ))}
-                    </CarouselContent>
-                    <CarouselPrevious />
-                    <CarouselNext />
-                </Carousel>
-            </div>
+                    <Carousel
+                        opts={{
+                            align: 'start',
+                        }}
+                        className="mx-12"
+                    >
+                        <CarouselContent>
+                            {authors.map((author) => (
+                                <CarouselItem
+                                    key={author.id}
+                                    className="md:basis-1/3 lg:basis-1/4"
+                                >
+                                    <div className="h-full p-2">
+                                        <AuthorCard author={author} />
+                                    </div>
+                                </CarouselItem>
+                            ))}
+                        </CarouselContent>
+                        <CarouselPrevious />
+                        <CarouselNext />
+                    </Carousel>
+                </div>
+            )}
         </MainLayout>
     );
 }
