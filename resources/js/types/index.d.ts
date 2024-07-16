@@ -67,6 +67,7 @@ export type ReturnData = {
 
 export type BooksChartData = {
     available: number;
+    reserved: number;
     checked_out: number;
     lost: number;
     damaged: number;

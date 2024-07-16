@@ -28,6 +28,10 @@ export function BooksChart({ data }: { data: BooksChartData }) {
             label: t('available'),
             color: 'hsl(var(--chart-2))',
         },
+        reserved: {
+            label: t('reserved'),
+            color: 'hsl(var(--chart-3))',
+        },
         checkedOut: {
             label: t('checked-out'),
             color: 'hsl(var(--chart-4))',
@@ -47,6 +51,11 @@ export function BooksChart({ data }: { data: BooksChartData }) {
             status: 'available',
             books: data.available,
             fill: 'var(--color-available)',
+        },
+        {
+            status: 'reserved',
+            books: data.reserved,
+            fill: 'var(--color-reserved)',
         },
         {
             status: 'checkedOut',

@@ -4,6 +4,7 @@ namespace App\Enums;
 
 enum BookCopyStatus: string {
     case AVAILABLE = 'available';
+    case RESERVED = 'reserved';
     case CHECKED_OUT = 'checked-out';
     case LOST = 'lost';
     case DAMAGED = 'damaged';
@@ -11,9 +12,10 @@ enum BookCopyStatus: string {
     public function intValue(): int {
         return match($this) {
             self::AVAILABLE => 1,
-            self::CHECKED_OUT => 2,
-            self::LOST => 3,
-            self::DAMAGED => 4,
+            self::RESERVED => 2,
+            self::CHECKED_OUT => 3,
+            self::LOST => 4,
+            self::DAMAGED => 5,
         };
     }
 }

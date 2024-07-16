@@ -174,9 +174,21 @@ export default function Header({ user }: { user?: User }) {
                                     </Link>
 
                                     {user ? (
-                                        <Link href={route('profile.edit')}>
-                                            {t('Profile')}
-                                        </Link>
+                                        <>
+                                            <Link href={route('profile.edit')}>
+                                                {t('Profile')}
+                                            </Link>
+                                            <Link href={route('wishlist')}>
+                                                {t('My Wishlist')}
+                                            </Link>
+                                            <Link
+                                                href={route(
+                                                    'reservation.index',
+                                                )}
+                                            >
+                                                {t('Reservations')}
+                                            </Link>
+                                        </>
                                     ) : null}
 
                                     {user?.is_admin && (
@@ -229,6 +241,16 @@ export default function Header({ user }: { user?: User }) {
                                     <DropdownMenuItem asChild>
                                         <Link href={route('profile.edit')}>
                                             {t('Profile')}
+                                        </Link>
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem asChild>
+                                        <Link href={route('wishlist')}>
+                                            {t('My Wishlist')}
+                                        </Link>
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem asChild>
+                                        <Link href={route('reservation.index')}>
+                                            {t('My Reservations')}
                                         </Link>
                                     </DropdownMenuItem>
                                     <DropdownMenuSeparator />

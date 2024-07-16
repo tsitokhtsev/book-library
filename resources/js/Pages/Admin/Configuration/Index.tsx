@@ -17,22 +17,25 @@ import { Textarea } from '@/Components/Textarea';
 import ConfigurationLayout from '@/Layouts/ConfigurationLayout';
 
 type Configurations = {
+    about: string;
     days_to_return: number;
     max_lent_books: number;
-    about: string;
+    max_reservation_days: number;
 };
 
 export default function Index({
+    about,
     days_to_return,
     max_lent_books,
-    about,
+    max_reservation_days,
 }: Configurations) {
     const { t } = useLaravelReactI18n();
 
     const { data, setData, put, processing, errors } = useForm<Configurations>({
+        about,
         days_to_return,
         max_lent_books,
-        about,
+        max_reservation_days,
     });
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -115,6 +118,30 @@ export default function Index({
                                 )}
                             </span>
                             <InputError message={errors.max_lent_books} />
+                        </div>
+
+                        <div className="grid gap-2">
+                            <Label htmlFor="max_reservation_days">
+                                {t('Max Reservation Days')}
+                            </Label>
+                            <Input
+                                type="number"
+                                value={data.max_reservation_days}
+                                onChange={(e) =>
+                                    setData(
+                                        'max_reservation_days',
+                                        parseInt(e.target.value) || 1,
+                                    )
+                                }
+                                id="max_reservation_days"
+                                min="1"
+                            />
+                            <span className="text-xs text-muted-foreground">
+                                {t(
+                                    'The number of days to borrow a reserved book.',
+                                )}
+                            </span>
+                            <InputError message={errors.max_reservation_days} />
                         </div>
                     </CardContent>
 

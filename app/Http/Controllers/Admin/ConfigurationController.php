@@ -20,6 +20,7 @@ class ConfigurationController extends Controller
             'about',
             'days_to_return',
             'max_lent_books',
+            'max_reservation_days',
         ];
         $config = Configuration::whereIn('key', $keys)
             ->get()
@@ -29,6 +30,7 @@ class ConfigurationController extends Controller
             'about' => $config->get('about'),
             'days_to_return' => $config->get('days_to_return'),
             'max_lent_books' => $config->get('max_lent_books'),
+            'max_reservation_days' => $config->get('max_reservation_days'),
         ]);
     }
 
@@ -43,6 +45,7 @@ class ConfigurationController extends Controller
             'about' => 'string',
             'days_to_return' => 'integer|min:1',
             'max_lent_books' => 'integer|min:1',
+            'max_reservation_days' => 'integer|min:1',
         ]);
 
         DB::transaction(function () use ($validated) {

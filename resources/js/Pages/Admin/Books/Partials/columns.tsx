@@ -94,6 +94,12 @@ export const columns: ColumnDef<Book>[] = [
     },
     {
         id: 'actions',
-        cell: ({ row }) => <Actions book={row.original} />,
+        cell: ({ row }) => {
+            return (
+                <div className="flex justify-end">
+                    <Actions book={row.original} />
+                </div>
+            );
+        },
     },
 ];
