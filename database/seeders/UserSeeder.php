@@ -21,6 +21,13 @@ class UserSeeder extends Seeder
             'password' => Hash::make('option123'),
         ])->assignRole(RolesEnum::SUPERADMIN);
 
+        User::factory()->create([
+            'first_name' => 'Sample',
+            'last_name' => 'Member',
+            'email' => 'test1@example.com',
+            'password' => Hash::make('option123'),
+        ])->assignRole(RolesEnum::MEMBER);
+
         User::factory(30)->create()->each(function ($user) {
             $user->assignRole(RolesEnum::MEMBER);
         });

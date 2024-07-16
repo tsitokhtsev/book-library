@@ -17,9 +17,6 @@ class DatabaseSeeder extends Seeder
             LanguageSeeder::class,
             ConditionSeeder::class,
             StatusSeeder::class,
-            UserSeeder::class,
-
-            BookSeeder::class,
         ]);
     }
 }

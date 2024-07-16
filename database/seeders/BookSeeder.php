@@ -16,6 +16,10 @@ class BookSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call([
+            UserSeeder::class,
+        ]);
+
         foreach ($this->getGenres() as $genre) {
             Genre::create(['name' => $genre]);
         }
