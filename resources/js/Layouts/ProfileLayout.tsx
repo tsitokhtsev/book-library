@@ -5,7 +5,10 @@ import { PropsWithChildren } from 'react';
 import MainLayout from '@/Layouts/MainLayout';
 import { cn } from '@/lib/utils';
 
-const links = [{ href: 'profile.edit', label: 'Profile' }];
+const links = [
+    { href: 'profile.edit', label: 'Profile' },
+    { href: 'reservation.index', label: 'My Reservations' },
+];
 
 export default function Profile({ children }: PropsWithChildren) {
     const { t } = useLaravelReactI18n();

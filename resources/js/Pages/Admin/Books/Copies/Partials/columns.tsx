@@ -61,7 +61,9 @@ export const columns: ColumnDef<BookCopy>[] = [
     {
         id: 'actions',
         cell: ({ row, table }) => (
-            <Actions bookCopy={row.original} meta={table.options.meta!} />
+            <div className="flex justify-end">
+                <Actions bookCopy={row.original} meta={table.options.meta!} />
+            </div>
         ),
     },
 ];

@@ -102,6 +102,38 @@ export type Checkout = {
     return_date: string | null;
 };
 
+export type Reservation = {
+    id: number;
+    book_copy_id: number;
+    book: {
+        id: number;
+        title: string;
+        code: string;
+    };
+    member: {
+        id: number;
+        first_name: string;
+        last_name: string;
+        personal_number: string;
+    };
+    reserve_date: string;
+    due_date: string;
+};
+
+export type MyReservation = {
+    id: number;
+    book_copy: {
+        id: number;
+        code: string;
+        book: {
+            id: number;
+            title: string;
+        };
+    };
+    reserve_date: string;
+    due_date: string;
+};
+
 export type Review = {
     id: number;
     review: string;

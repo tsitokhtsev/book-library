@@ -6,6 +6,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\WishlistController;
@@ -21,7 +22,7 @@ use Inertia\Inertia;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
@@ -46,7 +47,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist');
     Route::post('/wishlist', [WishlistController::class, 'store'])->name('wishlist.store');
     Route::delete('/wishlist/{id}', [WishlistController::class, 'destroy'])->name('wishlist.destroy');
+
     Route::post('/reviews/store', [ReviewController::class, 'store'])->name('reviews.store');
+
+    Route::resource('reservation', ReservationController::class)
+        ->only(['index', 'store', 'destroy']);
 });
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';

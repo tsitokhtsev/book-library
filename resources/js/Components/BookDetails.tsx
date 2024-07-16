@@ -1,6 +1,6 @@
 import { Link, router, usePage } from '@inertiajs/react';
 import { useLaravelReactI18n } from 'laravel-react-i18n';
-import { PencilIcon } from 'lucide-react';
+import { BookOpenTextIcon, PencilIcon } from 'lucide-react';
 import { useState } from 'react';
 import ReactStars from 'react-rating-stars-component';
 
@@ -93,16 +93,7 @@ export default function BookDetails({
         <Card className="flex flex-grow flex-col">
             <div className="flex flex-col justify-between sm:flex-row">
                 <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                        {book.title}
-                        <Badge
-                            variant={
-                                book.is_enabled ? 'outline' : 'destructive'
-                            }
-                        >
-                            {t(book.is_enabled ? 'Enabled' : 'Disabled')}
-                        </Badge>
-                    </CardTitle>
+                    <CardTitle>{book.title}</CardTitle>
                     <CardDescription>
                         {book.authors.map((author) => author.name).join(', ')}
                     </CardDescription>
@@ -150,26 +141,38 @@ export default function BookDetails({
             </div>
 
             <CardContent className="flex flex-grow flex-col">
-                <div className="grid gap-2 text-muted-foreground">
-                    <p>
-                        {t('ISBN')}: {book.isbn}
-                    </p>
-                    <Image
-                        src={'/storage/' + book.cover_image}
-                        alt={book.title}
-                        fallbackSrc="https://via.placeholder.com/150?text=Author+Image"
-                    />
-                    <p>
-                        {t('Language')}: {t(book.language.name)}
-                    </p>
-                    <p>
-                        {t('Published')}:{' '}
-                        {new Date(book.publication_date).toLocaleDateString()}
-                    </p>
-                    <p>
-                        {t('Genres')}:{' '}
-                        {book.genres.map((genre) => genre.name).join(', ')}
-                    </p>
+                <div className="flex flex-col items-start gap-6 text-muted-foreground sm:flex-row">
+                    <div className="flex aspect-3/4 w-full items-center rounded bg-muted sm:w-1/2 md:w-1/4">
+                        {book.cover_image ? (
+                            <Image
+                                src={'/storage/' + book.cover_image}
+                                alt={book.title}
+                                className="h-full rounded object-cover"
+                                fallbackSrc="https://via.placeholder.com/150?text=Book+Image"
+                            />
+                        ) : (
+                            <BookOpenTextIcon className="h-1/3 w-full text-gray-300" />
+                        )}
+                    </div>
+
+                    <div className="grid gap-2">
+                        <p>
+                            {t('ISBN')}: {book.isbn}
+                        </p>
+                        <p>
+                            {t('Language')}: {t(book.language.name)}
+                        </p>
+                        <p>
+                            {t('Published')}:{' '}
+                            {new Date(
+                                book.publication_date,
+                            ).toLocaleDateString()}
+                        </p>
+                        <p>
+                            {t('Genres')}:{' '}
+                            {book.genres.map((genre) => genre.name).join(', ')}
+                        </p>
+                    </div>
                 </div>
                 <ReactStars
                     count={5}

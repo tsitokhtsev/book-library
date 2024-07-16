@@ -1,8 +1,8 @@
-import { Link, usePage } from '@inertiajs/react';
+import { Link, useForm, usePage } from '@inertiajs/react';
 import { TableMeta } from '@tanstack/react-table';
 import { useLaravelReactI18n } from 'laravel-react-i18n';
 import { MoreHorizontalIcon } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
     AlertDialog,
@@ -13,6 +13,7 @@ import {
     AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
+    AlertDialogTrigger,
 } from '@/Components/AlertDialog';
 import { Button } from '@/Components/Button';
 import {
@@ -28,6 +29,7 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from '@/Components/DropdownMenu';
+import { useToast } from '@/Components/useToast';
 import { Form } from '@/Pages/Admin/Books/Copies/Partials/Form';
 import { PageProps } from '@/types';
 import { FormType } from '@/types/form';
@@ -41,13 +43,30 @@ export function Actions({
     meta: TableMeta<BookCopy>;
 }) {
     const { t } = useLaravelReactI18n();
-
+    const { toast } = useToast();
     const {
         auth: { user },
+        flash: { success, error },
     } = usePage<PageProps>().props;
+    const { post, wasSuccessful } = useForm({});
 
     const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+
+    useEffect(() => {
+        if (wasSuccessful) {
+            toast({
+                title: t(error || success),
+                variant: error ? 'destructive' : 'default',
+            });
+        }
+    }, [wasSuccessful]);
+
+    const handleReserve = () => {
+        post(route('reservation.store', { book_copy_id: bookCopy.id }), {
+            preserveScroll: true,
+        });
+    };
 
     return user?.is_admin ? (
         <DropdownMenu modal={false}>
@@ -123,6 +142,33 @@ export function Actions({
             </AlertDialog>
         </DropdownMenu>
     ) : (
-        <Button>{t('Reserve')}</Button>
+        <>
+            {bookCopy.status.name === 'available' && (
+                <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                        <Button variant="outline">{t('Reserve')}</Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                            <AlertDialogTitle>
+                                {t('Reserve a book')}
+                            </AlertDialogTitle>
+                            <AlertDialogDescription>
+                                {t(
+                                    'Are you sure you want to reserve this book?',
+                                )}
+                            </AlertDialogDescription>
+                        </AlertDialogHeader>
+
+                        <AlertDialogFooter>
+                            <AlertDialogCancel>{t('Cancel')}</AlertDialogCancel>
+                            <AlertDialogAction onClick={handleReserve}>
+                                {t('Reserve')}
+                            </AlertDialogAction>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
+            )}
+        </>
     );
 }

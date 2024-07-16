@@ -44,7 +44,7 @@ class CheckoutController extends Controller
 
             return redirect()
                 ->back()
-                ->with('error', __('An error occurred while checking out books.'));
+                ->with('error', __($e->getMessage() ?? 'An error occurred while checking out books.'));
         }
     }
 
@@ -71,7 +71,7 @@ class CheckoutController extends Controller
 
             return redirect()
                 ->back()
-                ->with('error', __('An error occurred while returning books.'));
+                ->with('error', __($e->getMessage() ?? 'An error occurred while returning books.'));
         }
     }
 }

@@ -2,10 +2,70 @@
 
 namespace App\Services;
 
+use App\Enums\BookCopyStatus;
+use App\Enums\RolesEnum;
+use App\Models\BookCopy;
 use App\Models\Checkout;
+use App\Models\Configuration;
+use App\Models\Reservation;
+use App\Models\User;
 
 class DashboardService
 {
+    /**
+     * @return array
+     */
+    public function getLendData(): array
+    {
+        $maxLentBooks = Configuration::where('key', 'max_lent_books')->first()->value;
+
+        return [
+            'members' => User::role(RolesEnum::MEMBER)
+                ->whereHas('checkouts', fn($query) => $query->isNotReturned(), '<', $maxLentBooks)
+                ->select('id', 'first_name', 'last_name', 'personal_number')
+                ->withCount(['checkouts' => fn($query) => $query->isNotReturned()])
+                ->get(),
+            'book_copies' => BookCopy::with('book:id,title', 'branch:id,name')
+                ->withStatus([BookCopyStatus::AVAILABLE])
+                ->select('id', 'code', 'book_id', 'branch_id')
+                ->get(),
+            'max_lent_books' => $maxLentBooks,
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getReturnData(): array
+    {
+        return [
+            'members' => User::role(RolesEnum::MEMBER)
+                ->whereHas('checkouts', fn($query) => $query->isNotReturned())
+                ->select('id', 'first_name', 'last_name', 'personal_number')
+                ->get(),
+            'checkouts' => Checkout::with(
+                'bookCopy:id,code,book_id,status_id',
+                'bookCopy.book:id,title'
+            )->select('id', 'user_id', 'book_copy_id', 'checkout_date', 'due_date')
+                ->isNotReturned()
+                ->get(),
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getBooksChart(): array
+    {
+        return [
+            'available' => BookCopy::withStatus([BookCopyStatus::AVAILABLE])->count(),
+            'reserved' => BookCopy::withStatus([BookCopyStatus::RESERVED])->count(),
+            'checked_out' => BookCopy::withStatus([BookCopyStatus::CHECKED_OUT])->count(),
+            'lost' => BookCopy::withStatus([BookCopyStatus::LOST])->count(),
+            'damaged' => BookCopy::withStatus([BookCopyStatus::DAMAGED])->count(),
+        ];
+    }
+
     /**
      * @param int $months
      *
@@ -87,6 +147,40 @@ class DashboardService
                     'checkout_date' => $checkout->checkout_date,
                     'due_date' => $checkout->due_date,
                     'return_date' => $checkout->return_date,
+                ];
+            })
+            ->toArray();
+    }
+
+    /**
+     * @return array
+     */
+    public function getLatestReservations(): array
+    {
+        return Reservation::with(
+            'user:id,first_name,last_name,personal_number',
+            'bookCopy:id,code,book_id',
+            'bookCopy.book:id,title',
+        )->orderByDesc('created_at')
+            ->select('id', 'user_id', 'book_copy_id', 'reserve_date', 'due_date')
+            ->get()
+            ->map(function ($reservation) {
+                return [
+                    'id' => $reservation->id,
+                    'book_copy_id' => $reservation->bookCopy->id,
+                    'book' => [
+                        'id' => $reservation->bookCopy->book->id,
+                        'title' => $reservation->bookCopy->book->title,
+                        'code' => $reservation->bookCopy->code,
+                    ],
+                    'member' => [
+                        'id' => $reservation->user->id,
+                        'first_name' => $reservation->user->first_name,
+                        'last_name' => $reservation->user->last_name,
+                        'personal_number' => $reservation->user->personal_number,
+                    ],
+                    'reserve_date' => $reservation->return_date,
+                    'due_date' => $reservation->due_date,
                 ];
             })
             ->toArray();

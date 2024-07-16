@@ -7,6 +7,7 @@ use App\Enums\CheckoutStatus;
 use App\Models\BookCopy;
 use App\Models\Checkout;
 use App\Models\Configuration;
+use App\Models\Reservation;
 use Illuminate\Support\Facades\DB;
 
 class CheckoutService
@@ -32,6 +33,8 @@ class CheckoutService
 
             BookCopy::whereIn('id', $data['book_copies'])
                 ->update(['status_id' => BookCopyStatus::CHECKED_OUT->intValue()]);
+
+            Reservation::whereIn('book_copy_id', $data['book_copies'])->delete();
 
             foreach ($data['book_copies'] as $bookCopyId) {
                 Checkout::create([
