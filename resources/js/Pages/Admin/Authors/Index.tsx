@@ -26,6 +26,7 @@ import { Author } from '@/types/model';
 
 const initialData = {
     name: '',
+    cover_image: null,
     bio: '',
 };
 

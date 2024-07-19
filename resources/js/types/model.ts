@@ -49,7 +49,7 @@ export type Author = {
     bio: string | null;
     books_count: number;
     books?: Book[];
-    cover_image?: string;
+    cover_image?: File | string | null;
 };
 
 export type Genre = {

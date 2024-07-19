@@ -19,6 +19,7 @@ export type Categories = {
 export interface CatalogProps extends InertiaPageProps {
     books: Pagination;
     categories: Categories;
+    filters: SelectedFilters;
 }
 
 const Catalog: React.FC<CatalogProps> = () => {

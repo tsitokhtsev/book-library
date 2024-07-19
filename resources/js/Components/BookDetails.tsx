@@ -2,6 +2,7 @@ import { Link, router, usePage } from '@inertiajs/react';
 import { useLaravelReactI18n } from 'laravel-react-i18n';
 import { BookOpenTextIcon, PencilIcon } from 'lucide-react';
 import { useState } from 'react';
+//@ts-ignore
 import ReactStars from 'react-rating-stars-component';
 
 import { Badge } from '@/Components/Badge';
